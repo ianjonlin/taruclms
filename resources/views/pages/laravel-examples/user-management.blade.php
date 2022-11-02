@@ -93,7 +93,7 @@
                                                     <i class="material-icons">edit</i>
                                                     <div class="ripple-container"></div>
                                                 </a>
-                                                
+
                                                 <button type="button" class="btn btn-danger btn-link"
                                                 data-original-title="" title="">
                                                 <i class="material-icons">close</i>
@@ -342,6 +342,4 @@
             <x-footers.auth></x-footers.auth>
         </div>
     </main>
-    <x-plugins></x-plugins>
-
 </x-layout>

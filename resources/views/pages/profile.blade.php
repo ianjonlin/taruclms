@@ -466,6 +466,4 @@
         </div>
         <x-footers.auth></x-footers.auth>
     </div>
-    <x-plugins></x-plugins>
-
 </x-layout>
