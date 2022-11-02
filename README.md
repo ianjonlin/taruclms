@@ -1,6 +1,5 @@
 ## TARUC Learning Management System
 ### Final Year Project
-#### Lin Yik Enn,Ian Jonathan [21SMR10291]
-#### TARUC Sabah Branch
+#### Lin Yik Enn,Ian Jonathan
 
-Credits to Creative Tim (https://www.creative-tim.com) & UPDIVISION (https://www.updivision.com) for Laravel Template
+Credits to Creative Tim (https://www.creative-tim.com) & UPDIVISION (https://www.updivision.com) for Laravel Template.
