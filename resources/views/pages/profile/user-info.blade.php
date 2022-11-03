@@ -45,11 +45,15 @@
                                     value='{{ old('role', auth()->user()->role) }}' readonly>
                             </div>
 
-                            <div class="mb-3 col-md-12">
-                                <label for="floatingTextarea2">About</label>
-                                <textarea class="form-control border border-2 p-2" placeholder=" Say something about yourself" id="floatingTextarea2"
-                                    name="about" rows="4" cols="50" readonly>{{ old('about', auth()->user()->about) }}</textarea>
-                            </div>
+                            @if (auth()->user()->role == 'Student')
+                                <div class="mb-3 col-md-12">
+                                    <label for="floatingTextarea2">Programme Structure</label>
+                                </div>
+                            @elseif (auth()->user()->role == 'Lecturer')
+                                <div class="mb-3 col-md-12">
+                                    <label for="floatingTextarea2">Courses Assigned</label>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

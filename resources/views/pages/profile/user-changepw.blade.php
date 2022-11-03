@@ -1,7 +1,7 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
     <x-navbars.sidebar activePage="user-changepw"></x-navbars.sidebar>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Change Password"></x-navbars.navs.auth>
         <!-- End Navbar -->
@@ -46,18 +46,18 @@
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Current Password</label>
-                                    <input type="input" class="form-control border border-2 p-2"
+                                    <input type="password" class="form-control border border-2 p-2"
                                         name="current_password">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">New Password</label>
-                                    <input type="input" class="form-control border border-2 p-2" name="password">
+                                    <input type="password" class="form-control border border-2 p-2" name="password">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Confirm New Password</label>
-                                    <input type="input" class="form-control border border-2 p-2"
+                                    <input type="password" class="form-control border border-2 p-2"
                                         name="password_confirmation">
                                 </div>
 
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-
+            <x-footers.auth></x-footers.auth>
         </div>
-    </main>
+    </div>
 </x-layout>
