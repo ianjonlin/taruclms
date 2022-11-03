@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SessionsController;
 
+Route::get('/home', function () {
+    return redirect('userProfile');
+});
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 Route::get('sign-in', [SessionsController::class, 'create'])->middleware('guest')->name('login');
@@ -35,12 +38,12 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('user-info', function () {
-		return view('pages.profile.user-info');
-	})->name('user-info');
-    Route::get('user-changepw', function () {
-		return view('pages.profile.user-changepw');
-	})->name('user-changepw');
+    Route::get('userProfile', function () {
+		return view('pages.profile.userProfile');
+	})->name('userProfile');
+    Route::get('changePassword', function () {
+		return view('pages.profile.changePassword');
+	})->name('changePassword');
 
 	Route::get('billing', function () {
 		return view('pages.billing');

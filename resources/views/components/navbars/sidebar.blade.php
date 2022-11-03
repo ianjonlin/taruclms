@@ -6,7 +6,7 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href=" {{ route('user-info') }} ">
+        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href=" {{ route('userProfile') }} ">
             <img src="{{ asset('assets') }}/img/logo-taruc.png" class="navbar-brand-img" alt="taruc_logo">
             <span class="ms-2 font-weight-bold text-white">TAR UC Learning Management System</span>
         </a>
@@ -15,29 +15,51 @@
     <div class="collapse navbar-collapse  w-auto  h-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">User Profile</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">User Details</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'user-info' ? 'active bg-gradient-info' : '' }} "
-                    href="{{ route('user-info') }}">
+                <a class="nav-link text-white {{ $activePage == 'userProfile' ? 'active bg-gradient-info' : '' }} "
+                    href="{{ route('userProfile') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1.2rem;" class="fas fa-user-circle ps-2 pe-2 text-center"></i>
                     </div>
-                    <span class="nav-link-text ms-1">User Info</span>
+                    <span class="nav-link-text ms-1">User Profile</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'user-changepw' ? ' active bg-gradient-info' : '' }} "
-                    href="{{ route('user-changepw') }}">
+                <a class="nav-link text-white {{ $activePage == 'changePassword' ? ' active bg-gradient-info' : '' }} "
+                    href="{{ route('changePassword') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1rem;" class="fas fa-lg fa-wrench ps-2 pe-2 text-center"></i>
                     </div>
                     <span class="nav-link-text ms-1">Change Password</span>
                 </a>
             </li>
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages</h6>
-            </li>
+
+            @if (auth()->user()->role == 'Student')
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Programme Structure</h6>
+                </li>
+            @elseif (auth()->user()->role == 'Lecturer')
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Courses Assigned</h6>
+                </li>
+            @elseif (auth()->user()->role == 'Admin')
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Admin Functions
+                    </h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ $activePage == 'user-management' ? ' active bg-gradient-info' : '' }} "
+                        href="{{ route('user-management') }}">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">manage_accounts</i>
+                        </div>
+                        <span class="nav-link-text ms-1">User Management</span>
+                    </a>
+                </li>
+            @endif
+
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-info' : '' }} "
                     href="{{ route('dashboard') }}">
@@ -72,15 +94,6 @@
                         <i class="material-icons opacity-10">notifications</i>
                     </div>
                     <span class="nav-link-text ms-1">Notifications</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'user-management' ? ' active bg-gradient-info' : '' }} "
-                    href="{{ route('user-management') }}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">manage_accounts</i>
-                    </div>
-                    <span class="nav-link-text ms-1">User Management</span>
                 </a>
             </li>
         </ul>

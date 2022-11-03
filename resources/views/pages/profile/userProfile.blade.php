@@ -1,9 +1,9 @@
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
 
-    <x-navbars.sidebar activePage="user-info"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="userProfile"></x-navbars.sidebar>
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage='User Info'></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage='User Profile'></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="page-header min-height-300 border-radius-xl mt-4"
@@ -14,7 +14,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h4 class="mb-3">Profile Information</h4>
+                                <h4 class="mb-3">User Profile</h4>
                             </div>
                         </div>
                     </div>

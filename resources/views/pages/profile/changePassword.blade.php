@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="user-changepw"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="changePassword"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Change Password"></x-navbars.navs.auth>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action='{{ route('user-changepw') }}'>
+                        <form method='POST' action='{{ route('changePassword') }}'>
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="mb-3">
