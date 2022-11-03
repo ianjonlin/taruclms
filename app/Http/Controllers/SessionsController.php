@@ -32,7 +32,7 @@ class SessionsController extends Controller
 
         session()->regenerate();
 
-        return redirect('user-profile');
+        return redirect('userProfile');
     }
 
     public function show(){
