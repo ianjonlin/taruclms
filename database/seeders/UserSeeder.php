@@ -21,21 +21,21 @@ class UserSeeder extends Seeder
                 'name' => 'Lin Yik Enn,Ian Jonathan',
                 'email' => 'linyej-sm19@tarc.edu.my',
                 'role' => 'Student',
-                'password' => Hash::make('ianjonlin@26'),
+                'password' => Hash::make('ianjonLin@26'),
                 'programme' => 1,
             ], [
                 'user_id' => 'p0028',
                 'name' => 'David Chong',
                 'email' => 'davidc@tarc.edu.my',
                 'role' => 'Lecturer',
-                'password' => Hash::make('dcrocks#28'),
+                'password' => Hash::make('DCrocks#28'),
                 'programme' => null,
             ], [
                 'user_id' => 'a1234',
                 'name' => 'Selena Wong',
                 'email' => 'wongse@tarc.edu.my',
                 'role' => 'Admin',
-                'password' => Hash::make('admin123!'),
+                'password' => Hash::make('Admin123!'),
                 'programme' => null,
             ]
         ]);
