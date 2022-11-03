@@ -32,8 +32,7 @@ class SessionsController extends Controller
 
         session()->regenerate();
 
-        return redirect('/dashboard');
-
+        return redirect('user-profile');
     }
 
     public function show(){
@@ -48,7 +47,6 @@ class SessionsController extends Controller
         return $status === Password::RESET_LINK_SENT
                     ? back()->with(['status' => __($status)])
                     : back()->withErrors(['email' => __($status)]);
-
     }
 
     public function update(){
