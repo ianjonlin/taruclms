@@ -3,7 +3,7 @@
     <x-navbars.sidebar activePage="user.index"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="User Management"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Manage User"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="row">
@@ -12,7 +12,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
-                                    <h3 class="p-4">User Management</h3>
+                                    <h3 class="p-4">Manage User</h3>
                                     <div class="me-3">
                                         <a class="btn bg-gradient-dark mb-0" href="{{ route('user.create') }}">
                                             <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New User</a>
@@ -54,20 +54,20 @@
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                USER_ID
+                                                @sortablelink('user_id')
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                NAME</th>
+                                                @sortablelink('name')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                EMAIL</th>
+                                                @sortablelink('email')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                ROLE</th>
+                                                @sortablelink('role')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                PROGRAMME</th>
+                                                @sortablelink('programme')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>

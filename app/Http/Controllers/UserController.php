@@ -29,7 +29,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->orderBy('user_id')->paginate(5);
+        // $users = DB::table('users')->orderBy('user_id')->paginate(5);
+        $users = User::sortable()->paginate(5);
+
         $programmes = DB::table('programme')->get();
         return view('pages.admin.user.index', ['users' => $users, 'programmes' => $programmes]);
     }

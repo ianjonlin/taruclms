@@ -3,7 +3,7 @@
     <x-navbars.sidebar activePage="user-edit"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="User Management / Edit User / {{ $user->user_id }}"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Manage User / Edit User / {{ $user->user_id }}"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="card card-body min-height-300 border-radius-xl mt-4">

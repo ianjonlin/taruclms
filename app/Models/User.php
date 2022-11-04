@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Sortable;
 
     protected $table = 'users';
 
@@ -31,6 +32,8 @@ class User extends Authenticatable
     }
 
     public $timestamps = false;
+
+    public $sortable = ['user_id', 'name', 'email', 'role', 'programme'];
 
     /**
      * The attributes that are mass assignable.
