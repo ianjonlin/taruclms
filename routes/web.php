@@ -46,6 +46,7 @@ Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('aut
 
 // Side Nav Bar
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('userProfile', function () {
 		return view('pages.profile.userProfile');
 	})->name('userProfile');
@@ -54,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('pages.profile.changePassword');
 	})->name('changePassword');
     Route::post('changePassword', [UserController::class, 'changePassword'])->name('changePassword');
+
+    Route::get('/user-index', [UserController::class, 'index'])->middleware('auth')->name('user-index');
 
 	Route::get('billing', function () {
 		return view('pages.billing');
@@ -68,6 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('pages.user-management');
 	})->name('user-management');
 });
+
 
 // Resource
 Route::resource('user', UserController::class);

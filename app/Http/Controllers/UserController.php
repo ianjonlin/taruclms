@@ -87,7 +87,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('user.show', ['user' => $user]);
+        //
     }
 
     /**
@@ -98,7 +98,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit', ['user' => $user]);
+        return view('pages.admin.user.edit', ['user' => $user]);
     }
 
     /**
@@ -133,9 +133,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        if($user->delete()) {
+            return back()->with('success', 'User deleted successfully!');
+        }
 
-        return redirect()->route('pages.admin.user.index')->with('success', 'User deleted successfully');
+        return back()->with('error', "User is not deleted.");
     }
 
 

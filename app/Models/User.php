@@ -15,6 +15,11 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    public function isAdmin()
+    {
+        return hash_equals($this->role, "Admin");
+    }
+
     public $timestamps = false;
 
     /**

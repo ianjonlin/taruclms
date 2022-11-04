@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('title', 256);
-            $table->foreignId('cc_id')->references('id')->on('users');
+            $table->foreignId('cc_id')->nullable()->references('id')->on('users')->nullOnDelete();
             $table->text('details')->nullable();
         });
     }
