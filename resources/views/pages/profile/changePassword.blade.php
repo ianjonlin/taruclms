@@ -19,10 +19,10 @@
                         </div>
                     </div>
                     <div class="card-body p-3 justify-content-center">
-                        @if (session('status'))
+                        @if (session('success'))
                             <div class="row">
                                 <div class="alert alert-success alert-dismissible text-white" role="alert">
-                                    <span class="text-sm">{{ session('status') }}</span>
+                                    <span class="text-sm">{{ session('success') }}</span>
                                     <button type="button" class="btn-close text-lg py-3 opacity-10"
                                         data-bs-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -40,6 +40,20 @@
                                     </button>
                                 </div>
                             </div>
+                        @elseif ($errors->any())
+                            <div class="row">
+                                <div class="alert alert-danger alert-dismissible text-white" role="alert">
+                                    <span class="text-sm">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </span>
+                                    <button type="button" class="btn-close text-lg py-3 opacity-10"
+                                        data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
                         @endif
                         <form method='POST' action='{{ route('changePassword') }}'>
                             @csrf
@@ -47,18 +61,19 @@
                                 <div class="mb-3">
                                     <label class="form-label">Current Password</label>
                                     <input type="password" class="form-control border border-2 p-2"
-                                        name="current_password">
+                                        name="current_password" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">New Password</label>
-                                    <input type="password" class="form-control border border-2 p-2" name="password">
+                                    <input type="password" class="form-control border border-2 p-2" name="new_password"
+                                        required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Confirm New Password</label>
                                     <input type="password" class="form-control border border-2 p-2"
-                                        name="password_confirmation">
+                                        name="new_password_confirmation" required>
                                 </div>
 
                                 <div class="text-center">
