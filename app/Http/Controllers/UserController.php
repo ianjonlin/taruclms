@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -15,7 +16,8 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->authorizeResource(User::class, 'user');
     }
@@ -27,8 +29,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return view('pages.admin.user.index', ['users' => $users]);
+        $users = DB::table('users')->orderBy('id')->paginate(15);
+        $programmes = DB::table('programme')->get();
+        return view('pages.admin.user.index', ['users' => $users, 'programmes' => $programmes]);
     }
 
     /**
@@ -38,7 +41,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.user.create');
+        $users = DB::table('users')->get();
+        $programmes = DB::table('programme')->get();
+        return view('pages.admin.user.create', ['users' => $users, 'programmes' => $programmes]);
     }
 
     /**
@@ -50,33 +55,25 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => 'required',
             'name' => 'required',
             'email' => ['required', 'email', Rule::unique('App\Models\User', 'email')],
-            'role' => ['required'],
-            'password' => [
-                'required', 'confirmed',
-                        Password::min(8)
-                        ->letters()
-                        ->mixedCase()
-                        ->numbers()
-                        ->symbols()
-                        ->uncompromised()
-            ]
+            'role' => 'required'
         ]);
 
         $user = new User;
+        $user->user_id = $request->user_id;
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->password = Hash::make($request->user_id);
         $user->role = $request->role;
+        $user->programme = $request->programme;
 
-        if (!empty($request->password))
-            $user->password = $request->password;
-
-        $user->save();
-
-        $user = new User;
-
-        return redirect()->route('pages.admin.user.index')->with('success', 'User created successfully');
+        if ($user->save()) {
+            return redirect()->route('user.index')->with('success', 'User created successfully!');
+        } else {
+            return redirect()->route('user.index')->with('error', 'User cannot be created.');
+        }
     }
 
     /**
@@ -98,7 +95,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('pages.admin.user.edit', ['user' => $user]);
+        $users = DB::table('users')->get();
+        $programmes = DB::table('programme')->get();
+        return view('pages.admin.user.edit', ['user' => $user, 'users' => $users, 'programmes' => $programmes]);
     }
 
     /**
@@ -111,14 +110,17 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
+            'user_id' => 'required',
             'name' => 'required',
             'email' => ['required', 'email', Rule::unique('App\Models\User', 'email')->ignore($user->id)],
-            'role' => ['required'],
+            'role' => 'required'
         ]);
 
+        $user->user_id = $request->user_id;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role = $request->role;
+        $user->programme = $request->programme;
 
         $user->save();
 
@@ -133,7 +135,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if($user->delete()) {
+        if ($user->delete()) {
             return back()->with('success', 'User deleted successfully!');
         }
 
@@ -147,24 +149,25 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function changePassword(Request $request) {
+    public function changePassword(Request $request)
+    {
         $user = auth()->user();
 
         $request->validate([
             'current_password' => ['required'],
             'new_password' => [
                 'required', 'confirmed',
-                        Password::min(8)
-                        ->letters()
-                        ->mixedCase()
-                        ->numbers()
-                        ->symbols()
-                        ->uncompromised()
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
             ]
         ]);
 
         //Check if match current Password
-        if(!Hash::check($request->current_password, $user->password)){
+        if (!Hash::check($request->current_password, $user->password)) {
             return back()->with('error', "Current Password doesn't match!");
         }
 

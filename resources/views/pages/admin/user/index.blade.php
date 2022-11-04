@@ -1,9 +1,9 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="user-index"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="user.index"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="View User"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="User Management"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="row">
@@ -104,8 +104,13 @@
                                                         class="text-secondary text-xs font-weight-bold">{{ $user->role }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $user->programme }}</span>
+                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                        @foreach ($programmes as $programme)
+                                                            @if ($programme->id == $user->programme)
+                                                                {{ $programme->code }}
+                                                            @endif
+                                                        @endforeach
+                                                    </span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <a rel="tooltip" class="btn btn-success btn-link"
@@ -131,6 +136,13 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="d-flex flex-row-reverse">
+                                    @if ($users->hasPages())
+                                        <div class="pagination-wrapper">
+                                            {{ $users->links() }}
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

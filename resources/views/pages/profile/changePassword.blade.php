@@ -55,6 +55,18 @@
                                 </div>
                             </div>
                         @endif
+                        <div class="row">
+                            <div class="alert alert-info text-white">
+                                <h6 class="text-white">Password Requirements</h6>
+                                <ul>
+                                    <li>Password must be at least 8 characters.</li>
+                                    <li>Password must contain at least 1 uppercase and 1 lowercase character.</li>
+                                    <li>Password must contain at least 1 symbol or special character (! @ # $ % etc.).
+                                    </li>
+                                    <li>Password must contain at least 1 number.</li>
+                                </ul>
+                            </div>
+                        </div>
                         <form method='POST' action='{{ route('changePassword') }}'>
                             @csrf
                             <div class="row justify-content-center">

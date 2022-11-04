@@ -15,6 +15,16 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    public function isStudent()
+    {
+        return hash_equals($this->role, "Student");
+    }
+
+    public function isLecturer()
+    {
+        return hash_equals($this->role, "Lecturer");
+    }
+
     public function isAdmin()
     {
         return hash_equals($this->role, "Admin");
