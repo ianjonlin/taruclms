@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->orderBy('id')->paginate(15);
+        $users = DB::table('users')->orderBy('user_id')->paginate(5);
         $programmes = DB::table('programme')->get();
         return view('pages.admin.user.index', ['users' => $users, 'programmes' => $programmes]);
     }
@@ -122,9 +122,11 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->programme = $request->programme;
 
-        $user->save();
-
-        return redirect()->route('pages.admin.user.index')->with('success', 'User updated successfully');
+        if ($user->save()) {
+            return redirect()->route('user.index')->with('success', 'User updated successfully');
+        } else {
+            return redirect()->route('user.index')->with('error', 'User cannot be updated.');
+        }
     }
 
     /**

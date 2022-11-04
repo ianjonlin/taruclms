@@ -17,7 +17,7 @@ class CourseSeeder extends Seeder
         DB::table('course')->insert([
             'code' => 'BMIT3094',
             'title' => 'Advanced Computer Networks',
-            'cc_id' => 2,
+            'cc_id' => 5,
         ]);
     }
 }

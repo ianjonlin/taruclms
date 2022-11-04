@@ -3,7 +3,7 @@
     <x-navbars.sidebar activePage="user-edit"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Edit User"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="User Management / Edit User / {{ $user->user_id }}"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="card card-body min-height-300 border-radius-xl mt-4">
@@ -33,6 +33,7 @@
                         @endif
                         <form method='POST' action='{{ route('user.update', ['user' => $user->id]) }}'>
                             @csrf
+                            @method('PUT')
                             <div class="row justify-content-center">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">User ID</label>
@@ -78,7 +79,9 @@
                                     <label class="form-label">Programme</label>
                                     <select class="form-select border border-2 p-2" name="programme">
                                         @foreach ($programmes as $programme)
-                                            @if ($user->programme == $programme->id)
+                                            @if ($user->programme == '')
+                                                <option value="" selected></option>
+                                            @elseif ($user->programme == $programme->id)
                                                 <option value="{{ $programme->id }}" selected>{{ $programme->code }}
                                                 </option>
                                             @endif
