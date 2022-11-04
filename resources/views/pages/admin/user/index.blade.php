@@ -20,7 +20,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body px-0 pb-2">
+                        <div class="card-body px-2">
+                            @if (session('success') || session('error'))
+                                <div class="card-body py-3">
+                                    @if (session('success'))
+                                        <div class="row">
+                                            <div class="alert alert-success alert-dismissible text-white"
+                                                role="alert">
+                                                <span class="text-sm">{{ session('success') }}</span>
+                                                <button type="button" class="btn-close text-lg py-3 opacity-10"
+                                                    data-bs-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if (session('error'))
+                                        <div class="row">
+                                            <div class="alert alert-danger alert-dismissible text-white" role="alert">
+                                                <span class="text-sm">{{ session('error') }}</span>
+                                                <button type="button" class="btn-close text-lg py-3 opacity-10"
+                                                    data-bs-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
                             <div class="table-responsive p-0">
                                 <table class="table align-items-center mb-0">
                                     <thead>
