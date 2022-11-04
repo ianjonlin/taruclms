@@ -139,11 +139,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if ($user->delete()) {
-            return back()->with('success', 'User deleted successfully!');
+        // check if user is self
+        if ($user != auth()->user()) {
+            if ($user->delete()) {
+                return back()->with('success', 'User deleted successfully!');
+            }
+            return back()->with('error', "User is not deleted.");
         }
-
-        return back()->with('error', "User is not deleted.");
+        return back()->with('error', "You cannot delete yourself.");
     }
 
 
