@@ -152,8 +152,6 @@ class UserController extends Controller
      */
     public function changePassword(Request $request)
     {
-        $user = auth()->user();
-
         $request->validate([
             'current_password' => ['required'],
             'new_password' => [
@@ -167,15 +165,19 @@ class UserController extends Controller
             ]
         ]);
 
-        //Check if match current Password
-        if (!Hash::check($request->current_password, $user->password)) {
-            return back()->with('error', "Current Password doesn't match!");
-        }
+        //Check if match current password
+        if (Hash::check($request->current_password, auth()->user()->password)) {
+            // Check if new password is not the same as current password
+            if (!Hash::check($request->new_password, auth()->user()->password)) {
+                //Update the new Password
+                User::whereId(auth()->user()->id)->update([
+                    'password' => Hash::make($request->new_password)
+                ]);
 
-        //Update the new Password
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        return back()->with('success', 'Password updated successfully');
+                return back()->with('success', 'Password changed successfully!');
+            } else
+                return back()->with('error', 'New password is the same as current password.');
+        } else
+            return back()->with("error", "Old Password Doesn't match!");
     }
 }

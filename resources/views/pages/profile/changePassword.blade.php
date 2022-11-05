@@ -72,19 +72,19 @@
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Current Password</label>
-                                    <input type="password" class="form-control border border-2 p-2"
+                                    <input type="text" class="form-control border border-2 p-2"
                                         name="current_password" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">New Password</label>
-                                    <input type="password" class="form-control border border-2 p-2" name="new_password"
+                                    <input type="text" class="form-control border border-2 p-2" name="new_password"
                                         required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Confirm New Password</label>
-                                    <input type="password" class="form-control border border-2 p-2"
+                                    <input type="text" class="form-control border border-2 p-2"
                                         name="new_password_confirmation" required>
                                 </div>
 
