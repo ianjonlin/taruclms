@@ -61,27 +61,15 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Role</label>
-                                    <select class="form-select border border-2 p-2" name="role" required>
-                                        <option value="{{ $user->role }}"> {{ $user->role }} </option>
-                                        @if ($user->role != 'Student')
-                                            <option value="Student">Student</option>
-                                        @endif
-                                        @if ($user->role != 'Lecturer')
-                                            <option value="Lecturer">Lecturer</option>
-                                        @endif
-                                        @if ($user->role != 'Admin')
-                                            <option value="Admin">Admin</option>
-                                        @endif
-                                    </select>
+                                    <input type="text" class="form-control border border-2 p-2" name="role"
+                                        readonly value="{{ $user->role }}">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Programme</label>
-                                    <select class="form-select border border-2 p-2" name="programme">
+                                    <select class="form-select border border-2 p-2" id="programme" name="programme">
                                         @foreach ($programmes as $programme)
-                                            @if ($user->programme == '')
-                                                <option value="" selected></option>
-                                            @elseif ($user->programme == $programme->id)
+                                            @if ($user->programme == $programme->id)
                                                 <option value="{{ $programme->id }}" selected>{{ $programme->code }}
                                                 </option>
                                             @endif
@@ -111,3 +99,14 @@
         </div>
     </div>
 </x-layout>
+
+<script>
+    function disableProgramme(role) {
+        if (role.value == "Student")
+            document.getElementById("programme").disabled = false;
+        else {
+            document.getElementById("programme").selectedIndex = "0";
+            document.getElementById("programme").disabled = true;
+        }
+    }
+</script>

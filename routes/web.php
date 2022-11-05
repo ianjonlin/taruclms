@@ -16,14 +16,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CourseController;
 
 // General Routing
-Route::get('/home', function () {
-    return redirect('userProfile');
-});
 Route::get('/', function () {
     return redirect('sign-in');
 })->middleware('guest');
+Route::get('/home', function () {
+    return redirect('userProfile');
+})->middleware('auth');;
 
 
 // Login and Forgot Password
@@ -60,6 +61,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Resource
     Route::resource('user', UserController::class);
+    Route::resource('course', CourseController::class);
+    // Route::resources([
+    //     'user' => UserController::class,
+    //     'course' => CourseController::class,
+    // ]);
 
     Route::get('billing', function () {
         return view('pages.billing');

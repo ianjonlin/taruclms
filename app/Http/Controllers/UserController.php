@@ -29,9 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = DB::table('users')->orderBy('user_id')->paginate(5);
         $users = User::sortable()->paginate(5);
-
         $programmes = DB::table('programme')->get();
         return view('pages.admin.user.index', ['users' => $users, 'programmes' => $programmes]);
     }
@@ -43,9 +41,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $users = DB::table('users')->get();
         $programmes = DB::table('programme')->get();
-        return view('pages.admin.user.create', ['users' => $users, 'programmes' => $programmes]);
+        return view('pages.admin.user.create', ['programmes' => $programmes]);
     }
 
     /**
@@ -97,9 +94,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $users = DB::table('users')->get();
         $programmes = DB::table('programme')->get();
-        return view('pages.admin.user.edit', ['user' => $user, 'users' => $users, 'programmes' => $programmes]);
+        return view('pages.admin.user.edit', ['user' => $user, 'programmes' => $programmes]);
     }
 
     /**
@@ -114,14 +110,12 @@ class UserController extends Controller
         $request->validate([
             'user_id' => 'required',
             'name' => 'required',
-            'email' => ['required', 'email', Rule::unique('App\Models\User', 'email')->ignore($user->id)],
-            'role' => 'required'
+            'email' => ['required', 'email', Rule::unique('App\Models\User', 'email')->ignore($user->id)]
         ]);
 
         $user->user_id = $request->user_id;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->role = $request->role;
         $user->programme = $request->programme;
 
         if ($user->save()) {
@@ -144,7 +138,7 @@ class UserController extends Controller
             if ($user->delete()) {
                 return back()->with('success', 'User deleted successfully!');
             }
-            return back()->with('error', "User is not deleted.");
+            return back()->with('error', "User cannot not deleted.");
         }
         return back()->with('error', "You cannot delete yourself.");
     }

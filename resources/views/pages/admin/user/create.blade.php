@@ -41,8 +41,8 @@
                             <div class="row justify-content-center">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">User ID</label>
-                                    <input type="text" class="form-control border border-2 p-2" name="user_id"
-                                        required>
+                                    <input type="text" class="form-control border border-2 p-2" id="user_id" name="user_id"
+                                        required oninput="dynamicDisplayPassword(this)">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
@@ -59,14 +59,15 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Password</label>
-                                    <input type="password" class="form-control border border-2 p-2" name="password"
-                                        disabled>
+                                    <input type="text" class="form-control border border-2 p-2" id="password" name="password"
+                                        readonly>
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Role</label>
-                                    <select class="form-select border border-2 p-2" name="role" required>
-                                        <option value=""></option>
+                                    <select class="form-select border border-2 p-2" id="role" name="role"
+                                        required onchange="disableProgramme(this)">
+                                        <option disabled selected value>-- Select an option --</option>
                                         <option value="Student">Student</option>
                                         <option value="Lecturer">Lecturer</option>
                                         <option value="Admin">Admin</option>
@@ -75,8 +76,9 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Programme</label>
-                                    <select class="form-select border border-2 p-2" name="programme">
-                                        <option value=""></option>
+                                    <select class="form-select border border-2 p-2" id="programme" name="programme"
+                                        disabled>
+                                        <option disabled selected value>-- Select an option --</option>
                                         @foreach ($programmes as $programme)
                                             <option value="{{ $programme->id }}">{{ $programme->code }}</option>
                                         @endforeach
@@ -98,4 +100,20 @@
             <x-footers.auth></x-footers.auth>
         </div>
     </div>
+
 </x-layout>
+
+<script>
+    function dynamicDisplayPassword(id) {
+        document.getElementById("password").value = id.value;
+    }
+
+    function disableProgramme(role) {
+        if (role.value == "Student")
+            document.getElementById("programme").disabled = false;
+        else {
+            document.getElementById("programme").selectedIndex = "0";
+            document.getElementById("programme").disabled = true;
+        }
+    }
+</script>

@@ -1,9 +1,9 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="user.index"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="course.index"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Manage User"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Manage Course"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="row">
@@ -12,10 +12,10 @@
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
-                                    <h3 class="p-4">Manage User</h3>
+                                    <h3 class="p-4">Manage Course</h3>
                                     <div class="me-3">
-                                        <a class="btn bg-gradient-dark mb-0" href="{{ route('user.create') }}">
-                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New User</a>
+                                        <a class="btn bg-gradient-dark mb-0" href="{{ route('course.create') }}">
+                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Course</a>
                                     </div>
                                 </div>
                             </div>
@@ -54,92 +54,78 @@
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                @sortablelink('user_id')
+                                                @sortablelink('id')
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                @sortablelink('name')</th>
+                                                @sortablelink('code')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                @sortablelink('email')</th>
+                                                @sortablelink('title')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                @sortablelink('role')</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                @sortablelink('programme')</th>
+                                                @sortablelink('cc_id')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($users->count() == 0)
+                                        @if ($courses->count() == 0)
                                             <tr>
-                                                <td colspan="6">No user records to display!</td>
+                                                <td colspan="6">No course records to display!</td>
                                             </tr>
                                         @endif
 
-                                        @foreach ($users as $user)
+                                        @foreach ($courses as $course)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-3 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm text-center">{{ $user->user_id }}</p>
+                                                            <p class="mb-0 text-sm text-center">{{ $course->id }}</p>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $course->code }}</h6>
 
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $user->email }}
+                                                    <p class="text-xs text-secondary mb-0">{{ $course->title }}
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $user->role }}</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">
-                                                        @foreach ($programmes as $programme)
-                                                            @if ($programme->id == $user->programme)
-                                                                {{ $programme->code }}
-                                                            @endif
-                                                        @endforeach
-                                                    </span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $course->cc_id }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href=" {{ route('user.edit', ['user' => $user->id]) }}"
+                                                        href=" {{ route('course.edit', ['course' => $course->id]) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
-                                                    @if ($user->id != auth()->user()->id)
-                                                        <form class="d-inline" method="POST"
-                                                            action="{{ route('user.destroy', ['user' => $user->id]) }}">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger btn-link"
-                                                                data-original-title="" title=""
-                                                                onclick="return confirm('Confirm to delete user {{ $user->name }}?') ?? this.parentNode.submit();"></a>
-                                                                <i class="material-icons">delete</i>
-                                                            </button>
-                                                        </form>
-                                                    @endif
+                                                    <form class="d-inline" method="POST"
+                                                        action="{{ route('course.destroy', ['course' => $course->id]) }}">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger btn-link"
+                                                            data-original-title="" title=""
+                                                            onclick="return confirm('Confirm to delete course {{ $course->code }} - {{ $course->title }} ?') ?? this.parentNode.submit();"></a>
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex flex-row-reverse">
-                                    @if ($users->hasPages())
+                                    @if ($courses->hasPages())
                                         <div class="pagination-wrapper">
-                                            {{ $users->links() }}
+                                            {{ $courses->links() }}
                                         </div>
                                     @endif
                                 </div>
