@@ -17,6 +17,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProgrammeController;
 
 // General Routing
 Route::get('/', function () {
@@ -60,12 +61,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('changePassword', [UserController::class, 'changePassword'])->name('changePassword');
 
     // Resource
-    Route::resource('user', UserController::class);
-    Route::resource('course', CourseController::class);
-    // Route::resources([
-    //     'user' => UserController::class,
-    //     'course' => CourseController::class,
-    // ]);
+    // Route::resource('user', UserController::class);
+    // Route::resource('course', CourseController::class);
+    // Route::resource('programme', ProgrammeController::class);
+    Route::resources([
+        'user' => UserController::class,
+        'course' => CourseController::class,
+        'programme' => ProgrammeController::class,
+    ]);
 
     Route::get('billing', function () {
         return view('pages.billing');

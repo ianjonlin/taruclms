@@ -1,9 +1,9 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="course-edit"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="programme-create"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Manage Course / Edit Course / {{ $course->code }}"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Manage Programme / Create Programme"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="card card-body min-height-300 border-radius-xl mt-4">
@@ -11,7 +11,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h4 class="mb-3">Edit Course</h4>
+                                <h4 class="mb-3">Create New Programme</h4>
                             </div>
                         </div>
                     </div>
@@ -31,45 +31,26 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action='{{ route('course.update', ['course' => $course]) }}'>
+                        <form method='POST' action='{{ route('programme.store') }}'>
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="mb-3">
-                                    <label class="form-label">Code</label>
+                                    <label class="form-label">Programme Code</label>
                                     <input type="text" class="form-control border border-2 p-2" name="code"
-                                        required value="{{ $course->code }}">
+                                        required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Title</label>
+                                    <label class="form-label">Programme Title</label>
                                     <input type="text" class="form-control border border-2 p-2" name="title"
-                                        required value="{{ $course->title }}">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label">Course Coordinator *Need to revisit in create.blade*</label>
-                                    {{-- <select class="form-select border border-2 p-2" name="cc_id" required>
-                                        <option disabled selected value>-- select an option --</option>
-                                        @foreach ($users as $user)
-                                            @if ($user->role == 'Lecturer')
-                                                @foreach ($courses as $course)
-                                                    @if ($course->cc_id == $user->id)
-                                                        @break
-                                                    @endif
-
-                                                    <option value="{{ $user->id }}">
-                                                        {{ $user->user_id }}&nbsp;{{ $user->name }}</option>
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                    </select> --}}
+                                        required>
                                 </div>
 
                                 <div class="d-flex flex-row-reverse">
-                                    <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('course.index') }}"
+                                    <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('programme.index') }}"
                                         class="text-primary text-gradient font-weight-bold">Go Back</a>
-                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Update
-                                        Course</button>
+                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Create
+                                        Programme</button>
                                 </div>
                             </div>
                         </form>

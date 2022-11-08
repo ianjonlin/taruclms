@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Course;
+use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CoursePolicy
+class ProgrammePolicy
 {
     use HandlesAuthorization;
 
@@ -18,17 +18,17 @@ class CoursePolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Programme  $programme
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Course $course)
+    public function view(User $user, Programme $programme)
     {
         return true;
     }
@@ -48,22 +48,22 @@ class CoursePolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Programme  $programme
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Course $course)
+    public function update(User $user, Programme $programme)
     {
-        return $user->isAdmin() || $course->isCC();
+        return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Programme  $programme
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Course $course)
+    public function delete(User $user, Programme $programme)
     {
         return $user->isAdmin();
     }
@@ -72,10 +72,10 @@ class CoursePolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Programme  $programme
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Course $course)
+    public function restore(User $user, Programme $programme)
     {
         return false;
     }
@@ -84,10 +84,10 @@ class CoursePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Programme  $programme
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Course $course)
+    public function forceDelete(User $user, Programme $programme)
     {
         return false;
     }

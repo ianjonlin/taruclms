@@ -6,16 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Course extends Model
+class Programme extends Model
 {
     use HasFactory, Sortable;
 
-    protected $table = 'course';
-
-    public function isCC()
-    {
-        return hash_equals($this->cc_id, auth()->user()->user_id);
-    }
+    protected $table = 'programme';
 
     public $timestamps = false;
 
