@@ -73,7 +73,7 @@
                                     <tbody>
                                         @if ($courses->count() == 0)
                                             <tr>
-                                                <td colspan="6">No course records to display!</td>
+                                                <td colspan="6" class="text-center">No course records to display!</td>
                                             </tr>
                                         @endif
 

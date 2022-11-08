@@ -1,9 +1,9 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="programme.index"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="keyword.index"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Manage Programme"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Blocked Keywords"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="row">
@@ -12,10 +12,10 @@
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
-                                    <h3 class="p-4">Manage Programme</h3>
+                                    <h3 class="p-4">Blocked Keywords</h3>
                                     <div class="me-3">
-                                        <a class="btn bg-gradient-dark mb-0" href="{{ route('programme.create') }}">
-                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Programme</a>
+                                        <a class="btn bg-gradient-dark mb-0" href="{{ route('keyword.create') }}">
+                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Keyword</a>
                                     </div>
                                 </div>
                             </div>
@@ -58,55 +58,61 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                @sortablelink('code')</th>
+                                                @sortablelink('value')</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                @sortablelink('title')</th>
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                @sortablelink('added_by')</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                @sortablelink('added_at')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($programmes->count() == 0)
+                                        @if ($keywords->count() == 0)
                                             <tr>
-                                                <td colspan="6" class="text-center">No programme records to display!</td>
+                                                <td colspan="6" class="text-center">No keywords are blocked!</td>
                                             </tr>
                                         @endif
 
-                                        @foreach ($programmes as $programme)
+                                        @foreach ($keywords as $keyword)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-3 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm text-center">{{ $programme->id }}</p>
+                                                            <p class="mb-0 text-sm text-center">{{ $keyword->id }}</p>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $programme->code }}</h6>
+                                                    <div class="align-middle text-sm">
+                                                        <h6 class="mb-0 text-sm">{{ $keyword->value }}</h6>
 
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $programme->title }}
-                                                    </p>
+                                                <td class="align-middle text-center text-sm">
+                                                    @foreach ($users as $user)
+                                                        @if ($keyword->added_by == $user->id)
+                                                            <p class="text-xs text-secondary mb-0 font-weight-bold">
+                                                                {{ $user->user_id }}&nbsp;{{ $user->name }}
+                                                            </p>
+                                                        @endif
+                                                    @endforeach
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href=" {{ route('programme.edit', ['programme' => $programme]) }}"
-                                                        data-original-title="" title="">
-                                                        <i class="material-icons">edit</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $keyword->added_at }}</span>
+                                                </td>
+                                                <td class="align-middle text-center">
                                                     <form class="d-inline" method="POST"
-                                                        action="{{ route('programme.destroy', ['programme' => $programme]) }}">
+                                                        action="{{ route('keyword.destroy', ['keyword' => $keyword]) }}">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-danger btn-link"
                                                             data-original-title="" title=""
-                                                            onclick="return confirm('Confirm to delete programme {{ $programme->code }} - {{ $programme->title }} ?') ?? this.parentNode.submit();"></a>
+                                                            onclick="return confirm('Confirm to delete keyword {{ $keyword->value }}?') ?? this.parentNode.submit();"></a>
                                                             <i class="material-icons">delete</i>
                                                         </button>
                                                     </form>
@@ -116,9 +122,9 @@
                                     </tbody>
                                 </table>
                                 <div class="d-flex flex-row-reverse">
-                                    @if ($programmes->hasPages())
+                                    @if ($keywords->hasPages())
                                         <div class="pagination-wrapper">
-                                            {{ $programmes->links() }}
+                                            {{ $keywords->links() }}
                                         </div>
                                     @endif
                                 </div>
