@@ -64,7 +64,7 @@
                                                 @sortablelink('title')</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                @sortablelink('cc_id')</th>
+                                                Course Coordinator</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
@@ -93,22 +93,26 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $course->title }}
-                                                    </p>
+                                                    <p class="text-xs text-secondary mb-0">{{ $course->title }}</p>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $course->cc_id }}</span>
+                                                    @foreach ($users as $user)
+                                                        @if ($user->id == $course->cc_id)
+                                                            <p class="text-xs text-secondary mb-0">
+                                                                {{ $user->user_id }}&nbsp;{{ $user->name }}</p>
+                                                        @endif
+                                                    @endforeach
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href=" {{ route('course.edit', ['course' => $course->id]) }}"
+                                                        href=" {{ route('course.edit', ['course' => $course]) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
+
                                                     <form class="d-inline" method="POST"
-                                                        action="{{ route('course.destroy', ['course' => $course->id]) }}">
+                                                        action="{{ route('course.destroy', ['course' => $course]) }}">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-danger btn-link"

@@ -114,14 +114,14 @@
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href=" {{ route('user.edit', ['user' => $user->id]) }}"
+                                                        href=" {{ route('user.edit', ['user' => $user]) }}"
                                                         data-original-title="" title="">
                                                         <i class="material-icons">edit</i>
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                     @if ($user->id != auth()->user()->id)
                                                         <form class="d-inline" method="POST"
-                                                            action="{{ route('user.destroy', ['user' => $user->id]) }}">
+                                                            action="{{ route('user.destroy', ['user' => $user]) }}">
                                                             @csrf
                                                             @method('delete')
                                                             <button type="submit" class="btn btn-danger btn-link"

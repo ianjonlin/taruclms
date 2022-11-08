@@ -34,5 +34,5 @@ class Course extends Model
 
     public $timestamps = false;
 
-    public $sortable = ['code', 'title', 'cc_id'];
+    public $sortable = ['code', 'title'];
 }

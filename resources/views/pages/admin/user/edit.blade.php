@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action='{{ route('user.update', ['user' => $user->id]) }}'>
+                        <form method='POST' action='{{ route('user.update', ['user' => $user]) }}'>
                             @csrf
                             @method('PUT')
                             <div class="row justify-content-center">

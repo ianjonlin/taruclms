@@ -40,7 +40,7 @@ class CourseController extends Controller
     {
         $courses = DB::table('course')->get();
         $users = DB::table('users')->get();
-        return view('pages.admin.course.create', ['courses'=> $courses, 'users' => $users]);
+        return view('pages.admin.course.create', ['courses' => $courses, 'users' => $users]);
     }
 
     /**
@@ -88,8 +88,9 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        $courses = DB::table('course')->get();
         $users = DB::table('users')->get();
-        return view('pages.admin.course.edit', ['course' => $course, 'users' => $users]);
+        return view('pages.admin.course.edit', ['course' => $course, 'courses' => $courses, 'users' => $users]);
     }
 
     /**
