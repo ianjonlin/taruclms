@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\DashboardController;
-
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
@@ -46,7 +44,7 @@ Route::post('reset-password', [SessionsController::class, 'update'])->middleware
 
 
 // Header Nav Bar
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::view('dashboard', 'pages.index')->middleware('auth')->name('dashboard');
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 
 
