@@ -43,22 +43,20 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::post('reset-password', [SessionsController::class, 'update'])->middleware('guest')->name('password.update');
 
 
-// Header Nav Bar
-Route::view('dashboard', 'pages.index')->middleware('auth')->name('dashboard');
+// Nav Bar
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 
-
-// Side Nav Bar
 Route::group(['middleware' => 'auth'], function () {
 
+    // User Profile
     Route::get('userProfile', function () {
         return view('pages.profile.userProfile');
     })->name('userProfile');
-
     Route::get('changePassword', function () {
         return view('pages.profile.changePassword');
     })->name('changePassword');
     Route::post('changePassword', [UserController::class, 'changePassword'])->name('changePassword');
+
 
     // Resource
     Route::resources([
@@ -68,6 +66,9 @@ Route::group(['middleware' => 'auth'], function () {
         'keyword' => KeywordController::class,
     ]);
 
+    Route::get('dashboard', function () {
+        return view('pages.index');
+    })->name('dashboard');
     Route::get('billing', function () {
         return view('pages.billing');
     })->name('billing');

@@ -15,7 +15,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="alert alert-info text-white">
+                                    <div class="alert alert-info text-white text-sm">
                                         <h6 class="text-white">Password Requirements</h6>
                                         <ul>
                                             <li>Password must be at least 8 characters.</li>
@@ -55,18 +55,12 @@
                                         <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Change
                                             password</button>
                                     </div>
-                                    <p class="mt-4 text-sm text-center">
-                                        Don't have an account?
-                                        <a href="{{ route('register') }}"
-                                            class="text-primary text-gradient font-weight-bold">Sign up</a>
-                                    </p>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <x-footers.guest></x-footers.guest>
         </div>
     </main>
 
