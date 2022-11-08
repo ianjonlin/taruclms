@@ -105,11 +105,15 @@
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span class="text-secondary text-xs font-weight-bold">
-                                                        @foreach ($programmes as $programme)
-                                                            @if ($programme->id == $user->programme)
-                                                                {{ $programme->code }}
-                                                            @endif
-                                                        @endforeach
+                                                        @if ($user->role == 'Student')
+                                                            @foreach ($programmes as $programme)
+                                                                @if ($programme->id == $user->programme)
+                                                                    {{ $programme->code }}
+                                                                @endif
+                                                            @endforeach
+                                                        @else
+                                                            -
+                                                        @endif
                                                     </span>
                                                 </td>
                                                 <td class="align-middle text-center">
