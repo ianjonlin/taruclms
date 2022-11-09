@@ -14,5 +14,5 @@ class Programme extends Model
 
     public $timestamps = false;
 
-    public $sortable = ['code', 'title'];
+    public $sortable = ['type', 'code', 'title'];
 }

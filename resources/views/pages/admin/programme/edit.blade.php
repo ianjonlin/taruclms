@@ -3,7 +3,8 @@
     <x-navbars.sidebar activePage="programme-edit"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Manage Programme / Edit Programme / {{ $programme->code }}"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Manage Programme / Edit Programme / {{ $programme->code }}">
+        </x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="card card-body min-height-300 border-radius-xl mt-4">
@@ -36,6 +37,24 @@
                             @method('PUT')
                             <div class="row justify-content-center">
                                 <div class="mb-3">
+                                    <label class="form-label">Type</label>
+                                    <select class="form-select border border-2 p-2" name="type">
+                                        @foreach ($types as $type)
+                                            @if ($programme->type == $type)
+                                                <option value="{{ $type }}" selected>{{ $type }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+
+                                        @foreach ($types as $type)
+                                            @if ($programme->type != $type)
+                                                <option value="{{ $type }}">{{ $type }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
                                     <label class="form-label">Code</label>
                                     <input type="text" class="form-control border border-2 p-2" name="code"
                                         required value="{{ $programme->code }}">
@@ -63,4 +82,3 @@
         </div>
     </div>
 </x-layout>
-

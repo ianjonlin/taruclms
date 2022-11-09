@@ -58,10 +58,16 @@
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                @sortablelink('type')</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('code')</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('title')</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Programme Structure</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
@@ -70,7 +76,8 @@
                                     <tbody>
                                         @if ($programmes->count() == 0)
                                             <tr>
-                                                <td colspan="6" class="text-center">No programme records to display!</td>
+                                                <td colspan="6" class="text-center">No programme records to display!
+                                                </td>
                                             </tr>
                                         @endif
 
@@ -83,6 +90,10 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                <td class="align-middle text-sm">
+                                                    <p class="text-xs text-secondary mb-0">{{ $programme->type }}
+                                                    </p>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $programme->code }}</h6>
@@ -92,6 +103,14 @@
                                                 <td class="align-middle text-sm">
                                                     <p class="text-xs text-secondary mb-0">{{ $programme->title }}
                                                     </p>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <a rel="tooltip" class="btn btn-info btn-link"
+                                                        href=" {{ route('programme.show', ['programme' => $programme]) }}"
+                                                        data-original-title="" title="">
+                                                        <i class="material-icons">remove_red_eye</i>
+                                                        <div class="ripple-container"></div>
+                                                    </a>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <a rel="tooltip" class="btn btn-success btn-link"

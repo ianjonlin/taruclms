@@ -35,15 +35,60 @@
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="mb-3">
-                                    <label class="form-label">Programme Code</label>
+                                    <label class="form-label">Type</label>
+                                    <select class="form-select border border-2 p-2" name="type">
+                                        <option disabled selected value>-- Select an option --</option>
+                                        @foreach ($types as $type)
+                                            <option value="{{ $type }}">{{ $type }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Code</label>
                                     <input type="text" class="form-control border border-2 p-2" name="code"
                                         required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Programme Title</label>
+                                    <label class="form-label">Title</label>
                                     <input type="text" class="form-control border border-2 p-2" name="title"
                                         required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Structure</label>
+
+                                    {{-- divide into three equal parts --}}
+                                    {{-- <div class="container p-1">
+                                        <b>Year 1</b>
+                                        <div class="row">
+                                            <div class="col-6 col-md-4">
+                                                Sem 1
+                                                <select class="form-select border border-2 p-2" name="1">
+                                                    <option disabled selected value>-- Select an option --</option>
+                                                    @foreach ($courses as $course)
+                                                        <option value="{{ $course->code }}">{{ $course->code }}&nbsp;{{ $course->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-6 col-md-4">
+                                                Sem 2
+                                                <select class="form-select border border-2 p-2" name="2">
+                                                    <option disabled selected value>-- Select an option --</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-6 col-md-4">
+                                                Sem 3
+                                                <select class="form-select border border-2 p-2" name="3">
+                                                    <option disabled selected value>-- Select an option --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                    </div> --}}
                                 </div>
 
                                 <div class="d-flex flex-row-reverse">
@@ -62,4 +107,3 @@
         </div>
     </div>
 </x-layout>
-

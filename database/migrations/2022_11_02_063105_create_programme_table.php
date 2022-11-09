@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('programme', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', ['Foundation Programme', 'Diploma', 'Bachelor Degree', 'Master', 'Doctor of Philosophy']);
             $table->string("code")->unique();
             $table->string("title");
         });

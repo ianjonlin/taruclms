@@ -37,8 +37,9 @@ class ProgrammeController extends Controller
      */
     public function create()
     {
+        $types = array('Foundation Programme', 'Diploma', 'Bachelor Degree', 'Master', 'Doctor of Philosophy');
         $courses = DB::table('course')->get();
-        return view('pages.admin.programme.create', ['courses' => $courses]);
+        return view('pages.admin.programme.create', ['types' => $types, 'courses' => $courses]);
     }
 
     /**
@@ -50,11 +51,13 @@ class ProgrammeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'type' => 'required',
             'code' => 'required',
             'title' => 'required'
         ]);
 
         $programme = new Programme;
+        $programme->type = $request->type;
         $programme->code = $request->code;
         $programme->title = $request->title;
 
@@ -73,7 +76,8 @@ class ProgrammeController extends Controller
      */
     public function show(Programme $programme)
     {
-        //
+        $courses = DB::table('course')->get();
+        return view('pages.admin.programme.show', ['programme' => $programme, 'courses' => $courses]);
     }
 
     /**
@@ -84,8 +88,9 @@ class ProgrammeController extends Controller
      */
     public function edit(Programme $programme)
     {
+        $types = array('Foundation Programme', 'Diploma', 'Bachelor Degree', 'Master', 'Doctor of Philosophy');
         $courses = DB::table('course')->get();
-        return view('pages.admin.programme.edit', ['programme' => $programme, 'courses' => $courses]);
+        return view('pages.admin.programme.edit', ['programme' => $programme, 'types' => $types, 'courses' => $courses]);
     }
 
     /**
