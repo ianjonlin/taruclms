@@ -47,11 +47,214 @@
 
                             @if (auth()->user()->role == 'Student')
                                 <div class="mb-3 col-md-12">
-                                    <label for="floatingTextarea2">Programme Structure</label>
+                                    @if (!$programme_structure_y1_s1->isEmpty())
+                                        <div class="mb-3">
+                                            <label class="form-label">Programme Structure</label>
+                                            <div class="form-control border border-2">
+
+                                                <div class="container p-1">
+                                                    <div class="row p-1">
+                                                        <div class="col-6 col-md-4">
+                                                            <b>Year 1 Semester 1</b>
+                                                            <ul class="text-sm list-group pt-2">
+                                                                @foreach ($programme_structure_y1_s1 as $p)
+                                                                    <li class="list-group-item p-0 border-0">
+                                                                        {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+
+                                                        @if (!$programme_structure_y1_s2->isEmpty())
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 1 Semester 2</b>
+                                                                <ul class="text-sm list-group pt-2">
+                                                                    @foreach ($programme_structure_y1_s2 as $p)
+                                                                        <li class="list-group-item p-0 border-0">
+                                                                            {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-6 col-md-4">
+                                                            </div>
+                                                        @endif
+
+                                                        @if (!$programme_structure_y1_s3->isEmpty())
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 1 Semester 3</b>
+                                                                <ul class="text-sm list-group pt-2">
+                                                                    @foreach ($programme_structure_y1_s3 as $p)
+                                                                        <li class="list-group-item p-0 border-0">
+                                                                            {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-6 col-md-4">
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+
+
+                                                @if (!$programme_structure_y2_s1->isEmpty())
+                                                    <div class="container p-1 pt-3">
+                                                        <div class="row p-1">
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 2 Semester 1</b>
+                                                                <ul class="text-sm list-group pt-2">
+                                                                    @foreach ($programme_structure_y2_s1 as $p)
+                                                                        <li class="list-group-item p-0 border-0">
+                                                                            {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+
+                                                            @if (!$programme_structure_y2_s2->isEmpty())
+                                                                <div class="col-6 col-md-4">
+                                                                    <b>Year 2 Semester 2</b>
+                                                                    <ul class="text-sm list-group pt-2">
+                                                                        @foreach ($programme_structure_y2_s2 as $p)
+                                                                            <li class="list-group-item p-0 border-0">
+                                                                                {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-6 col-md-4">
+                                                                </div>
+                                                            @endif
+
+                                                            @if (!$programme_structure_y2_s3->isEmpty())
+                                                                <div class="col-6 col-md-4">
+                                                                    <b>Year 2 Semester 3</b>
+                                                                    <ul class="text-sm list-group pt-2">
+                                                                        @foreach ($programme_structure_y2_s3 as $p)
+                                                                            <li class="list-group-item p-0 border-0">
+                                                                                {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-6 col-md-4">
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+                                                @if (!$programme_structure_y3_s1->isEmpty())
+                                                    <div class="container p-1 pt-4">
+                                                        <div class="row p-1">
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 3 Semester 1</b>
+                                                                <ul class="text-sm list-group pt-2">
+                                                                    @foreach ($programme_structure_y3_s1 as $p)
+                                                                        <li class="list-group-item p-0 border-0">
+                                                                            {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+
+                                                            @if (!$programme_structure_y3_s2->isEmpty())
+                                                                <div class="col-6 col-md-4">
+                                                                    <b>Year 3 Semester 2</b>
+                                                                    <ul class="text-sm list-group pt-2">
+                                                                        @foreach ($programme_structure_y3_s2 as $p)
+                                                                            <li class="list-group-item p-0 border-0">
+                                                                                {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-6 col-md-4">
+                                                                </div>
+                                                            @endif
+
+                                                            @if (!$programme_structure_y3_s3->isEmpty())
+                                                                <div class="col-6 col-md-4">
+                                                                    <b>Year 3 Semester 3</b>
+                                                                    <ul class="text-sm list-group pt-2">
+                                                                        @foreach ($programme_structure_y3_s3 as $p)
+                                                                            <li class="list-group-item p-0 border-0">
+                                                                                {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-6 col-md-4">
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+                                                @if (!$programme_structure_y4_s1->isEmpty())
+                                                    <div class="container p-1 pt-4">
+                                                        <div class="row p-1">
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 4 Semester 1</b>
+                                                                <ul class="text-sm list-group pt-2">
+                                                                    @foreach ($programme_structure_y4_s1 as $p)
+                                                                        <li class="list-group-item p-0 border-0">
+                                                                            {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+
+                                                            @if (!$programme_structure_y4_s2->isEmpty())
+                                                                <div class="col-6 col-md-4">
+                                                                    <b>Year 4 Semester 2</b>
+                                                                    <ul class="text-sm list-group pt-2">
+                                                                        @foreach ($programme_structure_y4_s2 as $p)
+                                                                            <li class="list-group-item p-0 border-0">
+                                                                                {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-6 col-md-4">
+                                                                </div>
+                                                            @endif
+
+                                                            @if (!$programme_structure_y4_s3->isEmpty())
+                                                                <div class="col-6 col-md-4">
+                                                                    <b>Year 4 Semester 3</b>
+                                                                    <ul class="text-sm list-group pt-2">
+                                                                        @foreach ($programme_structure_y4_s3 as $p)
+                                                                            <li class="list-group-item p-0 border-0">
+                                                                                {{ $p->code }}&nbsp;{{ $p->title }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-6 col-md-4">
+                                                                </div>
+                                                            @endif
+
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             @elseif (auth()->user()->role == 'Lecturer')
                                 <div class="mb-3 col-md-12">
                                     <label for="floatingTextarea2">Courses Assigned</label>
+                                    {{-- TO DO --}}
                                 </div>
                             @endif
                         </div>

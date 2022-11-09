@@ -49,10 +49,7 @@ Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('aut
 Route::group(['middleware' => 'auth'], function () {
 
     // User Profile
-    Route::get('userProfile', function () {
-        return view('pages.profile.userProfile');
-    })->name('userProfile');
-    // TODO: view profile
+    Route::get('userProfile', [UserController::class, 'userProfile'])->name('userProfile');
     Route::get('changePassword', function () {
         return view('pages.profile.changePassword');
     })->name('changePassword');
