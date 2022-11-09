@@ -33,6 +33,7 @@
                         @endif
                         <form method='POST' action='{{ route('course.update', ['course' => $course]) }}'>
                             @csrf
+                            @method('PUT')
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
@@ -47,22 +48,36 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Course Coordinator *Need to revisit in create.blade*</label>
-                                    {{-- <select class="form-select border border-2 p-2" name="cc_id" required>
-                                        <option disabled selected value>-- select an option --</option>
-                                        @foreach ($users as $user)
-                                            @if ($user->role == 'Lecturer')
-                                                @foreach ($courses as $course)
-                                                    @if ($course->cc_id == $user->id)
-                                                        @break
-                                                    @endif
-
-                                                    <option value="{{ $user->id }}">
-                                                        {{ $user->user_id }}&nbsp;{{ $user->name }}</option>
-                                                @endforeach
+                                    <label class="form-label">Course Coordinator</label>
+                                    <select class="form-select border border-2 p-2" name="cc_id" required>
+                                        {{-- Get all CCs --}}
+                                        @foreach ($courses as $c)
+                                            @if ($c->cc_id != null)
+                                                {{ $cc_ids[] = $c->cc_id }}
                                             @endif
                                         @endforeach
-                                    </select> --}}
+
+                                        {{-- Get existing CC --}}
+                                        @foreach ($users as $user)
+                                            @if ($user->id == $course->cc_id)
+                                                <option value="{{ $user->id }}" selected>
+                                                    {{ $user->user_id }}&nbsp;{{ $user->name }}
+                                                </option>
+                                            @elseif($course->cc_id == null)
+                                                <option disabled selected value>-- select an option --</option>
+                                                @break
+                                            @endif
+                                        @endforeach
+
+                                        {{-- Check if lecturer is not a CC of any course --}}
+                                        @foreach ($users as $user)
+                                            @if ($user->id != $course->cc_id && !in_array($user->id, $cc_ids))
+                                                <option value="{{ $user->id }}">
+                                                    {{ $user->user_id }}&nbsp;{{ $user->name }}
+                                                </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="d-flex flex-row-reverse">
@@ -81,4 +96,3 @@
         </div>
     </div>
 </x-layout>
-

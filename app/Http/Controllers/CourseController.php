@@ -38,9 +38,10 @@ class CourseController extends Controller
      */
     public function create()
     {
+        $cc_ids = array();
         $courses = DB::table('course')->get();
-        $users = DB::table('users')->get();
-        return view('pages.admin.course.create', ['courses' => $courses, 'users' => $users]);
+        $users = DB::table('users')->where('role', '=', 'Lecturer')->get();
+        return view('pages.admin.course.create', ['cc_ids' => $cc_ids, 'courses' => $courses, 'users' => $users]);
     }
 
     /**
@@ -88,9 +89,10 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        $cc_ids = array();
         $courses = DB::table('course')->get();
-        $users = DB::table('users')->get();
-        return view('pages.admin.course.edit', ['course' => $course, 'courses' => $courses, 'users' => $users]);
+        $users = DB::table('users')->where('role', '=', 'Lecturer')->get();
+        return view('pages.admin.course.edit', ['course' => $course, 'cc_ids' => $cc_ids, 'courses' => $courses, 'users' => $users]);
     }
 
     /**

@@ -47,19 +47,21 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Course Coordinator *Need to revisit in create.blade*</label>
+                                    <label class="form-label">Course Coordinator</label>
                                     <select class="form-select border border-2 p-2" name="cc_id" required>
                                         <option disabled selected value>-- select an option --</option>
+                                        {{-- Get all CCs --}}
+                                        @foreach ($courses as $course)
+                                            @if ($course->cc_id != null)
+                                                {{ $cc_ids[] = $course->cc_id }}
+                                            @endif
+                                        @endforeach
+                                        {{-- Check if lecturer is not a CC of any course --}}
                                         @foreach ($users as $user)
-                                            @if ($user->role == 'Lecturer')
-                                                @foreach ($courses as $course)
-                                                    @if ($course->cc_id == $user->id)
-                                                        @break
-                                                    @endif
-
-                                                    <option value="{{ $user->id }}">
-                                                        {{ $user->user_id }}&nbsp;{{ $user->name }}</option>
-                                                @endforeach
+                                            @if (!in_array($user->id, $cc_ids))
+                                                <option value="{{ $user->id }}">
+                                                    {{ $user->user_id }}&nbsp;{{ $user->name }}
+                                                </option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -81,4 +83,3 @@
         </div>
     </div>
 </x-layout>
-

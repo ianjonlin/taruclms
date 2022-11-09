@@ -33,6 +33,7 @@
                         @endif
                         <form method='POST' action='{{ route('programme.update', ['programme' => $programme]) }}'>
                             @csrf
+                            @method('PUT')
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
