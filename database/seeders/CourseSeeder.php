@@ -34,7 +34,7 @@ class CourseSeeder extends Seeder
             ], [
                 'code' => 'BJEL1013',
                 'title' => 'English for Tertiary Studies',
-                'cc_id' => null
+                'cc_id' => 15
             ],
 
             [

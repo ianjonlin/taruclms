@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="course-edit"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="course.index"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Manage Course / Edit Course / {{ $course->code }}"></x-navbars.navs.auth>
@@ -65,34 +65,35 @@
                                                 </option>
                                             @elseif($course->cc_id == null)
                                                 <option disabled selected value>-- select an option --</option>
-                                                @break
-                                            @endif
-                                        @endforeach
+                                            @break
+                                        @endif
+                                    @endforeach
 
-                                        {{-- Check if lecturer is not a CC of any course --}}
-                                        @foreach ($users as $user)
-                                            @if ($user->id != $course->cc_id && !in_array($user->id, $cc_ids))
-                                                <option value="{{ $user->id }}">
-                                                    {{ $user->user_id }}&nbsp;{{ $user->name }}
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="d-flex flex-row-reverse">
-                                    <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('course.index') }}"
-                                        class="text-primary text-gradient font-weight-bold">Go Back</a>
-                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Update
-                                        Course</button>
-                                </div>
+                                    {{-- Check if lecturer is not a CC of any course --}}
+                                    @foreach ($users as $user)
+                                        @if ($user->id != $course->cc_id && !in_array($user->id, $cc_ids))
+                                            <option value="{{ $user->id }}">
+                                                {{ $user->user_id }}&nbsp;{{ $user->name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
-                        </form>
 
-                    </div>
+                            <div class="d-flex flex-row-reverse">
+                                <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('course.index') }}"
+                                    class="text-primary text-gradient font-weight-bold">Go Back</a>
+                                <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Update
+                                    Course</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
-            <x-footers.auth></x-footers.auth>
         </div>
+
     </div>
+    <x-footers.auth></x-footers.auth>
+</div>
 </x-layout>

@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="user-edit"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="user.index"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Manage User / Edit User / {{ $user->user_id }}"></x-navbars.navs.auth>
@@ -95,8 +95,8 @@
                     </div>
                 </div>
             </div>
-            <x-footers.auth></x-footers.auth>
         </div>
+        <x-footers.auth></x-footers.auth>
     </div>
 </x-layout>
 

@@ -152,7 +152,7 @@
                     </div>
                 </div>
             </div>
-            <x-footers.auth></x-footers.auth>
         </div>
+        <x-footers.auth></x-footers.auth>
     </main>
 </x-layout>

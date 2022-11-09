@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="programme-create"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="programme.index"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Manage Programme / Create Programme"></x-navbars.navs.auth>
@@ -65,7 +65,8 @@
                                                 <div class="col-6 col-md-4">
                                                     <b>Year {{ $i }} Sem 1</b>
                                                     @for ($j = 1; $j <= 6; $j++)
-                                                        <select class="form-select border border-2 p-2 mb-2" name="y{{ $i }}s1c{{ $j }}">
+                                                        <select class="form-select border border-2 p-2 mb-2"
+                                                            name="y{{ $i }}s1c{{ $j }}">
                                                             <option disabled selected value>-- Select an option --
                                                             </option>
                                                             @foreach ($courses as $course)
@@ -79,7 +80,8 @@
                                                 <div class="col-6 col-md-4">
                                                     <b>Year {{ $i }} Sem 2</b>
                                                     @for ($j = 1; $j <= 6; $j++)
-                                                        <select class="form-select border border-2 p-2 mb-2" name="y{{ $i }}s2c{{ $j }}">
+                                                        <select class="form-select border border-2 p-2 mb-2"
+                                                            name="y{{ $i }}s2c{{ $j }}">
                                                             <option disabled selected value>-- Select an option --
                                                             </option>
                                                             @foreach ($courses as $course)
@@ -93,7 +95,8 @@
                                                 <div class="col-6 col-md-4">
                                                     <b>Year {{ $i }} Sem 3</b>
                                                     @for ($j = 1; $j <= 6; $j++)
-                                                        <select class="form-select border border-2 p-2 mb-2" name="y{{ $i }}s3c{{ $j }}">
+                                                        <select class="form-select border border-2 p-2 mb-2"
+                                                            name="y{{ $i }}s3c{{ $j }}">
                                                             <option disabled selected value>-- Select an option --
                                                             </option>
                                                             @foreach ($courses as $course)
@@ -122,7 +125,7 @@
                     </div>
                 </div>
             </div>
-            <x-footers.auth></x-footers.auth>
         </div>
+        <x-footers.auth></x-footers.auth>
     </div>
 </x-layout>

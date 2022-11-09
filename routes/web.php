@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('userProfile', function () {
         return view('pages.profile.userProfile');
     })->name('userProfile');
+    // TODO: view profile
     Route::get('changePassword', function () {
         return view('pages.profile.changePassword');
     })->name('changePassword');

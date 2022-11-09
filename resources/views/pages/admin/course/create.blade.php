@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="course-create"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="course.index"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Manage Course / Create Course"></x-navbars.navs.auth>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <x-footers.auth></x-footers.auth>
         </div>
+        <x-footers.auth></x-footers.auth>
     </div>
 </x-layout>

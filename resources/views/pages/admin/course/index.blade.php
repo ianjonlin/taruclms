@@ -73,7 +73,8 @@
                                     <tbody>
                                         @if ($courses->count() == 0)
                                             <tr>
-                                                <td colspan="6" class="text-center">No course records to display!</td>
+                                                <td colspan="6" class="text-center">No course records to display!
+                                                </td>
                                             </tr>
                                         @endif
 
@@ -138,7 +139,8 @@
                     </div>
                 </div>
             </div>
-            <x-footers.auth></x-footers.auth>
+        </div>
+        <x-footers.auth></x-footers.auth>
         </div>
     </main>
 </x-layout>

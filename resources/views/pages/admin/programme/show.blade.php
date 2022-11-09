@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="programme-show"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="programme.index"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Manage Programme / View Programme / {{ $programme->code }}">
@@ -242,7 +242,8 @@
                         </div>
                     </div>
                 </div>
-                <x-footers.auth></x-footers.auth>
             </div>
         </div>
+        <x-footers.auth></x-footers.auth>
+    </div>
 </x-layout>

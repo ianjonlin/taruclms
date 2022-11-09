@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
-    <x-navbars.sidebar activePage="user-create"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="user.index"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Manage User / Create User"></x-navbars.navs.auth>
@@ -41,8 +41,8 @@
                             <div class="row justify-content-center">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">User ID</label>
-                                    <input type="text" class="form-control border border-2 p-2" id="user_id" name="user_id"
-                                        required oninput="dynamicDisplayPassword(this)">
+                                    <input type="text" class="form-control border border-2 p-2" id="user_id"
+                                        name="user_id" required oninput="dynamicDisplayPassword(this)">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
@@ -59,8 +59,8 @@
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Password</label>
-                                    <input type="text" class="form-control border border-2 p-2" id="password" name="password"
-                                        readonly>
+                                    <input type="text" class="form-control border border-2 p-2" id="password"
+                                        name="password" readonly>
                                 </div>
 
                                 <div class="mb-3 col-md-6">
@@ -97,8 +97,8 @@
                     </div>
                 </div>
             </div>
-            <x-footers.auth></x-footers.auth>
         </div>
+        <x-footers.auth></x-footers.auth>
     </div>
 
 </x-layout>
