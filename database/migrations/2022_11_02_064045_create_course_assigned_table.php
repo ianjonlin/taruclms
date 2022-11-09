@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('course_assigned', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lecturer_id')->references('id')->on('users');
-            $table->foreignId('course_id')->references('id')->on('course');
+            $table->foreignId('lecturer_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('course_id')->references('id')->on('course')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
