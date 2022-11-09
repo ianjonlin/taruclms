@@ -35,7 +35,9 @@ class CourseSeeder extends Seeder
                 'code' => 'BJEL1013',
                 'title' => 'English for Tertiary Studies',
                 'cc_id' => null
-            ], [
+            ],
+
+            [
                 'code' => 'BAIT1023',
                 'title' => 'Web Design and Development',
                 'cc_id' => null
@@ -45,6 +47,12 @@ class CourseSeeder extends Seeder
                 'cc_id' => null
             ], [
                 'code' => 'BJEL1023',
+                'title' => 'Academic English',
+                'cc_id' => null
+            ],
+
+            [
+                'code' => 'BACS1053',
                 'title' => 'Database Management',
                 'cc_id' => null
             ], [
@@ -59,7 +67,9 @@ class CourseSeeder extends Seeder
                 'code' => 'BACS1113',
                 'title' => 'Computer Organisation and Architecture',
                 'cc_id' => null
-            ], [
+            ],
+
+            [
                 'code' => 'BAIT2203',
                 'title' => 'Human Computer Interaction',
                 'cc_id' => null
@@ -83,7 +93,9 @@ class CourseSeeder extends Seeder
                 'code' => 'BAIT2113',
                 'title' => 'Web Application Development',
                 'cc_id' => null
-            ], [
+            ],
+
+            [
                 'code' => 'BAIT2004',
                 'title' => 'Fundamentals of Computer Networks',
                 'cc_id' => null
@@ -95,7 +107,9 @@ class CourseSeeder extends Seeder
                 'code' => 'BAIT1093',
                 'title' => 'Introduction to Computer Security',
                 'cc_id' => null
-            ], [
+            ],
+
+            [
                 'code' => 'BJEL2013',
                 'title' => 'English for Career Preparation',
                 'cc_id' => null
@@ -119,7 +133,9 @@ class CourseSeeder extends Seeder
                 'code' => 'BAIT2073 ',
                 'title' => 'Mobile Application Development',
                 'cc_id' => null
-            ], [
+            ],
+
+            [
                 'code' => 'BMIT3094',
                 'title' => 'Advanced Computer Networks',
                 'cc_id' => null
@@ -136,10 +152,16 @@ class CourseSeeder extends Seeder
                 'title' => 'Principles of Accounting',
                 'cc_id' => null
             ], [
+                'code' => 'MPU-3232',
+                'title' => 'Entrepreneurship',
+                'cc_id' => null
+            ], [
                 'code' => 'BACS3403',
                 'title' => 'Project I',
                 'cc_id' => null
-            ], [
+            ],
+
+            [
                 'code' => 'BACS3413',
                 'title' => 'Project II',
                 'cc_id' => null
@@ -151,7 +173,9 @@ class CourseSeeder extends Seeder
                 'code' => 'MPU-3123',
                 'title' => 'Tamadun Islam dan Asia',
                 'cc_id' => null
-            ], [
+            ],
+
+            [
                 'code' => 'BAIT305C',
                 'title' => 'Industrial Training',
                 'cc_id' => null

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('programme_structure', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('programme_id')->references('id')->on('programme');
-            $table->foreignId('course_id')->references('id')->on('course');
+            $table->foreignId('programme_id')->references('id')->on('programme')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('course_id')->references('id')->on('course')->onDelete('cascade')->onUpdate('cascade');;
             $table->integer('year');
             $table->integer('sem');
         });

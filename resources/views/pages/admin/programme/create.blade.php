@@ -36,7 +36,8 @@
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Type</label>
-                                    <select class="form-select border border-2 p-2" name="type">
+                                    <select class="form-select border border-2 p-2" id="type" name="type"
+                                        required onchange="programmeStructure()">
                                         <option disabled selected value>-- Select an option --</option>
                                         @foreach ($types as $type)
                                             <option value="{{ $type }}">{{ $type }}</option>
@@ -58,37 +59,55 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Structure</label>
-
-                                    {{-- divide into three equal parts --}}
-                                    {{-- <div class="container p-1">
-                                        <b>Year 1</b>
-                                        <div class="row">
-                                            <div class="col-6 col-md-4">
-                                                Sem 1
-                                                <select class="form-select border border-2 p-2" name="1">
-                                                    <option disabled selected value>-- Select an option --</option>
-                                                    @foreach ($courses as $course)
-                                                        <option value="{{ $course->code }}">{{ $course->code }}&nbsp;{{ $course->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                    <div class="container ps-1">
+                                        @for ($i = 1; $i <= 4; $i++)
+                                            <div class="row">
+                                                <div class="col-6 col-md-4">
+                                                    <b>Year {{ $i }} Sem 1</b>
+                                                    @for ($j = 1; $j <= 6; $j++)
+                                                        <select class="form-select border border-2 p-2 mb-2" name="y{{ $i }}s1c{{ $j }}">
+                                                            <option disabled selected value>-- Select an option --
+                                                            </option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    @endfor
+                                                </div>
+                                                <div class="col-6 col-md-4">
+                                                    <b>Year {{ $i }} Sem 2</b>
+                                                    @for ($j = 1; $j <= 6; $j++)
+                                                        <select class="form-select border border-2 p-2 mb-2" name="y{{ $i }}s2c{{ $j }}">
+                                                            <option disabled selected value>-- Select an option --
+                                                            </option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    @endfor
+                                                </div>
+                                                <div class="col-6 col-md-4">
+                                                    <b>Year {{ $i }} Sem 3</b>
+                                                    @for ($j = 1; $j <= 6; $j++)
+                                                        <select class="form-select border border-2 p-2 mb-2" name="y{{ $i }}s3c{{ $j }}">
+                                                            <option disabled selected value>-- Select an option --
+                                                            </option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    @endfor
+                                                </div>
                                             </div>
-                                            <div class="col-6 col-md-4">
-                                                Sem 2
-                                                <select class="form-select border border-2 p-2" name="2">
-                                                    <option disabled selected value>-- Select an option --</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-6 col-md-4">
-                                                Sem 3
-                                                <select class="form-select border border-2 p-2" name="3">
-                                                    <option disabled selected value>-- Select an option --</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <br>
-
-                                    </div> --}}
+                                            <br>
+                                        @endfor
+                                    </div>
                                 </div>
 
                                 <div class="d-flex flex-row-reverse">
