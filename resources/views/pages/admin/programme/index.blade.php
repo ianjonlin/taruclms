@@ -9,13 +9,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
-                        <div class="card-header pb-0 p-3">
+                        <div class="card-header pb-0 p-3 px-2">
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
                                     <h3 class="p-4">Manage Programme</h3>
                                     <div class="me-3">
                                         <a class="btn bg-gradient-dark mb-0" href="{{ route('programme.create') }}">
-                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Programme</a>
+                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Programme</a>
                                     </div>
                                 </div>
                             </div>
@@ -53,23 +53,23 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 @sortablelink('id')
                                             </th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('type')</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('code')</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('title')</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Programme Structure</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -91,7 +91,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $programme->type }}
+                                                    <p class="text-sm text-secondary mb-0">{{ $programme->type }}
                                                     </p>
                                                 </td>
                                                 <td>
@@ -101,7 +101,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $programme->title }}
+                                                    <p class="text-sm text-secondary mb-0">{{ $programme->title }}
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center">

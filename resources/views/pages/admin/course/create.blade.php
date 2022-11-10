@@ -35,13 +35,13 @@
                             @csrf
                             <div class="row justify-content-center">
                                 <div class="mb-3">
-                                    <label class="form-label">Course Code</label>
+                                    <label class="form-label">Code</label>
                                     <input type="text" class="form-control border border-2 p-2" name="code"
                                         required>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Course Title</label>
+                                    <label class="form-label">Title</label>
                                     <input type="text" class="form-control border border-2 p-2" name="title"
                                         required>
                                 </div>

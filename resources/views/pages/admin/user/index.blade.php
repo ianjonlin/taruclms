@@ -9,13 +9,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
-                        <div class="card-header pb-0 p-3">
+                        <div class="card-header pb-0 p-3 px-2">
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
                                     <h3 class="p-4">Manage User</h3>
                                     <div class="me-3">
                                         <a class="btn bg-gradient-dark mb-0" href="{{ route('user.create') }}">
-                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New User</a>
+                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add User</a>
                                     </div>
                                 </div>
                             </div>
@@ -53,23 +53,23 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 @sortablelink('user_id')
                                             </th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('name')</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 @sortablelink('email')</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 @sortablelink('role')</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 @sortablelink('programme')</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -83,28 +83,27 @@
                                         @foreach ($users as $user)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-3 py-1">
+                                                    <div class="d-flex px-3">
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <p class="mb-0 text-sm text-center">{{ $user->user_id }}</p>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex flex-column justify-content-center">
+                                                    <div>
                                                         <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
-
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $user->email }}
+                                                <td class="align-middle text-center">
+                                                    <p class="text-sm text-secondary mb-0">{{ $user->email }}
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $user->role }}</span>
+                                                        class="text-secondary text-sm font-weight-bold">{{ $user->role }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                    <span class="text-secondary text-sm font-weight-bold">
                                                         @if ($user->role == 'Student')
                                                             @foreach ($programmes as $programme)
                                                                 @if ($programme->id == $user->programme)

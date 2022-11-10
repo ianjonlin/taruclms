@@ -47,8 +47,8 @@
                             <div class="mb-4">
                                 <form method='POST' action='{{ route('addLecturer') }}'>
                                     @csrf
-                                    <div class="row ms-3">
-                                        <div class="col-10">
+                                    <div class="row ms-3 me-6">
+                                        <div class="col-8">
                                             <label class="form-label">Add Lecturer</label>
                                             <select class="form-select border border-2 p-2" name="lecturer_id" required>
                                                 <option disabled selected value>-- select an option --</option>
@@ -80,26 +80,26 @@
                                             </select>
                                             <input type="hidden" name="course_id" value="{{ $course->id }}">
                                         </div>
-                                        <div class="col-2 mt-2">
+                                        <div class="col-4 mt-2 text-end">
                                             <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Add
                                                 Lecturer</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="table-responsive p-0">
+                            <div class="table-responsive p-0 mx-3">
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Lecturer ID
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                                ID
                                             </th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                 Name
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -114,13 +114,13 @@
                                         @foreach ($assigned_lecturers as $assigned_lecturer)
                                             <tr>
                                                 <td>
-                                                    <div class="align-middle text-sm">
+                                                    <div class="align-middle text-sm ps-3">
                                                         <h6 class="mb-0 text-sm">{{ $assigned_lecturer->user_id }}</h6>
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-sm">
+                                                <td class="align-middle">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $assigned_lecturer->name }}</span>
+                                                        class="text-secondary text-sm font-weight-bold">{{ $assigned_lecturer->name }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <form class="d-inline" method="POST"
@@ -137,13 +137,13 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{-- <div class="d-flex flex-row-reverse">
+                                <div class="d-flex flex-row-reverse">
                                     @if ($assigned_lecturers->hasPages())
                                         <div class="pagination-wrapper">
                                             {{ $assigned_lecturers->links() }}
                                         </div>
                                     @endif
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>

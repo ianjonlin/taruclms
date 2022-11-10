@@ -83,7 +83,7 @@ class CourseController extends Controller
             ->join('users', 'lecturer_id', '=', 'users.id')
             ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
             ->where('course_assigned.course_id', '=', $course->id)
-            ->get();
+            ->paginate(5);
         $lecturers = DB::table('users')->where('role', '=', 'Lecturer')->get();
         return view('pages.admin.course.lecturers', ['course' => $course, 'assigned_lecturers' => $assigned_lecturers, 'lecturers' => $lecturers]);
     }

@@ -9,13 +9,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
-                        <div class="card-header pb-0 p-3">
+                        <div class="card-header pb-0 p-3 px-2">
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
                                     <h3 class="p-4">Manage Course</h3>
                                     <div class="me-3">
                                         <a class="btn bg-gradient-dark mb-0" href="{{ route('course.create') }}">
-                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Course</a>
+                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Course</a>
                                     </div>
                                 </div>
                             </div>
@@ -53,23 +53,23 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 @sortablelink('id')
                                             </th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('code')</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                 @sortablelink('title')</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Course Coordinator</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Assigned Lecturers</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -96,16 +96,20 @@
 
                                                     </div>
                                                 </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $course->title }}</p>
+                                                <td class="align-middle text-sm">
+                                                    <p class="text-sm text-secondary mb-0">{{ $course->title }}</p>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    @foreach ($users as $user)
-                                                        @if ($user->id == $course->cc_id)
-                                                            <p class="text-xs text-secondary mb-0">
-                                                                {{ $user->user_id }}&nbsp;{{ $user->name }}</p>
-                                                        @endif
-                                                    @endforeach
+                                                    @if ($course->cc_id != '')
+                                                        @foreach ($users as $user)
+                                                            @if ($user->id == $course->cc_id)
+                                                                <p class="text-sm text-secondary mb-0">
+                                                                    {{ $user->user_id }}&nbsp;{{ $user->name }}</p>
+                                                            @endif
+                                                        @endforeach
+                                                    @else
+                                                        <p class="text-sm text-secondary mb-0">-</p>
+                                                    @endif
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <a rel="tooltip" class="btn btn-info btn-link"
