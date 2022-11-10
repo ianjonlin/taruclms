@@ -48,7 +48,50 @@
                                     @endif
                                 </div>
                             @endif
+
+                            <div class="border border-black border-2 rounded mx-4 p-3 mb-5">
+                                <form method='get' class="mx-3" id="searchForm" action='{{ route('user.index') }}'>
+                                    <div class="row justify-content-center">
+                                        <div class="mb-3">
+                                            <label class="form-label">Search by User ID or Name or Email</label>
+                                            <input type="text" class="form-control border border-2 p-2"
+                                                name="keyword">
+                                        </div>
+
+                                        <div class="mb-3 col-md-4">
+                                            <label class="form-label">Search by Role</label>
+                                            <br>
+                                            <select class="form-select border border-2 p-2" id="role"
+                                                name="role" onchange="disableProgramme(this)">
+                                                <option disabled selected value>-- Select an option --</option>
+                                                <option value="Student">Student</option>
+                                                <option value="Lecturer">Lecturer</option>
+                                                <option value="Admin">Admin</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3 col-md-4">
+                                            <label class="form-label">Search by Programme</label>
+                                            <select class="form-select border border-2 p-2" id="programme"
+                                                name="programme">
+                                                <option disabled selected value>-- Select an option --</option>
+                                                @foreach ($programmes as $programme)
+                                                    <option value="{{ $programme->id }}">{{ $programme->code }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3 col-md-4 text-end pt-2">
+                                            <input type="reset" class="btn bg-gradient-secondary my-4 mb-2 me-2">
+                                            <button type="submit"
+                                                class="btn bg-gradient-primary my-4 mb-2">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
                             <div class="table-responsive p-0">
+                                <p class="px-4">Total records - {{ $users->count() }} user(s)</p>
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>
@@ -139,13 +182,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="d-flex flex-row-reverse">
-                                    @if ($users->hasPages())
-                                        <div class="pagination-wrapper">
-                                            {{ $users->links() }}
-                                        </div>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,3 +191,14 @@
         <x-footers.auth></x-footers.auth>
     </main>
 </x-layout>
+
+<script>
+    function disableProgramme(role) {
+        if (role.value == "Lecturer" || role.value == "Admin") {
+            document.getElementById("programme").selectedIndex = "0";
+            document.getElementById("programme").setAttribute("disabled", "");
+        } else {
+            document.getElementById("programme").removeAttribute("disabled");
+        }
+    }
+</script>
