@@ -121,13 +121,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="d-flex flex-row-reverse">
-                                    @if ($keywords->hasPages())
-                                        <div class="pagination-wrapper">
-                                            {{ $keywords->links() }}
-                                        </div>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>

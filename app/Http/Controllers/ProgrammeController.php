@@ -26,7 +26,7 @@ class ProgrammeController extends Controller
      */
     public function index()
     {
-        $programmes = Programme::sortable()->paginate(5);
+        $programmes = Programme::sortable()->get();
         return view('pages.admin.programme.index', ['programmes' => $programmes]);
     }
 

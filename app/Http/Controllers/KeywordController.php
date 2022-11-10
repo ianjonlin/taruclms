@@ -26,7 +26,7 @@ class KeywordController extends Controller
      */
     public function index()
     {
-        $keywords = Keyword::sortable()->paginate(5);
+        $keywords = Keyword::sortable()->get();
         $users = DB::table('users')->get();
         return view('pages.admin.keyword.index', ['keywords' => $keywords, 'users' => $users]);
     }

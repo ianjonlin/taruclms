@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +26,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::sortable()->paginate(5);
+        $courses = Course::sortable()->get();
         $users = DB::table('users')->get();
         return view('pages.admin.course.index', ['courses' => $courses, 'users' => $users]);
     }
@@ -83,7 +82,7 @@ class CourseController extends Controller
             ->join('users', 'lecturer_id', '=', 'users.id')
             ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
             ->where('course_assigned.course_id', '=', $course->id)
-            ->paginate(5);
+            ->get();
         $lecturers = DB::table('users')->where('role', '=', 'Lecturer')->get();
         return view('pages.admin.course.lecturers', ['course' => $course, 'assigned_lecturers' => $assigned_lecturers, 'lecturers' => $lecturers]);
     }

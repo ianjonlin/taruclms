@@ -134,13 +134,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="d-flex flex-row-reverse">
-                                    @if ($programmes->hasPages())
-                                        <div class="pagination-wrapper">
-                                            {{ $programmes->links() }}
-                                        </div>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>
