@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +79,13 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        $assigned_lecturers = DB::table('course_assigned')
+            ->join('users', 'lecturer_id', '=', 'users.id')
+            ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
+            ->where('course_assigned.course_id', '=', $course->id)
+            ->get();
+        $lecturers = DB::table('users')->where('role', '=', 'Lecturer')->get();
+        return view('pages.admin.course.lecturers', ['course' => $course, 'assigned_lecturers' => $assigned_lecturers, 'lecturers' => $lecturers]);
     }
 
     /**
@@ -133,5 +140,51 @@ class CourseController extends Controller
             return back()->with('success', 'Course deleted successfully!');
         }
         return back()->with('error', "Course cannot not deleted.");
+    }
+
+    /**
+     * Add Lecturer
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addLecturer(Request $request)
+    {
+        $request->validate([
+            'lecturer_id' => 'required'
+        ]);
+
+        $status = DB::table('course_assigned')->insert([
+            'lecturer_id' => $request->lecturer_id,
+            'course_id' => $request->course_id
+        ]);
+
+        if ($status) {
+            return back()->with('success', 'Lecturer added successfully!');
+        } else {
+            return back()->with('error', 'Lecturer cannot be added.');
+        }
+    }
+
+    /**
+     * Remove Lecturer
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteLecturer(Request $request)
+    {
+        $status = DB::table('course_assigned')
+            ->where([
+                ['lecturer_id', '=', $request->lecturer_id],
+                ['course_id', '=', $request->course_id]
+            ])
+            ->delete();
+
+        if ($status) {
+            return back()->with('success', 'Lecturer deleted successfully!');
+        } else {
+            return back()->with('error', 'Lecturer cannot be deleted.');
+        }
     }
 }

@@ -43,7 +43,7 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::post('reset-password', [SessionsController::class, 'update'])->middleware('guest')->name('password.update');
 
 
-// Nav Bar
+// Authenticated Users Nav Bar
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -55,7 +55,6 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('changePassword');
     Route::post('changePassword', [UserController::class, 'changePassword'])->name('changePassword');
 
-
     // Resource
     Route::resources([
         'user' => UserController::class,
@@ -64,6 +63,11 @@ Route::group(['middleware' => 'auth'], function () {
         'keyword' => KeywordController::class,
     ]);
 
+    // assigned_course
+    Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');
+    Route::post('deleteLecturer', [CourseController::class, 'deleteLecturer'])->name('deleteLecturer');
+
+    // to be removed - reference templates
     Route::get('dashboard', function () {
         return view('pages.index');
     })->name('dashboard');

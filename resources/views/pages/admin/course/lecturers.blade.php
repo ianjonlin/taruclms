@@ -3,7 +3,7 @@
     <x-navbars.sidebar activePage="course.index"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Manage Course"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Manage Course / {{ $course->code }} / Assigned Lecturers"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="row">
@@ -12,11 +12,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
-                                    <h3 class="p-4">Manage Course</h3>
-                                    <div class="me-3">
-                                        <a class="btn bg-gradient-dark mb-0" href="{{ route('course.create') }}">
-                                            <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Course</a>
-                                    </div>
+                                    <h3 class="p-4">Assigned Lecturers</h3>
                                 </div>
                             </div>
                         </div>
@@ -48,88 +44,91 @@
                                     @endif
                                 </div>
                             @endif
+                            <div class="mb-4">
+                                <form method='POST' action='{{ route('addLecturer') }}'>
+                                    @csrf
+                                    <div class="row ms-3">
+                                        <div class="col-10">
+                                            <label class="form-label">Add Lecturer</label>
+                                            <select class="form-select border border-2 p-2" name="lecturer_id" required>
+                                                <option disabled selected value>-- select an option --</option>
+
+                                                @if ($assigned_lecturers->isNotEmpty())
+                                                    @foreach ($assigned_lecturers as $assigned_lecturer)
+                                                        {{ $al_ids[] = $assigned_lecturer->id }}
+                                                    @endforeach
+
+                                                    @foreach ($lecturers as $lecturer)
+                                                        @if ($lecturer->id != $course->cc_id)
+                                                            @if (!in_array($lecturer->id, $al_ids))
+                                                                <option value="{{ $lecturer->id }}">
+                                                                    {{ $lecturer->user_id }}&nbsp;{{ $lecturer->name }}
+                                                                </option>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($lecturers as $lecturer)
+                                                        @if ($lecturer->id != $course->cc_id)
+                                                            <option value="{{ $lecturer->id }}">
+                                                                {{ $lecturer->user_id }}&nbsp;{{ $lecturer->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+
+                                            </select>
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                        </div>
+                                        <div class="col-2 mt-2">
+                                            <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Add
+                                                Lecturer</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="table-responsive p-0">
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                @sortablelink('id')
+                                                Lecturer ID
                                             </th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                @sortablelink('code')</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                @sortablelink('title')</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Course Coordinator</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Assigned Lecturers</th>
+                                                Name
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($courses->count() == 0)
+                                        @if ($assigned_lecturers->count() == 0)
                                             <tr>
-                                                <td colspan="6" class="text-center">No course records to display!
-                                                </td>
+                                                <td colspan="3" class="text-center">No lecturers are assigned to this
+                                                    course yet!</td>
                                             </tr>
                                         @endif
 
-                                        @foreach ($courses as $course)
+                                        @foreach ($assigned_lecturers as $assigned_lecturer)
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex px-3 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm text-center">{{ $course->id }}</p>
-                                                        </div>
+                                                    <div class="align-middle text-sm">
+                                                        <h6 class="mb-0 text-sm">{{ $assigned_lecturer->user_id }}</h6>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">{{ $course->code }}</h6>
-
-                                                    </div>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-xs text-secondary mb-0">{{ $course->title }}</p>
+                                                <td class="align-middle text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $assigned_lecturer->name }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    @foreach ($users as $user)
-                                                        @if ($user->id == $course->cc_id)
-                                                            <p class="text-xs text-secondary mb-0">
-                                                                {{ $user->user_id }}&nbsp;{{ $user->name }}</p>
-                                                        @endif
-                                                    @endforeach
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a rel="tooltip" class="btn btn-info btn-link"
-                                                        href=" {{ route('course.show', ['course' => $course]) }}"
-                                                        data-original-title="" title="">
-                                                        <i class="material-icons">remove_red_eye</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a rel="tooltip" class="btn btn-success btn-link"
-                                                        href=" {{ route('course.edit', ['course' => $course]) }}"
-                                                        data-original-title="" title="">
-                                                        <i class="material-icons">edit</i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-
                                                     <form class="d-inline" method="POST"
-                                                        action="{{ route('course.destroy', ['course' => $course]) }}">
+                                                        action="{{ route('deleteLecturer', ['lecturer_id' => $assigned_lecturer->id, 'course_id' => $course->id]) }}">
                                                         @csrf
-                                                        @method('delete')
                                                         <button type="submit" class="btn btn-danger btn-link"
                                                             data-original-title="" title=""
-                                                            onclick="return confirm('Confirm to delete course {{ $course->code }} - {{ $course->title }} ?') ?? this.parentNode.submit();"></a>
+                                                            onclick="return confirm('Confirm to delete lecturer {{ $assigned_lecturer->user_id }} {{ $assigned_lecturer->name }}?') ?? this.parentNode.submit();"></a>
                                                             <i class="material-icons">delete</i>
                                                         </button>
                                                     </form>
@@ -138,13 +137,13 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="d-flex flex-row-reverse">
-                                    @if ($courses->hasPages())
+                                {{-- <div class="d-flex flex-row-reverse">
+                                    @if ($assigned_lecturers->hasPages())
                                         <div class="pagination-wrapper">
-                                            {{ $courses->links() }}
+                                            {{ $assigned_lecturers->links() }}
                                         </div>
                                     @endif
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
