@@ -49,7 +49,7 @@
                                 </div>
                             @endif
 
-                            <div class="border border-black border-2 rounded mx-4 p-3 mb-5">
+                            <div class="border border-black border-2 rounded mx-4 p-3 mb-4">
                                 <form method='get' class="mx-3" id="searchForm" action='{{ route('user.index') }}'>
                                     <div class="row justify-content-center">
                                         <div class="mb-3">
@@ -91,7 +91,9 @@
                             </div>
 
                             <div class="table-responsive p-0">
-                                <p class="px-4">Total records - {{ $users->count() }} user(s)</p>
+                                <p class="px-4 fw-normal text-end mb-0">
+                                    Total records - <b>{{ $users->count() }}</b> user(s)
+                                </p>
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>

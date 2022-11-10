@@ -48,27 +48,27 @@ class UserController extends Controller
                 ->where('user_id', 'LIKE', "%{$request->keyword}%")
                 ->orWhere('name', 'LIKE', "%{$request->keyword}%")
                 ->orWhere('email', 'LIKE', "%{$request->keyword}%")
-                ->orwhere('role', '=', $request->role)
+                ->where('role', '=', $request->role)
                 ->get();
         } else if ($request->has('keyword') && $request->keyword != "" && $request->has('programme')) {
             $users = User::sortable()
                 ->where('user_id', 'LIKE', "%{$request->keyword}%")
                 ->orWhere('name', 'LIKE', "%{$request->keyword}%")
                 ->orWhere('email', 'LIKE', "%{$request->keyword}%")
-                ->orwhere('programme', '=', $request->programme)
+                ->where('programme', '=', $request->programme)
                 ->get();
         } else if ($request->has('role') && $request->has('programme')) {
             $users = User::sortable()
                 ->where('role', '=', $request->role)
-                ->orwhere('programme', '=', $request->programme)
+                ->where('programme', '=', $request->programme)
                 ->get();
         } else if ($request->has('keyword') && $request->has('role') && $request->has('programme')) {
             $users = User::sortable()
                 ->where('user_id', 'LIKE', "%{$request->keyword}%")
                 ->orWhere('name', 'LIKE', "%{$request->keyword}%")
                 ->orWhere('email', 'LIKE', "%{$request->keyword}%")
-                ->orwhere('role', '=', $request->role)
-                ->orwhere('programme', '=', $request->programme)
+                ->where('role', '=', $request->role)
+                ->where('programme', '=', $request->programme)
                 ->get();
         } else {
             $users = User::sortable()->get();
