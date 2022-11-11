@@ -52,13 +52,13 @@
                             <div class="border border-black border-2 rounded mx-4 p-3 mb-4">
                                 <form method='get' class="mx-3" action='{{ route('keyword.index') }}'>
                                     <div class="row justify-content-center">
-                                        <div class="mb-3 col-sm-8">
+                                        <div class="mb-3 col-sm-9">
                                             <label class="form-label">Search by Keyword Value</label>
                                             <input type="text" class="form-control border border-2 p-2"
                                                 name="value">
                                         </div>
 
-                                        <div class="mb-3 col-sm-4 text-end pt-2">
+                                        <div class="mb-3 col-sm-3 text-end pt-2">
                                             <input type="reset" class="btn bg-gradient-secondary my-4 mb-2 me-2">
                                             <button type="submit"
                                                 class="btn bg-gradient-primary my-4 mb-2">Search</button>
