@@ -49,7 +49,7 @@
                                 <div class="mb-3 col-md-12">
                                     @if (!$programme_structure_y1_s1->isEmpty())
                                         <div class="mb-3">
-                                            <label class="form-label">Programme Structure</label>
+                                            <label class="form-label">Structure</label>
                                             <div class="form-control border border-2">
 
                                                 <div class="container p-1">
@@ -65,9 +65,9 @@
                                                             </ul>
                                                         </div>
 
-                                                        @if (!$programme_structure_y1_s2->isEmpty())
-                                                            <div class="col-6 col-md-4">
-                                                                <b>Year 1 Semester 2</b>
+                                                        <div class="col-6 col-md-4">
+                                                            <b>Year 1 Semester 2</b>
+                                                            @if (!$programme_structure_y1_s2->isEmpty())
                                                                 <ul class="text-sm list-group pt-2">
                                                                     @foreach ($programme_structure_y1_s2 as $p)
                                                                         <li class="list-group-item p-0 border-0">
@@ -75,15 +75,12 @@
                                                                         </li>
                                                                     @endforeach
                                                                 </ul>
-                                                            </div>
-                                                        @else
-                                                            <div class="col-6 col-md-4">
-                                                            </div>
-                                                        @endif
+                                                            @endif
+                                                        </div>
 
-                                                        @if (!$programme_structure_y1_s3->isEmpty())
-                                                            <div class="col-6 col-md-4">
-                                                                <b>Year 1 Semester 3</b>
+                                                        <div class="col-6 col-md-4">
+                                                            <b>Year 1 Semester 3</b>
+                                                            @if (!$programme_structure_y1_s3->isEmpty())
                                                                 <ul class="text-sm list-group pt-2">
                                                                     @foreach ($programme_structure_y1_s3 as $p)
                                                                         <li class="list-group-item p-0 border-0">
@@ -91,11 +88,8 @@
                                                                         </li>
                                                                     @endforeach
                                                                 </ul>
-                                                            </div>
-                                                        @else
-                                                            <div class="col-6 col-md-4">
-                                                            </div>
-                                                        @endif
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -114,9 +108,9 @@
                                                                 </ul>
                                                             </div>
 
-                                                            @if (!$programme_structure_y2_s2->isEmpty())
-                                                                <div class="col-6 col-md-4">
-                                                                    <b>Year 2 Semester 2</b>
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 2 Semester 2</b>
+                                                                @if (!$programme_structure_y2_s2->isEmpty())
                                                                     <ul class="text-sm list-group pt-2">
                                                                         @foreach ($programme_structure_y2_s2 as $p)
                                                                             <li class="list-group-item p-0 border-0">
@@ -124,15 +118,12 @@
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>
-                                                                </div>
-                                                            @else
-                                                                <div class="col-6 col-md-4">
-                                                                </div>
-                                                            @endif
+                                                                @endif
+                                                            </div>
 
-                                                            @if (!$programme_structure_y2_s3->isEmpty())
-                                                                <div class="col-6 col-md-4">
-                                                                    <b>Year 2 Semester 3</b>
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 2 Semester 3</b>
+                                                                @if (!$programme_structure_y2_s3->isEmpty())
                                                                     <ul class="text-sm list-group pt-2">
                                                                         @foreach ($programme_structure_y2_s3 as $p)
                                                                             <li class="list-group-item p-0 border-0">
@@ -140,11 +131,8 @@
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>
-                                                                </div>
-                                                            @else
-                                                                <div class="col-6 col-md-4">
-                                                                </div>
-                                                            @endif
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 @endif
@@ -163,9 +151,9 @@
                                                                 </ul>
                                                             </div>
 
-                                                            @if (!$programme_structure_y3_s2->isEmpty())
-                                                                <div class="col-6 col-md-4">
-                                                                    <b>Year 3 Semester 2</b>
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 3 Semester 2</b>
+                                                                @if (!$programme_structure_y3_s2->isEmpty())
                                                                     <ul class="text-sm list-group pt-2">
                                                                         @foreach ($programme_structure_y3_s2 as $p)
                                                                             <li class="list-group-item p-0 border-0">
@@ -173,15 +161,12 @@
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>
-                                                                </div>
-                                                            @else
-                                                                <div class="col-6 col-md-4">
-                                                                </div>
-                                                            @endif
+                                                                @endif
+                                                            </div>
 
-                                                            @if (!$programme_structure_y3_s3->isEmpty())
-                                                                <div class="col-6 col-md-4">
-                                                                    <b>Year 3 Semester 3</b>
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 3 Semester 3</b>
+                                                                @if (!$programme_structure_y3_s3->isEmpty())
                                                                     <ul class="text-sm list-group pt-2">
                                                                         @foreach ($programme_structure_y3_s3 as $p)
                                                                             <li class="list-group-item p-0 border-0">
@@ -189,11 +174,8 @@
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>
-                                                                </div>
-                                                            @else
-                                                                <div class="col-6 col-md-4">
-                                                                </div>
-                                                            @endif
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 @endif
@@ -212,9 +194,9 @@
                                                                 </ul>
                                                             </div>
 
-                                                            @if (!$programme_structure_y4_s2->isEmpty())
-                                                                <div class="col-6 col-md-4">
-                                                                    <b>Year 4 Semester 2</b>
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 4 Semester 2</b>
+                                                                @if (!$programme_structure_y3_s3->isEmpty())
                                                                     <ul class="text-sm list-group pt-2">
                                                                         @foreach ($programme_structure_y4_s2 as $p)
                                                                             <li class="list-group-item p-0 border-0">
@@ -222,15 +204,12 @@
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>
-                                                                </div>
-                                                            @else
-                                                                <div class="col-6 col-md-4">
-                                                                </div>
-                                                            @endif
+                                                                @endif
+                                                            </div>
 
-                                                            @if (!$programme_structure_y4_s3->isEmpty())
-                                                                <div class="col-6 col-md-4">
-                                                                    <b>Year 4 Semester 3</b>
+                                                            <div class="col-6 col-md-4">
+                                                                <b>Year 4 Semester 3</b>
+                                                                @if (!$programme_structure_y3_s3->isEmpty())
                                                                     <ul class="text-sm list-group pt-2">
                                                                         @foreach ($programme_structure_y4_s3 as $p)
                                                                             <li class="list-group-item p-0 border-0">
@@ -238,12 +217,8 @@
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>
-                                                                </div>
-                                                            @else
-                                                                <div class="col-6 col-md-4">
-                                                                </div>
-                                                            @endif
-
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 @endif

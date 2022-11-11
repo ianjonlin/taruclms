@@ -91,8 +91,8 @@
                             </div>
 
                             <div class="table-responsive p-0">
-                                <p class="px-4 fw-normal text-end mb-0">
-                                    Total records - <b>{{ $users->count() }}</b> user(s)
+                                <p class="px-4 fw-normal text-end mb-3">
+                                    Total records - <b><u>{{ $users->count() }}</u></b> user(s)
                                 </p>
                                 <table class="table align-items-center mb-0">
                                     <thead>

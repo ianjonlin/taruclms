@@ -66,6 +66,425 @@
                                         required value="{{ $programme->title }}">
                                 </div>
 
+                                <div class="mb-3">
+                                    <label class="form-label">Structure</label>
+                                    <div class="container ps-1">
+                                        <div class="row">
+                                            <div class="col-6 col-md-4">
+                                                <b>Year 1 Sem 1</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y1s1c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y1_s1[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y1_s1[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y1_s1[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y1_s1[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 1 Sem 2</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y1s2c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y1_s2[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y1_s2[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y1_s2[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y1_s2[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 1 Sem 3</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y1s3c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y1_s3[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y1_s3[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y1_s3[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y1_s3[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-6 col-md-4">
+                                                <b>Year 2 Sem 1</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y2s1c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y2_s1[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y2_s1[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y2_s1[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y2_s1[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 2 Sem 2</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y2s2c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y2_s2[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y2_s2[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y2_s2[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y2_s2[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 2 Sem 3</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y2s3c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y2_s3[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y2_s3[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y2_s3[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y2_s3[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-6 col-md-4">
+                                                <b>Year 3 Sem 1</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y3s1c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y3_s1[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y3_s1[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y3_s1[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y3_s1[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 3 Sem 2</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y3s2c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y3_s2[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y3_s2[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y3_s2[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y3_s2[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 3 Sem 3</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y3s3c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y3_s3[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y3_s3[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y3_s3[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y3_s3[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-6 col-md-4">
+                                                <b>Year 4 Sem 1</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y4s1c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y4_s1[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y4_s1[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y4_s1[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y4_s1[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 4 Sem 2</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y4s2c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y4_s2[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y4_s2[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y4_s2[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y4_s2[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                            <div class="col-6 col-md-4 mt-0">
+                                                <b>Year 4 Sem 3</b>
+                                                @for ($i = 0; $i <= 5; $i++)
+                                                    <select class="form-select border border-2 p-2 mb-2"
+                                                        name="y4s3c{{ $i + 1 }}">
+                                                        @if ($programme_structure_y4_s3[$i] != null)
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y4_s3[$i]->id == $course->id)
+                                                                    <option value="{{ $course->id }}" selected>
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                    @break
+                                                                @endif
+                                                            @endforeach
+
+                                                            @foreach ($courses as $course)
+                                                                @if ($programme_structure_y4_s3[$i]->id != $course->id)
+                                                                    <option value="{{ $course->id }}">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        @elseif ($programme_structure_y4_s3[$i] == null)
+                                                            <option disabled selected value></option>
+                                                            @foreach ($courses as $course)
+                                                                <option value="{{ $course->id }}">
+                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="d-flex flex-row-reverse">
                                     <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('programme.index') }}"
                                         class="text-primary text-gradient font-weight-bold">Go Back</a>

@@ -13,6 +13,10 @@
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
                                     <h3 class="p-4">Assigned Lecturers</h3>
+                                    <div class="me-3">
+                                        <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('course.index') }}"
+                                            class="text-primary text-gradient font-weight-bold">Go Back</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
