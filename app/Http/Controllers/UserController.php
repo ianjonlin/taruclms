@@ -76,7 +76,7 @@ class UserController extends Controller
 
         $programmes = DB::table('programme')->get();
 
-        return view('pages.admin.user.index', ['request' => $request, 'users' => $users, 'programmes' => $programmes]);
+        return view('pages.admin.user.index', ['users' => $users, 'programmes' => $programmes]);
     }
 
     /**

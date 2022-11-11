@@ -36,8 +36,7 @@
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Type</label>
-                                    <select class="form-select border border-2 p-2" id="type" name="type"
-                                        required onchange="programmeStructure()">
+                                    <select class="form-select border border-2 p-2" name="type" required>
                                         <option disabled selected value>-- Select an option --</option>
                                         @foreach ($types as $type)
                                             <option value="{{ $type }}">{{ $type }}</option>

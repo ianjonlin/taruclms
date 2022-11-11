@@ -22,12 +22,51 @@ class ProgrammeController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programmes = Programme::sortable()->get();
-        return view('pages.admin.programme.index', ['programmes' => $programmes]);
+        if ($request->has('code') && $request->code != "") {
+            $programmes = Programme::sortable()
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->get();
+        } else if ($request->has('title') && $request->title != "") {
+            $programmes = Programme::sortable()
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->get();
+        } else if ($request->has('type')) {
+            $programmes = Programme::sortable()
+                ->where('type', '=', $request->type)
+                ->get();
+        } else if ($request->has('code') && $request->code != "" && $request->has('title') && $request->title != "") {
+            $programmes = Programme::sortable()
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->get();
+        } else if ($request->has('code') && $request->code != "" && $request->has('type')) {
+            $programmes = Programme::sortable()
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->where('type', '=', $request->type)
+                ->get();
+        } else if ($request->has('title') && $request->title != "" && $request->has('type')) {
+            $programmes = Programme::sortable()
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->where('type', '=', $request->type)
+                ->get();
+        } else if ($request->has('code') && $request->code != "" && $request->has('title') && $request->title != "" && $request->has('type')) {
+            $programmes = Programme::sortable()
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->where('type', '=', $request->type)
+                ->get();
+        } else {
+            $programmes = Programme::sortable()->get();
+        }
+
+        $types = array('Foundation Programme', 'Diploma', 'Bachelor Degree', 'Master', 'Doctor of Philosophy');
+
+        return view('pages.admin.programme.index', ['programmes' => $programmes, 'types' => $types]);
     }
 
     /**

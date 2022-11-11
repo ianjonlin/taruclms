@@ -22,11 +22,19 @@ class KeywordController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $keywords = Keyword::sortable()->get();
+        if ($request->has('value') && $request->value != "") {
+            $keywords = Keyword::sortable()
+                ->where('value', 'LIKE', "%{$request->value}%")
+                ->get();
+        } else {
+            $keywords = Keyword::sortable()->get();
+        }
+
         $users = DB::table('users')->get();
         return view('pages.admin.keyword.index', ['keywords' => $keywords, 'users' => $users]);
     }

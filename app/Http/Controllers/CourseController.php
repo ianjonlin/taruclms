@@ -22,11 +22,56 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::sortable()->get();
+        if ($request->has('title') && $request->title != "") {
+            $courses = Course::sortable()
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->get();
+        } else if ($request->has('code') && $request->code != "") {
+            $courses = Course::sortable()
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->get();
+        } else if ($request->has('cc') && $request->cc != "") {
+            $courses = Course::sortable()
+                ->join('users', 'cc_id', '=', 'users.id')
+                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
+                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
+                ->get();
+        } else if ($request->has('title') && $request->title != "" && $request->has('code') && $request->code != "") {
+            $courses = Course::sortable()
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->get();
+        } else if ($request->has('title') && $request->title != "" && $request->has('cc') && $request->cc != "") {
+            $courses = Course::sortable()
+                ->join('users', 'cc_id', '=', 'users.id')
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
+                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
+                ->get();
+        } else if ($request->has('code') && $request->code != "" && $request->has('cc') && $request->cc != "") {
+            $courses = Course::sortable()
+                ->join('users', 'cc_id', '=', 'users.id')
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
+                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
+                ->get();
+        } else if ($request->has('title') && $request->title != "" && $request->has('code') && $request->code != "" && $request->has('cc') && $request->cc != "") {
+            $courses = Course::sortable()
+                ->join('users', 'cc_id', '=', 'users.id')
+                ->where('title', 'LIKE', "%{$request->title}%")
+                ->where('code', 'LIKE', "%{$request->code}%")
+                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
+                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
+                ->get();
+        } else {
+            $courses = Course::sortable()->get();
+        }
+
         $users = DB::table('users')->get();
         return view('pages.admin.course.index', ['courses' => $courses, 'users' => $users]);
     }

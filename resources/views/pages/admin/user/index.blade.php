@@ -50,7 +50,7 @@
                             @endif
 
                             <div class="border border-black border-2 rounded mx-4 p-3 mb-4">
-                                <form method='get' class="mx-3" id="searchForm" action='{{ route('user.index') }}'>
+                                <form method='get' class="mx-3" action='{{ route('user.index') }}'>
                                     <div class="row justify-content-center">
                                         <div class="mb-3">
                                             <label class="form-label">Search by User ID or Name or Email</label>
