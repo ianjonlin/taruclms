@@ -48,50 +48,82 @@
                                     @endif
                                 </div>
                             @endif
-                            <div class="mb-4">
-                                <form method='POST' action='{{ route('addLecturer') }}'>
-                                    @csrf
-                                    <div class="row ms-3 me-6">
-                                        <div class="col-8">
-                                            <label class="form-label">Add Lecturer</label>
-                                            <select class="form-select border border-2 p-2" name="lecturer_id" required>
-                                                <option disabled selected value>-- select an option --</option>
 
-                                                @if ($assigned_lecturers->isNotEmpty())
-                                                    @foreach ($assigned_lecturers as $assigned_lecturer)
-                                                        {{ $al_ids[] = $assigned_lecturer->id }}
-                                                    @endforeach
+                            <div class="container mb-2">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-4 border border-black border-2 rounded mx-2 p-3">
+                                            <form method='POST' action='{{ route('addLecturer') }}'>
+                                                @csrf
+                                                <div>
+                                                    <label class="form-label font-weight-bold">Add Lecturer</label>
+                                                    <select class="form-select border border-2 p-2" name="lecturer_id"
+                                                        required>
+                                                        <option disabled selected value>-- select an option --</option>
 
-                                                    @foreach ($lecturers as $lecturer)
-                                                        @if ($lecturer->id != $course->cc_id)
-                                                            @if (!in_array($lecturer->id, $al_ids))
-                                                                <option value="{{ $lecturer->id }}">
-                                                                    {{ $lecturer->user_id }}&nbsp;{{ $lecturer->name }}
-                                                                </option>
-                                                            @endif
+                                                        @if ($assigned_lecturers->isNotEmpty())
+                                                            @foreach ($assigned_lecturers as $assigned_lecturer)
+                                                                {{ $al_ids[] = $assigned_lecturer->id }}
+                                                            @endforeach
+
+                                                            @foreach ($lecturers as $lecturer)
+                                                                @if ($lecturer->id != $course->cc_id)
+                                                                    @if (!in_array($lecturer->id, $al_ids))
+                                                                        <option value="{{ $lecturer->id }}">
+                                                                            {{ $lecturer->user_id }}&nbsp;{{ $lecturer->name }}
+                                                                        </option>
+                                                                    @endif
+                                                                @endif
+                                                            @endforeach
+                                                        @else
+                                                            @foreach ($lecturers as $lecturer)
+                                                                @if ($lecturer->id != $course->cc_id)
+                                                                    <option value="{{ $lecturer->id }}">
+                                                                        {{ $lecturer->user_id }}&nbsp;{{ $lecturer->name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
                                                         @endif
-                                                    @endforeach
-                                                @else
-                                                    @foreach ($lecturers as $lecturer)
-                                                        @if ($lecturer->id != $course->cc_id)
-                                                            <option value="{{ $lecturer->id }}">
-                                                                {{ $lecturer->user_id }}&nbsp;{{ $lecturer->name }}
-                                                            </option>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
 
-                                            </select>
-                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                        </div>
-                                        <div class="col-4 mt-2 text-end">
-                                            <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Add
-                                                Lecturer</button>
+                                                    </select>
+                                                    <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit"
+                                                        class="btn bg-gradient-primary my-4 mb-2">Add Lecturer</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="col-sm-7">
+                                        <div class="border border-black border-2 rounded p-3">
+                                            <form method='get' action='{{ route('course.show', ['course' => $course]) }}'>
+                                                <div class="row justify-content-center">
+                                                    <div>
+                                                        <label class="form-label font-weight-bold">
+                                                            Search by Lecturer ID or Name</label>
+                                                        <input type="text" class="form-control border border-2 ps-2"
+                                                            name="keyword">
+                                                    </div>
+
+                                                    <div class="text-end">
+                                                        <input type="reset"
+                                                            class="btn bg-gradient-secondary my-4 mb-2 me-2">
+                                                        <button type="submit"
+                                                            class="btn bg-gradient-primary my-4 mb-2">Search</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="table-responsive p-0 mx-3">
+
+                            <div class="table-responsive p-0 ms-3">
+                                <p class="px-4 fw-normal text-end mb-3">
+                                    Total records - <b><u>{{ $assigned_lecturers->count() }}</u></b> lecturer(s)
+                                    assigned
+                                </p>
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>

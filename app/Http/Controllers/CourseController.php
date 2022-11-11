@@ -119,15 +119,27 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Course $course
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(Course $course, Request $request)
     {
-        $assigned_lecturers = DB::table('course_assigned')
-            ->join('users', 'lecturer_id', '=', 'users.id')
-            ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
-            ->where('course_assigned.course_id', '=', $course->id)
-            ->get();
+        if ($request->has('keyword') && $request->keyword != "") {
+            $assigned_lecturers = DB::table('course_assigned')
+                ->join('users', 'lecturer_id', '=', 'users.id')
+                ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
+                ->where('course_assigned.course_id', '=', $course->id)
+                ->where('users.user_id', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('users.name', 'LIKE', "%{$request->keyword}%")
+                ->get();
+        } else {
+            $assigned_lecturers = DB::table('course_assigned')
+                ->join('users', 'lecturer_id', '=', 'users.id')
+                ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
+                ->where('course_assigned.course_id', '=', $course->id)
+                ->get();
+        }
+
         $lecturers = DB::table('users')->where('role', '=', 'Lecturer')->get();
         return view('pages.admin.course.lecturers', ['course' => $course, 'assigned_lecturers' => $assigned_lecturers, 'lecturers' => $lecturers]);
     }

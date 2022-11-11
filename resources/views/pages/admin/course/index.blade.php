@@ -65,7 +65,8 @@
                                         </div>
 
                                         <div class="mb-3 col-md-4">
-                                            <label class="form-label">Search by Course Coordinator (Lecturer_ID or Name)</label>
+                                            <label class="form-label">Search by Course Coordinator (Lecturer_ID or
+                                                Name)</label>
                                             <input type="text" class="form-control border border-2 p-2"
                                                 name="cc">
                                         </div>
