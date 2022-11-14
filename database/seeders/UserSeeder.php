@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
 
-            // Student Records
+            // Student Records - 6
             [
                 'user_id' => '21SMR10291',
                 'name' => 'Lin Yik Enn,Ian Jonathan',
@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
             ],
 
 
-            // Lecturer Records
+            // Lecturer Records - 12
             [
                 'user_id' => 'p0028',
                 'name' => 'David Chong',
@@ -107,7 +107,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('48a825b8'),
                 'programme' => null,
             ], [
-                'user_id' => 'p118',
+                'user_id' => 'p1718',
                 'name' => 'M. G. Mohanadas',
                 'email' => 'mgmohaas@tarc.edu.my',
                 'role' => 'Lecturer',
@@ -152,7 +152,7 @@ class UserSeeder extends Seeder
 
 
 
-            //Admin Records
+            //Admin Records - 5
             [
                 'user_id' => 'a1234',
                 'name' => 'Selena Wong',

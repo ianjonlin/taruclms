@@ -125,22 +125,30 @@ class CourseController extends Controller
     public function show(Course $course, Request $request)
     {
         if ($request->has('keyword') && $request->keyword != "") {
-            $assigned_lecturers = DB::table('course_assigned')
+            $assigned_lecturers = DB::table('assigned_course')
                 ->join('users', 'lecturer_id', '=', 'users.id')
                 ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
-                ->where('course_assigned.course_id', '=', $course->id)
+                ->where('assigned_course.course_id', '=', $course->id)
                 ->where('users.user_id', 'LIKE', "%{$request->keyword}%")
                 ->orWhere('users.name', 'LIKE', "%{$request->keyword}%")
                 ->get();
         } else {
-            $assigned_lecturers = DB::table('course_assigned')
+            $assigned_lecturers = DB::table('assigned_course')
                 ->join('users', 'lecturer_id', '=', 'users.id')
                 ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
-                ->where('course_assigned.course_id', '=', $course->id)
+                ->where('assigned_course.course_id', '=', $course->id)
                 ->get();
         }
 
-        $lecturers = DB::table('users')->where('role', '=', 'Lecturer')->get();
+        $lecturers = DB::table('users')
+            ->where('role', '=', 'Lecturer')
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('course')
+                    ->whereColumn('course.cc_id', 'users.id');
+            })
+            ->get();
+
         return view('pages.admin.course.lecturers', ['course' => $course, 'assigned_lecturers' => $assigned_lecturers, 'lecturers' => $lecturers]);
     }
 
@@ -210,7 +218,7 @@ class CourseController extends Controller
             'lecturer_id' => 'required'
         ]);
 
-        $status = DB::table('course_assigned')->insert([
+        $status = DB::table('assigned_course')->insert([
             'lecturer_id' => $request->lecturer_id,
             'course_id' => $request->course_id
         ]);
@@ -230,7 +238,7 @@ class CourseController extends Controller
      */
     public function deleteLecturer(Request $request)
     {
-        $status = DB::table('course_assigned')
+        $status = DB::table('assigned_course')
             ->where([
                 ['lecturer_id', '=', $request->lecturer_id],
                 ['course_id', '=', $request->course_id]

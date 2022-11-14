@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CourseSeeder::class,
             ProgrammeStructureSeeder::class,
+            AssignedCourseSeeder::class,
+            BlockedKeywordSeeder::class,
         ]);
     }
 }

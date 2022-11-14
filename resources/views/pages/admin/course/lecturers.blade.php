@@ -13,10 +13,6 @@
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
                                     <h3 class="p-4">Assigned Lecturers</h3>
-                                    <div class="me-3">
-                                        <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('course.index') }}"
-                                            class="text-primary text-gradient font-weight-bold">Go Back</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -89,15 +85,16 @@
                                                     <input type="hidden" name="course_id" value="{{ $course->id }}">
                                                 </div>
                                                 <div class="text-end">
-                                                    <button type="submit"
-                                                        class="btn bg-gradient-primary my-4 mb-2">Add Lecturer</button>
+                                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2">Add
+                                                        Lecturer</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                     <div class="col-sm-7">
                                         <div class="border border-black border-2 rounded p-3">
-                                            <form method='get' action='{{ route('course.show', ['course' => $course]) }}'>
+                                            <form method='get'
+                                                action='{{ route('course.show', ['course' => $course]) }}'>
                                                 <div class="row justify-content-center">
                                                     <div>
                                                         <label class="form-label font-weight-bold">
@@ -119,13 +116,14 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive p-0 ms-3">
-                                <p class="px-4 fw-normal text-end mb-3">
-                                    Total records - <b><u>{{ $assigned_lecturers->count() }}</u></b> lecturer(s)
-                                    assigned
-                                </p>
+                            <p class="px-4 fw-normal text-end mb-3">
+                                Total records - <b><u>{{ $assigned_lecturers->count() }}</u></b> lecturer(s)
+                                assigned
+                            </p>
+
+                            <div class="table-responsive p-0 ms-3" style="max-height: 400px;">
                                 <table class="table align-items-center mb-0">
-                                    <thead>
+                                    <thead style="position: sticky; top: 0; background: white; z-index: 10">
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
@@ -158,7 +156,7 @@
                                                     <span
                                                         class="text-secondary text-sm font-weight-bold">{{ $assigned_lecturer->name }}</span>
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center" style="z-index: 3">
                                                     <form class="d-inline" method="POST"
                                                         action="{{ route('deleteLecturer', ['lecturer_id' => $assigned_lecturer->id, 'course_id' => $course->id]) }}">
                                                         @csrf
@@ -173,6 +171,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="d-flex flex-row-reverse">
+                                <a class="btn bg-gradient-dark my-4 mb-2 mt-6 me-4" href="{{ route('course.index') }}"
+                                    class="text-primary text-gradient font-weight-bold">Go Back</a>
                             </div>
                         </div>
                     </div>

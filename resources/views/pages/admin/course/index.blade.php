@@ -80,12 +80,13 @@
                                 </form>
                             </div>
 
-                            <div class="table-responsive p-0">
-                                <p class="px-4 fw-normal text-end mb-3">
-                                    Total records - <b><u>{{ $courses->count() }}</u></b> course(s)
-                                </p>
+                            <p class="px-4 fw-normal text-end mb-3">
+                                Total records - <b><u>{{ $courses->count() }}</u></b> course(s)
+                            </p>
+
+                            <div class="table-responsive p-0" style="max-height: 400px;">
                                 <table class="table align-items-center mb-0">
-                                    <thead>
+                                    <thead style="position: sticky; top: 0; background: white; z-index: 10">
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
@@ -154,7 +155,7 @@
                                                         <div class="ripple-container"></div>
                                                     </a>
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center" style="z-index: 3">
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href=" {{ route('course.edit', ['course' => $course]) }}"
                                                         data-original-title="" title="">
