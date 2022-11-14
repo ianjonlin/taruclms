@@ -69,18 +69,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     // to be removed - reference templates
     Route::get('dashboard', function () {
-        return view('pages.index');
+        return view('pages.template.index');
     })->name('dashboard');
     Route::get('billing', function () {
-        return view('pages.billing');
+        return view('pages.template.billing');
     })->name('billing');
     Route::get('tables', function () {
-        return view('pages.tables');
+        return view('pages.template.tables');
     })->name('tables');
     Route::get('notifications', function () {
-        return view('pages.notifications');
+        return view('pages.template.notifications');
     })->name('notifications');
-    Route::get('user-management', function () {
-        return view('pages.user-management');
-    })->name('user-management');
 });

@@ -124,11 +124,6 @@ class ProgrammeStructureSeeder extends Seeder
                 'course_id' => 21,
                 'year' => 2,
                 'sem' => 2
-            ], [
-                'programme_id' => 1,
-                'course_id' => 21,
-                'year' => 2,
-                'sem' => 2
             ],
 
             [

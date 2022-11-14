@@ -38,11 +38,13 @@
 
             @if (auth()->user()->role == 'Student')
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Programme Structure</h6>
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Programme
+                        Structure</h6>
                 </li>
             @elseif (auth()->user()->role == 'Lecturer')
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Courses Assigned</h6>
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Courses
+                        Assigned</h6>
                 </li>
             @elseif (auth()->user()->role == 'Admin')
                 <li class="nav-item mt-3">

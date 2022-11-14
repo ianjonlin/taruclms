@@ -49,11 +49,11 @@
                                 <div class="mb-3 col-md-12">
                                     @if (!$programme_structure_y1_s1->isEmpty())
                                         <div class="mb-3">
-                                            <label class="form-label">Structure</label>
+                                            <label class="form-label">Programme Structure</label>
                                             <div class="form-control border border-2">
 
                                                 <div class="container p-1">
-                                                    <div class="row p-1">
+                                                    <div class="row ps-1">
                                                         <div class="col-6 col-md-4">
                                                             <b>Year 1 Semester 1</b>
                                                             <ul class="text-sm list-group pt-2">
@@ -96,7 +96,7 @@
 
                                                 @if (!$programme_structure_y2_s1->isEmpty())
                                                     <div class="container p-1 pt-3">
-                                                        <div class="row p-1">
+                                                        <div class="row ps-1">
                                                             <div class="col-6 col-md-4">
                                                                 <b>Year 2 Semester 1</b>
                                                                 <ul class="text-sm list-group pt-2">
@@ -139,7 +139,7 @@
 
                                                 @if (!$programme_structure_y3_s1->isEmpty())
                                                     <div class="container p-1 pt-4">
-                                                        <div class="row p-1">
+                                                        <div class="row ps-1">
                                                             <div class="col-6 col-md-4">
                                                                 <b>Year 3 Semester 1</b>
                                                                 <ul class="text-sm list-group pt-2">
@@ -182,7 +182,7 @@
 
                                                 @if (!$programme_structure_y4_s1->isEmpty())
                                                     <div class="container p-1 pt-4">
-                                                        <div class="row p-1">
+                                                        <div class="row ps-1">
                                                             <div class="col-6 col-md-4">
                                                                 <b>Year 4 Semester 1</b>
                                                                 <ul class="text-sm list-group pt-2">
@@ -228,8 +228,26 @@
                                 </div>
                             @elseif (auth()->user()->role == 'Lecturer')
                                 <div class="mb-3 col-md-12">
-                                    <label for="floatingTextarea2">Courses Assigned</label>
-                                    {{-- TO DO --}}
+                                    @if (!$assigned_courses->isEmpty())
+                                        <div class="mb-3">
+                                            <label class="form-label">Assigned Courses</label>
+                                            <div class="form-control border border-2">
+                                                <div class="container p-1">
+                                                    <div class="row ps-1">
+                                                        <div class="col-6 col-md-4">
+                                                            <ul class="text-sm list-group">
+                                                                @foreach ($assigned_courses as $course)
+                                                                    <li class="list-group-item p-0 border-0">
+                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             @endif
                         </div>

@@ -318,7 +318,12 @@ class UserController extends Controller
                 ]
             );
         } else if (auth()->user()->role == "Lecturer") {
-            // TO DO
+            $assigned_courses = DB::table('assigned_course')
+                ->join('course', 'course_id', '=', 'course.id')
+                ->select('course.code as code', 'course.title as title')
+                ->where('lecturer_id', '=', auth()->user()->id)
+                ->get();
+            return view('pages.profile.userProfile', ['assigned_courses' => $assigned_courses]);
         } else {
             return view('pages.profile.userProfile');
         }
