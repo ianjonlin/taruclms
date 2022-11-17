@@ -42,10 +42,23 @@
                         Structure</h6>
                 </li>
             @elseif (auth()->user()->role == 'Lecturer')
-                <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Courses
-                        Assigned</h6>
-                </li>
+                @if (!$assigned_courses->isEmpty())
+                    <li class="nav-item mt-3">
+                        <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Courses
+                            Assigned</h6>
+                    </li>
+                    @foreach ($assigned_courses as $course)
+                        <li class="nav-item">
+                            <a class="nav-link text-white">
+                                <div
+                                    class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                    <span
+                                        class="nav-link-text ms-2">{{ $course->code }}&nbsp;{{ $course->title }}</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                @endif
             @elseif (auth()->user()->role == 'Admin')
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Admin Functions

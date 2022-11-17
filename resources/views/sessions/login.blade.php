@@ -30,7 +30,7 @@
                                     <div class="input-group input-group-outline mt-3">
                                         <label class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email"
-                                            value="{{ 'wongse@tarc.edu.my' }}">
+                                            value="{{ 'davidc@tarc.edu.my' }}">
                                     </div>
                                     @error('email')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
@@ -38,7 +38,7 @@
                                     <div class="input-group input-group-outline mt-3">
                                         <label class="form-label">Password</label>
                                         <input type="password" class="form-control" name="password"
-                                            value='{{ 'Admin123!' }}'>
+                                            value='{{ 'DCrocks#99' }}'>
                                     </div>
                                     @error('password')
                                         <p class='text-danger inputerror'>{{ $message }} </p>

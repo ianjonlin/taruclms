@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +49,19 @@ Route::post('reset-password', [SessionsController::class, 'update'])->middleware
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
+
+    // View Composer
+    View::composer(['*'], function ($view) {
+        if (auth()->user()->role == "Lecturer") {
+            $assigned_courses = DB::table('assigned_course')
+            ->join('course', 'course_id', '=', 'course.id')
+            ->select('course_id as id', 'course.code as code', 'course.title as title')
+            ->where('lecturer_id', '=', auth()->user()->id)
+            ->get();
+
+            view()->share('assigned_courses', $assigned_courses);
+        }
+    });
 
     // User Profile
     Route::get('userProfile', [UserController::class, 'userProfile'])->name('userProfile');
