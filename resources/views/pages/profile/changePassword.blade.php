@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="row">
+                        <div class="row m-0">
                             <div class="alert alert-info text-white">
                                 <h6 class="text-white">Password Requirements</h6>
                                 <ul>

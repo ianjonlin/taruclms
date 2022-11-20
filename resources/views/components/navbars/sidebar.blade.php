@@ -49,7 +49,8 @@
                     </li>
                     @foreach ($assigned_courses as $course)
                         <li class="nav-item">
-                            <a class="nav-link text-white">
+                            <a class="nav-link text-white {{ $activePage == $course->code ? ' active bg-gradient-info' : '' }} "
+                                href="{{ route('viewCourse', ['courseCode' => $course->code]) }}">
                                 <div
                                     class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                     <span

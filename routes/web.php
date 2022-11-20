@@ -48,13 +48,6 @@ Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('aut
 
 Route::group(['middleware' => 'auth'], function () {
 
-    // User Profile
-    Route::get('userProfile', [UserController::class, 'userProfile'])->name('userProfile');
-    Route::get('changePassword', function () {
-        return view('pages.profile.changePassword');
-    })->name('changePassword');
-    Route::post('changePassword', [UserController::class, 'changePassword'])->name('changePassword');
-
     // Resource
     Route::resources([
         'user' => UserController::class,
@@ -63,7 +56,17 @@ Route::group(['middleware' => 'auth'], function () {
         'keyword' => KeywordController::class,
     ]);
 
-    // assigned_course
+    // User Profile
+    Route::get('userProfile', [UserController::class, 'userProfile'])->name('userProfile');
+    Route::get('changePassword', function () {
+        return view('pages.profile.changePassword');
+    })->name('changePassword');
+    Route::post('changePassword', [UserController::class, 'changePassword'])->name('changePassword');
+
+    //View Course
+    Route::get('viewCourse/{courseCode}', [CourseController::class, 'viewCourse'])->name('viewCourse');
+
+    // Assign Course to Lecturer - Admin Function
     Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');
     Route::post('deleteLecturer', [CourseController::class, 'deleteLecturer'])->name('deleteLecturer');
 

@@ -207,6 +207,18 @@ class CourseController extends Controller
     }
 
     /**
+     * View Course
+     *
+     * @param  \App\Models\Course $course
+     * @return \Illuminate\Http\Response
+     */
+    public function viewCourse($courseCode)
+    {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        return view('pages.user.course', ['course' => $course]);
+    }
+
+    /**
      * Add Lecturer
      *
      * @param  \Illuminate\Http\Request  $request
