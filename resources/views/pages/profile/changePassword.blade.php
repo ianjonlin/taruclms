@@ -1,7 +1,7 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
 
     <x-navbars.sidebar activePage="changePassword"></x-navbars.sidebar>
-    <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth titlePage="Change Password"></x-navbars.navs.auth>
         <!-- End Navbar -->
@@ -100,5 +100,5 @@
             </div>
         </div>
         <x-footers.auth></x-footers.auth>
-    </div>
+    </main>
 </x-layout>
