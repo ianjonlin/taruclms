@@ -22,7 +22,8 @@
                                             href="{{ route('createCMCategory', ['courseCode' => $course->code]) }}">
                                             <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Category</a>
                                         &nbsp;
-                                        <a class="btn bg-gradient-info mb-0" href="">
+                                        <a class="btn bg-gradient-info mb-0"
+                                            href="{{ route('createCourseMaterial', ['courseCode' => $course->code]) }}">
                                             <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Course
                                             Materials
                                         </a>
@@ -57,6 +58,7 @@
                                 @endif
                             </div>
                         @endif
+
                         <div class="card-body px-2">
                             <div class="accordion-1">
                                 <div class="container">

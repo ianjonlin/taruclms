@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\CMCategory;
+use App\Models\CourseMaterial;
 use App\Models\User;
 use App\Models\Course;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CMCategoryPolicy
+class CourseMaterialPolicy
 {
     use HandlesAuthorization;
 
@@ -26,10 +26,10 @@ class CMCategoryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CMCategory  $cMCategory
+     * @param  \App\Models\CourseMaterial  $courseMaterial
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CMCategory $cMCategory)
+    public function view(User $user, CourseMaterial $courseMaterial)
     {
         return true;
     }
@@ -70,14 +70,15 @@ class CMCategoryPolicy
         return $course->cc_id == $user->id;
     }
 
+
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CMCategory  $cMCategory
+     * @param  \App\Models\CourseMaterial  $courseMaterial
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, CMCategory $cMCategory)
+    public function restore(User $user, CourseMaterial $courseMaterial)
     {
         return false;
     }
@@ -86,10 +87,10 @@ class CMCategoryPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CMCategory  $cMCategory
+     * @param  \App\Models\CourseMaterial  $courseMaterial
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, CMCategory $cMCategory)
+    public function forceDelete(User $user, CourseMaterial $courseMaterial)
     {
         return false;
     }

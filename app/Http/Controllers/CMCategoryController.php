@@ -94,7 +94,7 @@ class CMCategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete Category
      *
      */
     public function deleteCMCategory($courseCode, $id, Request $request)

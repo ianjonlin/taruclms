@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CMCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +18,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\KeywordController;
+
+use App\Http\Controllers\CMCategoryController;
+use App\Http\Controllers\CourseMaterialController;
+
 
 // General Routing
 Route::get('/', function () {
@@ -76,7 +79,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('course/{courseCode}/CMCategory/delete/{id}', [CMCategoryController::class, 'deleteCMCategory'])->name('deleteCMCategory');
 
     // Manage Course Material - CC Function
-
+    Route::get('course/{courseCode}/courseMaterial/create', [CourseMaterialController::class, 'createCourseMaterial'])->name('createCourseMaterial');
+    Route::post('course/{courseCode}/courseMaterial/store', [CourseMaterialController::class, 'storeCourseMaterial'])->name('storeCourseMaterial');
+    Route::delete('course/{courseCode}/courseMaterial/delete/{id}', [CourseMaterialController::class, 'deleteCourseMaterial'])->name('deleteCourseMaterial');
 
     // Assign Course to Lecturer - Admin Function
     Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');
