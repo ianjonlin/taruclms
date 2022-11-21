@@ -75,6 +75,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('course/{courseCode}/CMCategory/update/{id}', [CMCategoryController::class, 'updateCMCategory'])->name('updateCMCategory');
     Route::delete('course/{courseCode}/CMCategory/delete/{id}', [CMCategoryController::class, 'deleteCMCategory'])->name('deleteCMCategory');
 
+    // Manage Course Material - CC Function
+
+
     // Assign Course to Lecturer - Admin Function
     Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');
     Route::post('deleteLecturer', [CourseController::class, 'deleteLecturer'])->name('deleteLecturer');

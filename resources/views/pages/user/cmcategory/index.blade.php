@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
                                     <div>
-                                        <h3 class="ps-4 pt-4">Manage Course Material Categories</h3>
+                                        <h3 class="ps-4 pt-4">Manage Course Material</h3>
                                         <h5 class="ps-4">{{ $course->code }}&nbsp;{{ $course->title }}</h5>
                                     </div>
                                     <div class="me-3">
@@ -66,20 +66,22 @@
                                                 @php($i = 1)
                                                 @foreach ($categories as $category)
                                                     <div class="accordion-item mb-3 border p-3">
-                                                        <h5 class="accordion-header" id="{{$i}}">
+                                                        <h5 class="accordion-header" id="{{ $i }}">
                                                             <button
                                                                 class="accordion-button border-bottom font-weight-bold collapsed"
                                                                 type="button" data-bs-toggle="collapse"
-                                                                data-bs-target="#c{{$i}}" aria-expanded="true"
-                                                                aria-controls="c{{$i}}">
+                                                                data-bs-target="#c{{ $i }}"
+                                                                aria-expanded="true"
+                                                                aria-controls="c{{ $i }}">
                                                                 {{ $category->name }}
                                                                 <i class="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0 me-3"
                                                                     aria-hidden="true"></i>
                                                             </button>
                                                         </h5>
-                                                        <div id="c{{$i}}" class="accordion-collapse collapse"
-                                                            aria-labelledby="h{{$i}}" data-bs-parent="#accordion"
-                                                            style="">
+                                                        <div id="c{{ $i }}"
+                                                            class="accordion-collapse collapse"
+                                                            aria-labelledby="h{{ $i }}"
+                                                            data-bs-parent="#accordion" style="">
                                                             <div class="text-end mt-3 me-3">
                                                                 <a rel="tooltip" class="btn btn-success btn-link"
                                                                     href="{{ route('editCMCategory', ['courseCode' => $course->code, 'id' => $category->id]) }}"
@@ -103,12 +105,32 @@
                                                                 </form>
                                                             </div>
 
-                                                            <div>
-                                                                {{-- TABLE --}}
-                                                            </div>
-
                                                             <div class="accordion-body text-sm opacity-8">
-                                                                A table should be here!
+                                                                <div class="table-responsive p-0 ms-3"
+                                                                    style="max-height: 400px;">
+                                                                    <table class="table align-items-center mb-0">
+                                                                        <thead
+                                                                            style="position: sticky; top: 0; background: white; z-index: 10">
+                                                                            <tr>
+                                                                                <th
+                                                                                    class="text-left text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                                                                    File Name
+                                                                                </th>
+                                                                                <th
+                                                                                    class="text-left text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                                                                                    File Information
+                                                                                <th
+                                                                                    class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                                                                    Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>wadada</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
