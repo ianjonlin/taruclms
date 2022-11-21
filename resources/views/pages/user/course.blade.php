@@ -49,7 +49,7 @@
             <div class="row ps-1 mb-4">
                 <div class="col-md-5 mb-4">
                     <div class="card shadow-dark h-100">
-                        <div class="card-header pb-0 ps-3 px-3 pb-3 d-flex align-items-center justify-content-between">
+                        <div class="card-header pb-0 ps-3 px-3 d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 ms-2">Course Details</h3>
                             @if ($isCC == true)
                                 <div class="me-0">
@@ -59,7 +59,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="card-body pt-3">
+                        <div class="card-body pt-4">
                             <p>
                                 @if ($course->details == '')
                                     <i>Its Empty... Nothing to see here...</i>
@@ -72,10 +72,16 @@
                 </div>
                 <div class="col-md-7">
                     <div class="card mb-4 shadow-dark h-100">
-                        <div class="card-header pb-0 px-3">
-                            <h3 class="mb-0">Course Forum</h3>
+                        <div class="card-header pb-0 px-3 d-flex align-items-center justify-content-between">
+                            <h3 class="mb-0 ms-2">Course Forum</h3>
+                            @if (auth()->user()->role == 'Student')
+                                <div class="me-0">
+                                    <a class="btn bg-gradient-dark mb-0" href="">
+                                        <i class="material-icons text-sm">post_add</i>&nbsp;&nbsp;Post Question</a>
+                                </div>
+                            @endif
                         </div>
-                        <div class="card-body pt-4 p-3">
+                        <div class="card-body pt-4 p-3 ms-2">
                             <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Newest</h6>
                             <ul class="list-group">
                                 <li
@@ -157,9 +163,12 @@
                         <h3 class="mb-0">Uploaded Materials</h3>
                         @if ($isCC == true)
                             <div class="me-3">
-                                <a class="btn bg-gradient-dark mb-0"
-                                    href="{{ route('editDetails', ['courseCode' => $course->code]) }}">
-                                    <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Learning Material</a>
+                                <a class="btn bg-gradient-dark mb-0" href="">
+                                    <i class="material-icons text-sm">add</i>&nbsp;&nbsp;New Category
+                                </a>
+                                <a class="btn bg-gradient-dark mb-0" href="">
+                                    <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Materials
+                                </a>
                             </div>
                         @endif
                     </div>
