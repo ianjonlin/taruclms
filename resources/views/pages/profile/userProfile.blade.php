@@ -236,11 +236,22 @@
                                                     <div class="row ps-1">
                                                         <div class="col-6 col-md-4">
                                                             <ul class="text-sm list-group">
-                                                                @foreach ($assigned_courses as $course)
-                                                                    <li class="list-group-item p-0 border-0">
-                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
-                                                                    </li>
-                                                                @endforeach
+                                                                @if ($isCC == true)
+                                                                    @foreach ($assigned_courses as $course)
+                                                                        <li class="list-group-item p-0 border-0">
+                                                                            {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                            - <b>Course Coordinator</b>
+                                                                        </li>
+                                                                    @endforeach
+                                                                @elseif ($isCC == false)
+                                                                    @foreach ($assigned_courses as $course)
+                                                                        <li class="list-group-item p-0 border-0">
+                                                                            {{ $course->code }}&nbsp;{{ $course->title }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                @endif
+
+
                                                             </ul>
                                                         </div>
                                                     </div>

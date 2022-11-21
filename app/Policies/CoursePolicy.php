@@ -53,7 +53,7 @@ class CoursePolicy
      */
     public function update(User $user, Course $course)
     {
-        return $user->isAdmin() || $course->isCC();
+        return $user->isAdmin() || $course->cc_id == $user->id;
     }
 
     /**

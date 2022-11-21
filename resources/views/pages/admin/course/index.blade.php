@@ -156,6 +156,13 @@
                                                     </a>
                                                 </td>
                                                 <td class="align-middle text-center" style="z-index: 3">
+                                                    <a rel="tooltip" class="btn btn-warning btn-link"
+                                                        href=" {{ route('viewCourse', ['courseCode' => $course->code]) }}"
+                                                        data-original-title="" title="">
+                                                        <i class="material-icons">arrow_right_alt</i>
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+
                                                     <a rel="tooltip" class="btn btn-success btn-link"
                                                         href=" {{ route('course.edit', ['course' => $course]) }}"
                                                         data-original-title="" title="">

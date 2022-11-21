@@ -12,11 +12,6 @@ class Course extends Model
 
     protected $table = 'course';
 
-    public function isCC()
-    {
-        return hash_equals($this->cc_id, auth()->user()->user_id);
-    }
-
     public $timestamps = false;
 
     public $sortable = ['code', 'title'];

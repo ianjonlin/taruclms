@@ -65,6 +65,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     //View Course
     Route::get('viewCourse/{courseCode}', [CourseController::class, 'viewCourse'])->name('viewCourse');
+    Route::get('editDetails/{courseCode}', [CourseController::class, 'editDetails'])->name('editDetails');
+    Route::put('updateDetails/{courseCode}', [CourseController::class, 'updateDetails'])->name('updateDetails');
 
     // Assign Course to Lecturer - Admin Function
     Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');

@@ -19,19 +19,53 @@
                 </div>
             </div>
 
+            @if (session('success') || session('error'))
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="row">
+                            <div class="alert alert-success alert-dismissible text-white" role="alert">
+                                <span class="text-sm">{{ session('success') }}</span>
+                                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="row">
+                            <div class="alert alert-danger alert-dismissible text-white" role="alert">
+                                <span class="text-sm">{{ session('error') }}</span>
+                                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            @endif
+
             <div class="row ps-1 mb-4">
                 <div class="col-md-5 mb-4">
                     <div class="card shadow-dark h-100">
                         <div class="card-header pb-0 ps-3 px-3 pb-3 d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 ms-2">Course Details</h3>
-                            <div class="me-0">
-                                <a class="btn bg-gradient-dark mb-0" href="">
-                                    <i class="material-icons text-sm">edit</i>&nbsp;&nbsp;Edit</a>
-                            </div>
+                            @if ($isCC == true)
+                                <div class="me-0">
+                                    <a class="btn bg-gradient-dark mb-0"
+                                        href="{{ route('editDetails', ['courseCode' => $course->code]) }}">
+                                        <i class="material-icons text-sm">edit</i>&nbsp;&nbsp;Edit</a>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-body pt-3">
                             <p>
-                               <i>Its Empty... Nothing to see here...</i>
+                                @if ($course->details == '')
+                                    <i>Its Empty... Nothing to see here...</i>
+                                @else
+                                    {{ $course->details }}
+                                @endif
                             </p>
                         </div>
                     </div>
@@ -121,10 +155,13 @@
                 <div class="card shadow-dark">
                     <div class="card-header pb-0 ps-3 px-0 pb-3 d-flex align-items-center justify-content-between">
                         <h3 class="mb-0">Uploaded Materials</h3>
-                        <div class="me-3">
-                            <a class="btn bg-gradient-dark mb-0" href="">
-                                <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Learning Material</a>
-                        </div>
+                        @if ($isCC == true)
+                            <div class="me-3">
+                                <a class="btn bg-gradient-dark mb-0"
+                                    href="{{ route('editDetails', ['courseCode' => $course->code]) }}">
+                                    <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Learning Material</a>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="card-body pt-4 p-3">
@@ -145,8 +182,7 @@
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link mb-0 px-0 py-1" id="c3-tab" data-bs-toggle="tab"
-                                        href="#c3" role="tab" aria-controls="c3"
-                                        aria-selected="false">
+                                        href="#c3" role="tab" aria-controls="c3" aria-selected="false">
                                         Practical Questions
                                     </a>
                                 </li>

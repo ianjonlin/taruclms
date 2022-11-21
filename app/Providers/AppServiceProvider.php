@@ -159,15 +159,18 @@ class AppServiceProvider extends ServiceProvider
                     // If not cc, get assigned course(s)
                     if (!$check_cc->isEmpty()) {
                         $assigned_courses = $check_cc;
+                        $isCC = true;
                     } else {
                         $assigned_courses = DB::table('assigned_course')
                             ->join('course', 'course_id', '=', 'course.id')
                             ->select('course_id as id', 'course.code as code', 'course.title as title')
                             ->where('lecturer_id', '=', auth()->user()->id)
                             ->get();
+                        $isCC = false;
                     }
 
                     view()->share('assigned_courses', $assigned_courses);
+                    view()->share('isCC', $isCC);
                 }
             }
         });

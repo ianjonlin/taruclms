@@ -209,13 +209,43 @@ class CourseController extends Controller
     /**
      * View Course
      *
-     * @param  \App\Models\Course $course
+     * @param  $courseCode
      * @return \Illuminate\Http\Response
      */
     public function viewCourse($courseCode)
     {
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
         return view('pages.user.course', ['course' => $course]);
+    }
+
+    /**
+     * Edit Course Details
+     *
+     * @param  $courseCode
+     * @return \Illuminate\Http\Response
+     */
+    public function editDetails($courseCode)
+    {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        return view('pages.user.details', ['course' => $course]);
+    }
+
+    /**
+     * Update Course Details
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $courseCode
+     * @return \Illuminate\Http\Response
+     */
+    public function updateDetails(Request $request, $courseCode)
+    {
+        $course = DB::table('course')->where('code', '=', $courseCode)->update(['details' => $request->details]);
+
+        if ($course) {
+            return redirect()->route('viewCourse', ['courseCode' => $courseCode])->with('success', 'Course Details updated successfully!');
+        } else {
+            return redirect()->route('viewCourse', ['courseCode' => $courseCode])->with('error', 'Course Details cannot be updated.');
+        }
     }
 
     /**
