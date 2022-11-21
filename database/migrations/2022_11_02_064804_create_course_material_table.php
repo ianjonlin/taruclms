@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('course_material', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->references('id')->on('course');
             $table->foreignId('category_id')->references('id')->on('cm_category');
             $table->string('name', 256);
             $table->string('path', 256);

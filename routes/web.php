@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CMCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,12 +50,10 @@ Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('aut
 Route::group(['middleware' => 'auth'], function () {
 
     // Resource
-    Route::resources([
-        'user' => UserController::class,
-        'course' => CourseController::class,
-        'programme' => ProgrammeController::class,
-        'keyword' => KeywordController::class,
-    ]);
+    Route::resource('user', UserController::class);
+    Route::resource('course', CourseController::class);
+    Route::resource('programme', ProgrammeController::class);
+    Route::resource('keyword', KeywordController::class);
 
     // User Profile
     Route::get('userProfile', [UserController::class, 'userProfile'])->name('userProfile');
@@ -64,9 +63,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('changePassword', [UserController::class, 'changePassword'])->name('changePassword');
 
     //View Course
-    Route::get('viewCourse/{courseCode}', [CourseController::class, 'viewCourse'])->name('viewCourse');
-    Route::get('editDetails/{courseCode}', [CourseController::class, 'editDetails'])->name('editDetails');
-    Route::put('updateDetails/{courseCode}', [CourseController::class, 'updateDetails'])->name('updateDetails');
+    Route::get('course/{courseCode}/view', [CourseController::class, 'viewCourse'])->name('viewCourse');
+    Route::get('course/{courseCode}/editDetails', [CourseController::class, 'editDetails'])->name('editDetails');
+    Route::put('course/{courseCode}/updateDetails', [CourseController::class, 'updateDetails'])->name('updateDetails');
+
+    // Manage Course Material Category - CC Function
+    Route::get('course/{courseCode}/CMCategory', [CMCategoryController::class, 'viewCMCategory'])->name('viewCMCategory');
+    Route::get('course/{courseCode}/CMCategory/create', [CMCategoryController::class, 'createCMCategory'])->name('createCMCategory');
+    Route::post('course/{courseCode}/CMCategory/store', [CMCategoryController::class, 'storeCMCategory'])->name('storeCMCategory');
+    Route::get('course/{courseCode}/CMCategory/edit/{id}', [CMCategoryController::class, 'editCMCategory'])->name('editCMCategory');
+    Route::put('course/{courseCode}/CMCategory/update/{id}', [CMCategoryController::class, 'updateCMCategory'])->name('updateCMCategory');
+    Route::delete('course/{courseCode}/CMCategory/delete/{id}', [CMCategoryController::class, 'deleteCMCategory'])->name('deleteCMCategory');
 
     // Assign Course to Lecturer - Admin Function
     Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');

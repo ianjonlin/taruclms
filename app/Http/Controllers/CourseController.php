@@ -239,9 +239,9 @@ class CourseController extends Controller
      */
     public function updateDetails(Request $request, $courseCode)
     {
-        $course = DB::table('course')->where('code', '=', $courseCode)->update(['details' => $request->details]);
+        $status = DB::table('course')->where('code', '=', $courseCode)->update(['details' => $request->details]);
 
-        if ($course) {
+        if ($status) {
             return redirect()->route('viewCourse', ['courseCode' => $courseCode])->with('success', 'Course Details updated successfully!');
         } else {
             return redirect()->route('viewCourse', ['courseCode' => $courseCode])->with('error', 'Course Details cannot be updated.');

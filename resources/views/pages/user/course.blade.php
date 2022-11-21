@@ -160,14 +160,15 @@
             <div class="row px-3 mb-4">
                 <div class="card shadow-dark">
                     <div class="card-header pb-0 ps-3 px-0 pb-3 d-flex align-items-center justify-content-between">
-                        <h3 class="mb-0">Uploaded Materials</h3>
+                        <h3 class="mb-0">Course Materials</h3>
                         @if ($isCC == true)
                             <div class="me-3">
-                                <a class="btn bg-gradient-dark mb-0" href="">
-                                    <i class="material-icons text-sm">add</i>&nbsp;&nbsp;New Category
+                                <a class="btn bg-gradient-dark mb-0" href="{{ route('viewCMCategory', ['courseCode' => $course->code]) }}">
+                                    <i class="material-icons text-sm">settings</i>&nbsp;&nbsp;Manage
                                 </a>
-                                <a class="btn bg-gradient-dark mb-0" href="">
-                                    <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Materials
+                                &nbsp;
+                                <a class="btn bg-gradient-info mb-0" href="">
+                                    <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload
                                 </a>
                             </div>
                         @endif
