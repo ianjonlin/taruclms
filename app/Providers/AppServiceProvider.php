@@ -27,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         // Global Data - View Composer
         view()->composer('*', function ($view) {
 
+            $isCC = false;
+
             if (auth()->check()) {
                 // For students
                 if (auth()->user()->role == "Student") {
@@ -156,7 +158,7 @@ class AppServiceProvider extends ServiceProvider
                         ->where('cc_id', '=', auth()->user()->id)
                         ->get();
 
-                    // If not cc, get assigned course(s)
+                    // If not CC, get assigned course(s)
                     if (!$check_cc->isEmpty()) {
                         $assigned_courses = $check_cc;
                         $isCC = true;
@@ -170,8 +172,9 @@ class AppServiceProvider extends ServiceProvider
                     }
 
                     view()->share('assigned_courses', $assigned_courses);
-                    view()->share('isCC', $isCC);
                 }
+
+                view()->share('isCC', $isCC);
             }
         });
     }

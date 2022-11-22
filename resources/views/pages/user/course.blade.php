@@ -73,7 +73,7 @@
                 <div class="col-md-7">
                     <div class="card mb-4 shadow-dark h-100">
                         <div class="card-header pb-0 px-3 d-flex align-items-center justify-content-between">
-                            <h3 class="mb-0 ms-2">Course Forum</h3>
+                            <h3 class="mb-0 ms-2">Course Forum (TO-DO)</h3>
                             @if (auth()->user()->role == 'Student')
                                 <div class="me-0">
                                     <a class="btn bg-gradient-dark mb-0" href="">
@@ -178,6 +178,10 @@
 
                     <div class="card-body pt-4 p-3">
 
+                        @if ($categories->isEmpty())
+                            <p>No categories have been created yet.</p>
+                        @endif
+
                         <div class="nav-wrapper position-relative end-0">
                             <ul class="nav nav-pills nav-fill p-1" role="tablist">
                                 @php($count = 0)
@@ -199,10 +203,6 @@
 
                         <div class="tab-content">
                             @for ($i = 1; $i <= $count; $i++)
-                                {{-- <div class="tab-pane fade {{ $i == 1 ? ' show active' : '' }}"
-                                    id="pills-{{ $i }}" role="tabpanel"
-                                    aria-labelledby="pills-{{ $i }}-tab">{{ $i }}</div> --}}
-
                                 <div class="tab-pane fade {{ $i == 1 ? ' show active' : '' }}"
                                     id="pills-{{ $i }}" role="tabpanel"
                                     aria-labelledby="pills-{{ $i }}-tab">
@@ -264,6 +264,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+
                                 </div>
                             @endfor
                         </div>

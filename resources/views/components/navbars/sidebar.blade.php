@@ -53,8 +53,11 @@
                                 href="{{ route('viewCourse', ['courseCode' => $course->code]) }}">
                                 <div
                                     class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                    <span
-                                        class="nav-link-text ms-2">{{ $course->code }}&nbsp;{{ $course->title }}</span>
+                                    <span class="nav-link-text ms-0"
+                                        style="max-width: 180px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;">{{ $course->code }}&nbsp;{{ $course->title }}</span>
                                 </div>
                             </a>
                         </li>
