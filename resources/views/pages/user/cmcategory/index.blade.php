@@ -35,7 +35,7 @@
                         @if (session('success') || session('error'))
                             <div class="card-body">
                                 @if (session('success'))
-                                    <div class="row">
+                                    <div class="row mx-2">
                                         <div class="alert alert-success alert-dismissible text-white" role="alert">
                                             <span class="text-sm">{{ session('success') }}</span>
                                             <button type="button" class="btn-close text-lg py-3 opacity-10"
@@ -46,7 +46,7 @@
                                     </div>
                                 @endif
                                 @if (session('error'))
-                                    <div class="row">
+                                    <div class="row mx-2">
                                         <div class="alert alert-danger alert-dismissible text-white" role="alert">
                                             <span class="text-sm">{{ session('error') }}</span>
                                             <button type="button" class="btn-close text-lg py-3 opacity-10"
@@ -108,14 +108,14 @@
                                                             </div>
 
                                                             <div class="accordion-body text-sm opacity-8">
-                                                                <div class="table-responsive p-0 ms-3"
+                                                                <div class="table-responsive"
                                                                     style="max-height: 400px;">
                                                                     <table class="table align-items-center mb-0">
                                                                         <thead
                                                                             style="position: sticky; top: 0; background: white; z-index: 10">
                                                                             <tr>
                                                                                 <th
-                                                                                    class="text-left text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                                                                    class="text-left text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                                                                     File Name
                                                                                 </th>
                                                                                 <th
@@ -127,9 +127,55 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <tr>
-                                                                                <td>wadada</td>
-                                                                            </tr>
+                                                                            @php($count = 0)
+                                                                            @foreach ($courseMaterials as $material)
+                                                                                @if ($material->category == $category->id)
+                                                                                    <tr>
+                                                                                        <td class="align-middle">
+                                                                                            <h6
+                                                                                                class="text-md text-secondary mb-0">
+                                                                                                {{ $material->name }}
+                                                                                            </h6>
+                                                                                        </td>
+                                                                                        <td class="align-middle">
+                                                                                            <p
+                                                                                                class="text-sm text-secondary mb-0">
+                                                                                                {{ $material->ext }} -
+                                                                                                {{ round($material->size / 100000, 2) }}
+                                                                                                mb
+                                                                                            </p>
+                                                                                        </td>
+                                                                                        <td class="align-middle text-center"
+                                                                                            style="z-index: 3">
+                                                                                            <form class="d-inline"
+                                                                                                method="POST"
+                                                                                                action="{{ route('deleteCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}">
+                                                                                                @csrf
+                                                                                                @method('delete')
+                                                                                                <button type="submit"
+                                                                                                    class="btn btn-danger btn-link"
+                                                                                                    data-original-title=""
+                                                                                                    title=""
+                                                                                                    onclick="return confirm('Confirm to delete material {{ $material->name }}?') ?? this.parentNode.submit();"></a>
+                                                                                                    <i
+                                                                                                        class="material-icons">delete</i>
+                                                                                                </button>
+                                                                                            </form>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    @php($count++)
+                                                                                @endif
+                                                                            @endforeach
+
+                                                                            @if ($count == 0)
+                                                                                <tr>
+                                                                                    <td colspan="3"
+                                                                                        class="text-center">No uploaded
+                                                                                        course materials under this
+                                                                                        category!</td>
+                                                                                </tr>
+                                                                            @endif
+
                                                                         </tbody>
                                                                     </table>
                                                                 </div>

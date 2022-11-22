@@ -48,7 +48,7 @@
                                         href="{{ route('viewCMCategory', ['courseCode' => $courseCode]) }}"
                                         class="text-primary text-gradient font-weight-bold">Go Back</a>
                                     <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Add
-                                        Keyword</button>
+                                        Category</button>
                                 </div>
                             </div>
                         </form>

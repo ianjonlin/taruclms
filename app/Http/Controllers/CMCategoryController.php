@@ -28,8 +28,13 @@ class CMCategoryController extends Controller
         $categories = DB::table('cm_category')
             ->where('course_id', '=', $course->id)
             ->get();
+        $courseMaterials = DB::table('course_material')
+            ->join('cm_category', 'category_id', '=', 'cm_category.id')
+            ->select('course_material.id as id', 'course_material.name as name', 'cm_category.id as category', 'course_material.ext as ext', 'course_material.size as size')
+            ->where('cm_category.course_id', '=', $course->id)
+            ->get();
 
-        return view('pages.user.cmcategory.index', ['categories' => $categories, 'course' => $course]);
+        return view('pages.user.cmcategory.index', ['course' => $course, 'categories' => $categories, 'courseMaterials' => $courseMaterials]);
     }
 
     /**
