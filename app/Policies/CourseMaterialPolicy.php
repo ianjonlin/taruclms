@@ -19,6 +19,9 @@ class CourseMaterialPolicy
      */
     public function viewAny(User $user)
     {
+        if (auth()->user()->role == 'Student')
+            return false;
+
         return true;
     }
 
@@ -31,6 +34,9 @@ class CourseMaterialPolicy
      */
     public function view(User $user, CourseMaterial $courseMaterial)
     {
+        if (auth()->user()->role == 'Student')
+            return false;
+
         return true;
     }
 

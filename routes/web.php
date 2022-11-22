@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('course/{courseCode}/courseMaterial/create', [CourseMaterialController::class, 'createCourseMaterial'])->name('createCourseMaterial');
     Route::post('course/{courseCode}/courseMaterial/store', [CourseMaterialController::class, 'storeCourseMaterial'])->name('storeCourseMaterial');
     Route::delete('course/{courseCode}/courseMaterial/delete/{id}', [CourseMaterialController::class, 'deleteCourseMaterial'])->name('deleteCourseMaterial');
+    Route::get('course/{courseCode}/courseMaterial/download/{id}', [CourseMaterialController::class, 'downloadCourseMaterial'])->name('downloadCourseMaterial');
 
     // Assign Course to Lecturer - Admin Function
     Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');

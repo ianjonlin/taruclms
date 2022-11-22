@@ -19,6 +19,9 @@ class CMCategoryPolicy
      */
     public function viewAny(User $user)
     {
+        if (auth()->user()->role == 'Student')
+            return false;
+
         return true;
     }
 
@@ -31,6 +34,9 @@ class CMCategoryPolicy
      */
     public function view(User $user, CMCategory $cMCategory)
     {
+        if (auth()->user()->role == 'Student')
+            return false;
+
         return true;
     }
 

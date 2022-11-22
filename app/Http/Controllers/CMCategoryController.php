@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CMCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CMCategoryController extends Controller
 {
@@ -30,7 +31,7 @@ class CMCategoryController extends Controller
             ->get();
         $courseMaterials = DB::table('course_material')
             ->join('cm_category', 'category_id', '=', 'cm_category.id')
-            ->select('course_material.id as id', 'course_material.name as name', 'cm_category.id as category', 'course_material.ext as ext', 'course_material.size as size')
+            ->select('course_material.id as id', 'course_material.name as name', 'cm_category.id as category', 'course_material.path as path', 'course_material.ext as ext',)
             ->where('cm_category.course_id', '=', $course->id)
             ->get();
 

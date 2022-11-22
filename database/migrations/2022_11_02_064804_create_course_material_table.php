@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name', 256);
             $table->string('path', 256);
             $table->string('ext', 5);
-            $table->float('size');
         });
     }
 

@@ -141,12 +141,25 @@
                                                                                             <p
                                                                                                 class="text-sm text-secondary mb-0">
                                                                                                 {{ $material->ext }} -
-                                                                                                {{ round($material->size / 100000, 2) }}
+                                                                                                {{ round((int)Storage::size($material->path) / 100000, 2) }}
                                                                                                 mb
                                                                                             </p>
                                                                                         </td>
                                                                                         <td class="align-middle text-center"
                                                                                             style="z-index: 3">
+
+                                                                                            <a rel="tooltip"
+                                                                                                class="btn btn-info btn-link"
+                                                                                                href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
+                                                                                                data-original-title=""
+                                                                                                title="">
+                                                                                                <i
+                                                                                                    class="material-icons">download</i>
+                                                                                                <div
+                                                                                                    class="ripple-container">
+                                                                                                </div>
+                                                                                            </a>
+
                                                                                             <form class="d-inline"
                                                                                                 method="POST"
                                                                                                 action="{{ route('deleteCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}">

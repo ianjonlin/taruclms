@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CourseMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CourseMaterialController extends Controller
 {
@@ -41,29 +42,18 @@ class CourseMaterialController extends Controller
         $request->validate([
             'name' => 'required',
             'category' => 'required',
-            'file' => 'required | mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,jpg,jpeg,png,gif,txt | max: 102400'
+            'file' => 'required | mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,jpg,jpeg,png,gif,txt | max:100000'
         ]);
 
-        $path = '/storage/' . $request->file('file')->storeAs('uploads/coursematerials/' . $courseCode, time() . '_' . $request->name . "." . $request->file('file')->getClientOriginalExtension(), 'public');
-        $ext = $request->file('file')->extension();
-        $size = $request->file('file')->getSize();
+        $category = DB::table('cm_category')->where('id', '=', $request->category)->get()->first();
+        $path = Storage::putFileAs('uploads/coursematerials/' . $courseCode . '/' . $category->name, $request->file('file'), $request->name . "." . $request->file('file')->getClientOriginalExtension());
 
         $status = DB::table('course_material')->insert([
             'name' => $request->name,
             'category_id' => $request->category,
             'path' => $path,
-            'ext' => $ext,
-            'size' => $size
+            'ext' => $request->file('file')->extension()
         ]);
-
-        // Schema::create('course_material', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->foreignId('category_id')->references('id')->on('cm_category');
-        //     $table->string('name', 256);
-        //     $table->string('path', 256);
-        //     $table->string('ext', 5);
-        //     $table->float('size');
-        // });
 
         if ($status) {
             return redirect()->route('viewCMCategory', ['courseCode' => $courseCode])->with('success', 'Course Material uploaded successfully!');
@@ -85,5 +75,19 @@ class CourseMaterialController extends Controller
         } else {
             return back()->with('error', "Course Material cannot not deleted.");
         }
+    }
+
+    /**
+     * Download Course Material
+     *
+     */
+    public function downloadCourseMaterial($courseCode, $id)
+    {
+        $material = DB::table('course_material')
+            ->where('id', '=', $id)
+            ->get()
+            ->first();
+
+        return Storage::download($material->path);
     }
 }
