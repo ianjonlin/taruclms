@@ -215,7 +215,15 @@ class CourseController extends Controller
     public function viewCourse($courseCode)
     {
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
-        return view('pages.user.course', ['course' => $course]);
+        $categories = DB::table('cm_category')
+            ->where('course_id', '=', $course->id)
+            ->get();
+        $courseMaterials = DB::table('course_material')
+            ->join('cm_category', 'category_id', '=', 'cm_category.id')
+            ->select('course_material.id as id', 'course_material.name as name', 'cm_category.id as category', 'course_material.path as path', 'course_material.ext as ext',)
+            ->where('cm_category.course_id', '=', $course->id)
+            ->get();
+        return view('pages.user.course', ['course' => $course, 'categories' => $categories, 'courseMaterials' => $courseMaterials]);
     }
 
     /**

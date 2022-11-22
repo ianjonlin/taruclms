@@ -22,7 +22,7 @@
                                             href="{{ route('createCMCategory', ['courseCode' => $course->code]) }}">
                                             <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Category</a>
                                         &nbsp;
-                                        <a class="btn bg-gradient-info mb-0"
+                                        <a class="btn bg-gradient-primary mb-0"
                                             href="{{ route('createCourseMaterial', ['courseCode' => $course->code]) }}">
                                             <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Course
                                             Materials
@@ -140,14 +140,13 @@
                                                                                         <td class="align-middle">
                                                                                             <p
                                                                                                 class="text-sm text-secondary mb-0">
-                                                                                                {{ $material->ext }} -
-                                                                                                {{ round((int)Storage::size($material->path) / 100000, 2) }}
+                                                                                                .{{ $material->ext }} -
+                                                                                                {{ round((int) Storage::size($material->path) / 100000, 2) }}
                                                                                                 mb
                                                                                             </p>
                                                                                         </td>
                                                                                         <td class="align-middle text-center"
                                                                                             style="z-index: 3">
-
                                                                                             <a rel="tooltip"
                                                                                                 class="btn btn-info btn-link"
                                                                                                 href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
@@ -159,7 +158,6 @@
                                                                                                     class="ripple-container">
                                                                                                 </div>
                                                                                             </a>
-
                                                                                             <form class="d-inline"
                                                                                                 method="POST"
                                                                                                 action="{{ route('deleteCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}">

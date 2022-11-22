@@ -40,7 +40,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Name</label>
                                     <input type="text" class="form-control border border-2 p-2" name="name"
-                                        required>
+                                        required maxlength="64">
                                 </div>
 
                                 <div class="mb-3">

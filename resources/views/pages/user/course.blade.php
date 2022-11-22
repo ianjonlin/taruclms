@@ -163,11 +163,13 @@
                         <h3 class="mb-0">Course Materials</h3>
                         @if ($isCC == true)
                             <div class="me-3">
-                                <a class="btn bg-gradient-dark mb-0" href="{{ route('viewCMCategory', ['courseCode' => $course->code]) }}">
+                                <a class="btn bg-gradient-dark mb-0"
+                                    href="{{ route('viewCMCategory', ['courseCode' => $course->code]) }}">
                                     <i class="material-icons text-sm">settings</i>&nbsp;&nbsp;Manage
                                 </a>
                                 &nbsp;
-                                <a class="btn bg-gradient-info mb-0" href="">
+                                <a class="btn bg-gradient-primary mb-0"
+                                    href="{{ route('createCourseMaterial', ['courseCode' => $course->code]) }}">
                                     <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload
                                 </a>
                             </div>
@@ -177,180 +179,97 @@
                     <div class="card-body pt-4 p-3">
 
                         <div class="nav-wrapper position-relative end-0">
-                            <ul class="nav nav-pills nav-fill p-1" id="nav-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1 active" id="c1-tab" data-bs-toggle="tab"
-                                        href="#c1" role="tab" aria-controls="c1" aria-selected="true">
-                                        Lecture Slides
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1" id="c2-tab" data-bs-toggle="tab"
-                                        href="#c2" role="tab" aria-controls="c2" aria-selected="false">
-                                        Tutorial Questions
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1" id="c3-tab" data-bs-toggle="tab"
-                                        href="#c3" role="tab" aria-controls="c3" aria-selected="false">
-                                        Practical Questions
-                                    </a>
-                                </li>
+                            <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                                @php($count = 0)
+                                @php($c = [])
+                                @foreach ($categories as $category)
+                                    @php($count++)
+                                    @php(array_push($c, $category->id))
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link mb-0 px-0 py-1 {{ $count == 1 ? ' active' : '' }}"
+                                            id="pills-{{ $count }}-tab" data-bs-toggle="tab"
+                                            href="#pills-{{ $count }}" role="tab"
+                                            aria-controls="pills-{{ $count }}" aria-selected="true">
+                                            {{ $category->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
 
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="c1" role="tabpanel"
-                                aria-labelledby="c1-tab">
-                                <div class="table-responsive p-0 mt-3">
-                                    <table class="table align-items-center mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Name</th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                    Information</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="{{ asset('assets') }}/img/team-2.jpg"
-                                                                class="avatar avatar-sm me-3 border-radius-lg"
-                                                                alt="user1">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Lecture Slides</h6>
-                                                            <p class="text-xs text-secondary mb-0">
-                                                                john@creative-tim.com
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                                    <p class="text-xs text-secondary mb-0">Organization</p>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <a href="javascript:;"
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="tab-content">
+                            @for ($i = 1; $i <= $count; $i++)
+                                {{-- <div class="tab-pane fade {{ $i == 1 ? ' show active' : '' }}"
+                                    id="pills-{{ $i }}" role="tabpanel"
+                                    aria-labelledby="pills-{{ $i }}-tab">{{ $i }}</div> --}}
+
+                                <div class="tab-pane fade {{ $i == 1 ? ' show active' : '' }}"
+                                    id="pills-{{ $i }}" role="tabpanel"
+                                    aria-labelledby="pills-{{ $i }}-tab">
+
+                                    <div class="table-responsive p-0 mt-3">
+                                        <table class="table align-items-center mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th
+                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Name</th>
+                                                    <th
+                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                        Information</th>
+                                                    <th
+                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php($num = 0)
+                                                @foreach ($courseMaterials as $material)
+                                                    @if ($material->category == $c[$i - 1])
+                                                        <tr>
+                                                            <td class="align-middle">
+                                                                <h6 class="text-md text-secondary mb-0">
+                                                                    {{ $material->name }}
+                                                                </h6>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <p class="text-sm text-secondary mb-0">
+                                                                    .{{ $material->ext }} -
+                                                                    {{ round((int) Storage::size($material->path) / 100000, 2) }}
+                                                                    mb
+                                                                </p>
+                                                            </td>
+                                                            <td class="align-middle text-center" style="z-index: 3">
+                                                                <a rel="tooltip" class="btn btn-info btn-link"
+                                                                    href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
+                                                                    data-original-title="" title="">
+                                                                    <i class="material-icons">download</i>
+                                                                    <div class="ripple-container">
+                                                                    </div>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        @php($num++)
+                                                    @endif
+                                                @endforeach
+
+                                                @if ($num == 0)
+                                                    <tr>
+                                                        <td colspan="3" class="text-center">No uploaded
+                                                            course materials under this
+                                                            category!</td>
+                                                    </tr>
+                                                @endif
+
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="c2" role="tabpanel" aria-labelledby="c2-tab">
-                                <div class="table-responsive p-0 mt-3">
-                                    <table class="table align-items-center mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Name</th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                    Information</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="{{ asset('assets') }}/img/team-3.jpg"
-                                                                class="avatar avatar-sm me-3 border-radius-lg"
-                                                                alt="user2">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Tutorial Questions</h6>
-                                                            <p class="text-xs text-secondary mb-0">
-                                                                alexa@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                                    <p class="text-xs text-secondary mb-0">Developer</p>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <a href="javascript:;"
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="c3" role="tabpanel" aria-labelledby="c3-tab">
-                                <div class="table-responsive p-0 mt-3">
-                                    <table class="table align-items-center mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    File Name</th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                    File Information</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="{{ asset('assets') }}/img/team-4.jpg"
-                                                                class="avatar avatar-sm me-3 border-radius-lg"
-                                                                alt="user3">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Practical Questions</h6>
-                                                            <p class="text-xs text-secondary mb-0">
-                                                                laurent@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Executive</p>
-                                                    <p class="text-xs text-secondary mb-0">Projects</p>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <a href="javascript:;"
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            @endfor
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <x-footers.auth></x-footers.auth>
     </main>
