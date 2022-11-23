@@ -78,12 +78,12 @@ class LearningMaterialController extends Controller
     }
 
     /**
-     * Download Course Material
+     * Download Learning Material
      *
      */
-    public function downloadCourseMaterial($courseCode, $id)
+    public function downloadLearningMaterial($courseCode, $id)
     {
-        $material = DB::table('course_material')
+        $material = DB::table('learning_material')
             ->where('id', '=', $id)
             ->get()
             ->first();

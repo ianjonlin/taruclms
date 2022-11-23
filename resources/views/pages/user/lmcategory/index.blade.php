@@ -114,7 +114,7 @@
 
                                                             <div class="accordion-body text-sm opacity-8">
                                                                 <div class="table-responsive"
-                                                                    style="max-height: 400px;">
+                                                                    style="max-height: 300px;">
                                                                     <table class="table align-items-center mb-0">
                                                                         <thead
                                                                             style="position: sticky; top: 0; background: white; z-index: 10">
