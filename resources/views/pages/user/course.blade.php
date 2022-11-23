@@ -160,6 +160,120 @@
             <div class="row px-3 mb-4">
                 <div class="card shadow-dark">
                     <div class="card-header pb-0 ps-3 px-0 pb-3 d-flex align-items-center justify-content-between">
+                        <h3 class="mb-0">Learning Materials</h3>
+                        @if ($isCC == true)
+                            <div class="me-3">
+                                <a class="btn bg-gradient-dark mb-0"
+                                    href="{{ route('viewLMCategory', ['courseCode' => $course->code]) }}">
+                                    <i class="material-icons text-sm">settings</i>&nbsp;&nbsp;Manage
+                                </a>
+                                &nbsp;
+                                <a class="btn bg-gradient-primary mb-0"
+                                    href="{{ route('createLearningMaterial', ['courseCode' => $course->code]) }}">
+                                    <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="card-body pt-4 p-3">
+
+                        @if ($lMCategories->isEmpty())
+                            <p class="text-center">No Learning Material Category have been created yet.</p>
+                        @else
+                            <div class="nav-wrapper position-relative end-0">
+                                <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                                    @php($lmcCount = 0)
+                                    @php($lmcCategory = [])
+                                    @foreach ($lMCategories as $category)
+                                        @php($lmcCount++)
+                                        @php(array_push($lmcCategory, $category->id))
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link mb-0 px-0 py-1 {{ $lmcCount == 1 ? ' active' : '' }}"
+                                                id="pills-{{ $lmcCount }}-tab" data-bs-toggle="tab"
+                                                href="#pills-{{ $lmcCount }}" role="tab"
+                                                aria-controls="pills-{{ $lmcCount }}" aria-selected="true">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="tab-content">
+                                @for ($i = 1; $i <= $lmcCount; $i++)
+                                    <div class="tab-pane fade {{ $i == 1 ? ' show active' : '' }}"
+                                        id="pills-{{ $i }}" role="tabpanel"
+                                        aria-labelledby="pills-{{ $i }}-tab">
+
+                                        <div class="table-responsive p-0 mt-3">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th
+                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            Name</th>
+                                                        <th
+                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                            Information</th>
+                                                        <th
+                                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php($lmNum = 0)
+                                                    @foreach ($learningMaterials as $material)
+                                                        @if ($material->category == $lmcCategory[$i - 1])
+                                                            <tr>
+                                                                <td class="align-middle">
+                                                                    <h6 class="text-md text-secondary mb-0">
+                                                                        {{ $material->name }}
+                                                                    </h6>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <p class="text-sm text-secondary mb-0">
+                                                                        .{{ $material->ext }} -
+                                                                        {{ round((int) Storage::size($material->path) / 100000, 2) }}
+                                                                        mb
+                                                                    </p>
+                                                                </td>
+                                                                <td class="align-middle text-center"
+                                                                    style="z-index: 3">
+                                                                    <a rel="tooltip" class="btn btn-info btn-link"
+                                                                        href=" {{ route('downloadLearningMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
+                                                                        data-original-title="" title="">
+                                                                        <i class="material-icons">download</i>
+                                                                        <div class="ripple-container">
+                                                                        </div>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            @php($lmNum++)
+                                                        @endif
+                                                    @endforeach
+
+                                                    @if ($lmNum == 0)
+                                                        <tr>
+                                                            <td colspan="3" class="text-center">No uploaded
+                                                                learning materials under this
+                                                                category!</td>
+                                                        </tr>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @endfor
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="row px-3 mb-4">
+                <div class="card shadow-dark">
+                    <div class="card-header pb-0 ps-3 px-0 pb-3 d-flex align-items-center justify-content-between">
                         <h3 class="mb-0">Course Materials</h3>
                         @if ($isCC == true)
                             <div class="me-3">
@@ -178,99 +292,99 @@
 
                     <div class="card-body pt-4 p-3">
 
-                        @if ($categories->isEmpty())
-                            <p>No categories have been created yet.</p>
-                        @endif
+                        @if ($cMCategories->isEmpty())
+                            <p class="text-center">No Course Material Category have been created yet.</p>
+                        @else
+                            <div class="nav-wrapper position-relative end-0">
+                                <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                                    @php($cmcCount = 0)
+                                    @php($cmcCategory = [])
+                                    @foreach ($cMCategories as $category)
+                                        @php($cmcCount++)
+                                        @php(array_push($cmcCategory, $category->id))
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link mb-0 px-0 py-1 {{ $cmcCount == 1 ? ' active' : '' }}"
+                                                id="pills-{{ $cmcCount }}-tab" data-bs-toggle="tab"
+                                                href="#pills-{{ $cmcCount }}" role="tab"
+                                                aria-controls="pills-{{ $cmcCount }}" aria-selected="true">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
 
-                        <div class="nav-wrapper position-relative end-0">
-                            <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                                @php($count = 0)
-                                @php($c = [])
-                                @foreach ($categories as $category)
-                                    @php($count++)
-                                    @php(array_push($c, $category->id))
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link mb-0 px-0 py-1 {{ $count == 1 ? ' active' : '' }}"
-                                            id="pills-{{ $count }}-tab" data-bs-toggle="tab"
-                                            href="#pills-{{ $count }}" role="tab"
-                                            aria-controls="pills-{{ $count }}" aria-selected="true">
-                                            {{ $category->name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                            <div class="tab-content">
+                                @for ($i = 1; $i <= $cmcCount; $i++)
+                                    <div class="tab-pane fade {{ $i == 1 ? ' show active' : '' }}"
+                                        id="pills-{{ $i }}" role="tabpanel"
+                                        aria-labelledby="pills-{{ $i }}-tab">
 
-                        <div class="tab-content">
-                            @for ($i = 1; $i <= $count; $i++)
-                                <div class="tab-pane fade {{ $i == 1 ? ' show active' : '' }}"
-                                    id="pills-{{ $i }}" role="tabpanel"
-                                    aria-labelledby="pills-{{ $i }}-tab">
-
-                                    <div class="table-responsive p-0 mt-3">
-                                        <table class="table align-items-center mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th
-                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        Name</th>
-                                                    <th
-                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                        Information</th>
-                                                    <th
-                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php($num = 0)
-                                                @foreach ($courseMaterials as $material)
-                                                    @if ($material->category == $c[$i - 1])
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <h6 class="text-md text-secondary mb-0">
-                                                                    {{ $material->name }}
-                                                                </h6>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <p class="text-sm text-secondary mb-0">
-                                                                    .{{ $material->ext }} -
-                                                                    {{ round((int) Storage::size($material->path) / 100000, 2) }}
-                                                                    mb
-                                                                </p>
-                                                            </td>
-                                                            <td class="align-middle text-center" style="z-index: 3">
-                                                                <a rel="tooltip" class="btn btn-info btn-link"
-                                                                    href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
-                                                                    data-original-title="" title="">
-                                                                    <i class="material-icons">download</i>
-                                                                    <div class="ripple-container">
-                                                                    </div>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        @php($num++)
-                                                    @endif
-                                                @endforeach
-
-                                                @if ($num == 0)
+                                        <div class="table-responsive p-0 mt-3">
+                                            <table class="table align-items-center mb-0">
+                                                <thead>
                                                     <tr>
-                                                        <td colspan="3" class="text-center">No uploaded
-                                                            course materials under this
-                                                            category!</td>
+                                                        <th
+                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            Name</th>
+                                                        <th
+                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                            Information</th>
+                                                        <th
+                                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            Action</th>
                                                     </tr>
-                                                @endif
+                                                </thead>
+                                                <tbody>
+                                                    @php($lmNum = 0)
+                                                    @foreach ($courseMaterials as $material)
+                                                        @if ($material->category == $cmcCategory[$i - 1])
+                                                            <tr>
+                                                                <td class="align-middle">
+                                                                    <h6 class="text-md text-secondary mb-0">
+                                                                        {{ $material->name }}
+                                                                    </h6>
+                                                                </td>
+                                                                <td class="align-middle">
+                                                                    <p class="text-sm text-secondary mb-0">
+                                                                        .{{ $material->ext }} -
+                                                                        {{ round((int) Storage::size($material->path) / 100000, 2) }}
+                                                                        mb
+                                                                    </p>
+                                                                </td>
+                                                                <td class="align-middle text-center"
+                                                                    style="z-index: 3">
+                                                                    <a rel="tooltip" class="btn btn-info btn-link"
+                                                                        href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
+                                                                        data-original-title="" title="">
+                                                                        <i class="material-icons">download</i>
+                                                                        <div class="ripple-container">
+                                                                        </div>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            @php($lmNum++)
+                                                        @endif
+                                                    @endforeach
 
-                                            </tbody>
-                                        </table>
+                                                    @if ($lmNum == 0)
+                                                        <tr>
+                                                            <td colspan="3" class="text-center">No uploaded
+                                                                course materials under this
+                                                                category!</td>
+                                                        </tr>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-
-                                </div>
-                            @endfor
-                        </div>
+                                @endfor
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
+
         </div>
         <x-footers.auth></x-footers.auth>
     </main>

@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::create('learning_material', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->references('id')->on('course');
             $table->foreignId('category_id')->references('id')->on('lm_category');
             $table->string('name', 256);
             $table->string('path', 256);
             $table->string('ext', 5);
-            $table->float('size');
         });
     }
 

@@ -4,7 +4,7 @@
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth
-            titlePage="Manage Course Materials / {{ $courseCode }} / Add Course Material Category">
+            titlePage="Manage Learning Materials / {{ $courseCode }} / Edit Learning Material Category / {{ $lMCategory->name }}">
         </x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
@@ -13,7 +13,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h4 class="mb-3">Add New Course Material Category</h4>
+                                <h4 class="mb-3">Edit Learning Material Category</h4>
                             </div>
                         </div>
                     </div>
@@ -33,21 +33,21 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action='{{ route('storeCMCategory', ['courseCode' => $courseCode]) }}'>
+                        <form method='POST' action='{{ route('updateLMCategory', ['courseCode' => $courseCode, 'id' => $lMCategory->id]) }}'>
                             @csrf
-                            @method("POST")
+                            @method('PUT')
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Category Name</label>
                                     <input type="text" class="form-control border border-2 p-2" name="name"
-                                        required>
+                                        required value="{{ $lMCategory->name }}">
                                 </div>
 
                                 <div class="d-flex flex-row-reverse">
                                     <a class="btn bg-gradient-dark my-4 mb-2"
-                                        href="{{ route('viewCMCategory', ['courseCode' => $courseCode]) }}"
+                                        href="{{ route('viewLMCategory', ['courseCode' => $courseCode]) }}"
                                         class="text-primary text-gradient font-weight-bold">Go Back</a>
-                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Add
+                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Update
                                         Category</button>
                                 </div>
                             </div>

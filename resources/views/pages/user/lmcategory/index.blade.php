@@ -3,7 +3,7 @@
     <x-navbars.sidebar activePage="{{ $course->code }}"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Manage Course Materials / {{ $course->code }}">
+        <x-navbars.navs.auth titlePage="Manage Learning Materials / {{ $course->code }}">
         </x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
@@ -14,17 +14,17 @@
                             <div class="row">
                                 <div class="col-md-12 d-flex align-items-center justify-content-between">
                                     <div>
-                                        <h3 class="ps-4 pt-4">Manage Course Materials</h3>
+                                        <h3 class="ps-4 pt-4">Manage Learning Materials</h3>
                                         <h5 class="ps-4">{{ $course->code }}&nbsp;{{ $course->title }}</h5>
                                     </div>
                                     <div class="me-3">
                                         <a class="btn bg-gradient-dark mb-0"
-                                            href="{{ route('createCMCategory', ['courseCode' => $course->code]) }}">
+                                            href="{{ route('createLMCategory', ['courseCode' => $course->code]) }}">
                                             <i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Category</a>
                                         &nbsp;
                                         <a class="btn bg-gradient-primary mb-0"
-                                            href="{{ route('createCourseMaterial', ['courseCode' => $course->code]) }}">
-                                            <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Course
+                                            href="{{ route('createLearningMaterial', ['courseCode' => $course->code]) }}">
+                                            <i class="material-icons text-sm">upload</i>&nbsp;&nbsp;Upload Learning
                                             Materials
                                         </a>
                                     </div>
@@ -62,7 +62,7 @@
                         <div class="card-body px-2">
 
                             @if ($categories->isEmpty())
-                                <p class="text-center">No Course Material Category have been created yet.</p>
+                                <p class="text-center">No Learning Material Category have been created yet.</p>
                             @endif
 
                             <div class="accordion-1">
@@ -91,14 +91,14 @@
                                                             data-bs-parent="#accordion" style="">
                                                             <div class="text-end mt-3 me-3">
                                                                 <a rel="tooltip" class="btn btn-success btn-link"
-                                                                    href="{{ route('editCMCategory', ['courseCode' => $course->code, 'id' => $category->id]) }}"
+                                                                    href="{{ route('editLMCategory', ['courseCode' => $course->code, 'id' => $category->id]) }}"
                                                                     data-original-title="" title="">
                                                                     <i class="material-icons">edit</i> &nbsp; Edit
                                                                     Category
                                                                 </a>
                                                                 &nbsp;
                                                                 <form class="d-inline" method="POST"
-                                                                    action="{{ route('deleteCMCategory', ['courseCode' => $course->code, 'id' => $category->id]) }}">
+                                                                    action="{{ route('deleteLMCategory', ['courseCode' => $course->code, 'id' => $category->id]) }}">
                                                                     @csrf
                                                                     @method('delete')
                                                                     <button type="submit"
@@ -133,7 +133,7 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             @php($count = 0)
-                                                                            @foreach ($courseMaterials as $material)
+                                                                            @foreach ($learningMaterials as $material)
                                                                                 @if ($material->category == $category->id)
                                                                                     <tr>
                                                                                         <td class="align-middle">
@@ -154,7 +154,7 @@
                                                                                             style="z-index: 3">
                                                                                             <a rel="tooltip"
                                                                                                 class="btn btn-info btn-link"
-                                                                                                href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
+                                                                                                href=" {{ route('downloadLearningMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
                                                                                                 data-original-title=""
                                                                                                 title="">
                                                                                                 <i
@@ -165,7 +165,7 @@
                                                                                             </a>
                                                                                             <form class="d-inline"
                                                                                                 method="POST"
-                                                                                                action="{{ route('deleteCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}">
+                                                                                                action="{{ route('deleteLearningMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}">
                                                                                                 @csrf
                                                                                                 @method('delete')
                                                                                                 <button type="submit"
@@ -187,7 +187,7 @@
                                                                                 <tr>
                                                                                     <td colspan="3"
                                                                                         class="text-center">No uploaded
-                                                                                        course materials under this
+                                                                                        learning materials under this
                                                                                         category!</td>
                                                                                 </tr>
                                                                             @endif

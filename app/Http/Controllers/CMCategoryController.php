@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\CMCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class CMCategoryController extends Controller
 {
@@ -20,7 +19,7 @@ class CMCategoryController extends Controller
     }
 
     /**
-     * View categories
+     * View Course Material Categories
      *
      */
     public function viewCMCategory($courseCode)
@@ -39,7 +38,7 @@ class CMCategoryController extends Controller
     }
 
     /**
-     * Redirect to Create Page
+     * Redirect to Create Course Material Category Page
      *
      */
     public function createCMCategory($courseCode)
@@ -48,7 +47,7 @@ class CMCategoryController extends Controller
     }
 
     /**
-     * Store New Category
+     * Store New Course Material Category
      *
      */
     public function storeCMCategory($courseCode, Request $request)
@@ -71,7 +70,7 @@ class CMCategoryController extends Controller
     }
 
     /**
-     * Redirect to Edit Page
+     * Redirect to Edit Course Material Category Page
      *
      */
     public function editCMCategory($courseCode, $id)
@@ -81,7 +80,7 @@ class CMCategoryController extends Controller
     }
 
     /**
-     * Update Category
+     * Update Course Material Category
      *
      */
     public function updateCMCategory($courseCode, $id, Request $request)
@@ -100,7 +99,7 @@ class CMCategoryController extends Controller
     }
 
     /**
-     * Delete Category
+     * Delete Course Material Category
      *
      */
     public function deleteCMCategory($courseCode, $id, Request $request)

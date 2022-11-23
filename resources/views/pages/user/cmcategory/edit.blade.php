@@ -4,7 +4,7 @@
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth
-            titlePage="Manage Course Materials / {{ $courseCode }} / Edit Category / {{ $cMCategory->name }}">
+            titlePage="Manage Course Materials / {{ $courseCode }} / Edit Course Material Category / {{ $cMCategory->name }}">
         </x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
@@ -13,7 +13,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h4 class="mb-3">Edit Category</h4>
+                                <h4 class="mb-3">Edit Course Material Category</h4>
                             </div>
                         </div>
                     </div>

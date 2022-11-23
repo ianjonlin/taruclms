@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\CourseMaterial;
+use App\Models\LMCategory;
 use App\Models\User;
 use App\Models\Course;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CourseMaterialPolicy
+class LMCategoryPolicy
 {
     use HandlesAuthorization;
 
@@ -19,9 +19,6 @@ class CourseMaterialPolicy
      */
     public function viewAny(User $user)
     {
-        if (auth()->user()->role == 'Student')
-            return false;
-
         return true;
     }
 
@@ -29,14 +26,11 @@ class CourseMaterialPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CourseMaterial  $courseMaterial
+     * @param  \App\Models\LMCategory  $lMCategory
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CourseMaterial $courseMaterial)
+    public function view(User $user, LMCategory $lMCategory)
     {
-        if (auth()->user()->role == 'Student')
-            return false;
-
         return true;
     }
 
@@ -80,10 +74,10 @@ class CourseMaterialPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CourseMaterial  $courseMaterial
+     * @param  \App\Models\LMCategory  $lMCategory
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, CourseMaterial $courseMaterial)
+    public function restore(User $user, LMCategory $lMCategory)
     {
         return false;
     }
@@ -92,10 +86,10 @@ class CourseMaterialPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CourseMaterial  $courseMaterial
+     * @param  \App\Models\LMCategory  $lMCategory
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, CourseMaterial $courseMaterial)
+    public function forceDelete(User $user, LMCategory $lMCategory)
     {
         return false;
     }

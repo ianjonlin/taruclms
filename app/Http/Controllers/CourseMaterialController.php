@@ -20,7 +20,7 @@ class CourseMaterialController extends Controller
     }
 
     /**
-     * Redirect to Create Page
+     * Redirect to Create Course Material Page
      *
      */
     public function createCourseMaterial($courseCode)

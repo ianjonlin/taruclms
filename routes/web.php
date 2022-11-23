@@ -18,7 +18,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\KeywordController;
-
+use App\Http\Controllers\LMCategoryController;
+use App\Http\Controllers\LearningMaterialController;
 use App\Http\Controllers\CMCategoryController;
 use App\Http\Controllers\CourseMaterialController;
 
@@ -70,7 +71,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('course/{courseCode}/editDetails', [CourseController::class, 'editDetails'])->name('editDetails');
     Route::put('course/{courseCode}/updateDetails', [CourseController::class, 'updateDetails'])->name('updateDetails');
 
-    // Manage Course Material Category - CC Function
+    // Learning Material Category
+    Route::get('course/{courseCode}/LMCategory', [LMCategoryController::class, 'viewLMCategory'])->name('viewLMCategory');
+    Route::get('course/{courseCode}/LMCategory/create', [LMCategoryController::class, 'createLMCategory'])->name('createLMCategory');
+    Route::post('course/{courseCode}/LMCategory/store', [LMCategoryController::class, 'storeLMCategory'])->name('storeLMCategory');
+    Route::get('course/{courseCode}/LMCategory/edit/{id}', [LMCategoryController::class, 'editLMCategory'])->name('editLMCategory');
+    Route::put('course/{courseCode}/LMCategory/update/{id}', [LMCategoryController::class, 'updateLMCategory'])->name('updateLMCategory');
+    Route::delete('course/{courseCode}/LMCategory/delete/{id}', [LMCategoryController::class, 'deleteLMCategory'])->name('deleteLMCategory');
+
+    // Learning Material
+    Route::get('course/{courseCode}/learningMaterial/create', [LearningMaterialController::class, 'createLearningMaterial'])->name('createLearningMaterial');
+    Route::post('course/{courseCode}/learningMaterial/store', [LearningMaterialController::class, 'storeLearningMaterial'])->name('storeLearningMaterial');
+    Route::delete('course/{courseCode}/learningMaterial/delete/{id}', [LearningMaterialController::class, 'deleteLearningMaterial'])->name('deleteLearningMaterial');
+    Route::get('course/{courseCode}/learningMaterial/download/{id}', [LearningMaterialController::class, 'downloadLearningMaterial'])->name('downloadLearningMaterial');
+
+    // Course Material Category
     Route::get('course/{courseCode}/CMCategory', [CMCategoryController::class, 'viewCMCategory'])->name('viewCMCategory');
     Route::get('course/{courseCode}/CMCategory/create', [CMCategoryController::class, 'createCMCategory'])->name('createCMCategory');
     Route::post('course/{courseCode}/CMCategory/store', [CMCategoryController::class, 'storeCMCategory'])->name('storeCMCategory');
@@ -78,7 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('course/{courseCode}/CMCategory/update/{id}', [CMCategoryController::class, 'updateCMCategory'])->name('updateCMCategory');
     Route::delete('course/{courseCode}/CMCategory/delete/{id}', [CMCategoryController::class, 'deleteCMCategory'])->name('deleteCMCategory');
 
-    // Manage Course Material - CC Function
+    // Course Material
     Route::get('course/{courseCode}/courseMaterial/create', [CourseMaterialController::class, 'createCourseMaterial'])->name('createCourseMaterial');
     Route::post('course/{courseCode}/courseMaterial/store', [CourseMaterialController::class, 'storeCourseMaterial'])->name('storeCourseMaterial');
     Route::delete('course/{courseCode}/courseMaterial/delete/{id}', [CourseMaterialController::class, 'deleteCourseMaterial'])->name('deleteCourseMaterial');
