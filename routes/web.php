@@ -30,7 +30,7 @@ Route::get('/', function () {
 })->middleware('guest');
 Route::get('/home', function () {
     return redirect('userProfile');
-})->middleware('auth');;
+})->middleware('auth');
 
 
 // Login and Forgot Password

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CMCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CMCategoryController extends Controller
 {
@@ -104,9 +105,21 @@ class CMCategoryController extends Controller
      */
     public function deleteCMCategory($courseCode, $id, Request $request)
     {
-        $status = DB::table('cm_category')->where('id', '=', $id)->delete();
+        $materials = DB::table('course_material')
+            ->join('cm_category', 'course_material.category_id', '=', 'cm_category.id')
+            ->select('course_material.id as id', 'course_material.path as path')
+            ->where('cm_category.id', '=', $id)
+            ->get();
+        $category = DB::table('cm_category')->where('id', '=', $id)->get()->first();
+        $directoryPath = 'uploads/coursematerials/' . $courseCode . '/' . $category->name;
 
-        if ($status) {
+        if (Storage::deleteDirectory($directoryPath)) {
+            foreach ($materials as $material)
+                DB::table('course_material')->where('id', '=', $material->id)->delete();
+            $statusDB = DB::table('cm_category')->where('id', '=', $id)->delete();
+        }
+
+        if ($statusDB) {
             return back()->with('success', 'Course Material Category deleted successfully!');
         } else {
             return back()->with('error', "Course Material Category cannot not deleted.");

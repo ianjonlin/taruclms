@@ -68,9 +68,15 @@ class LearningMaterialController extends Controller
      */
     public function deleteLearningMaterial($courseCode, $id, Request $request)
     {
-        $status = DB::table('learning_material')->where('id', '=', $id)->delete();
+        $material = DB::table('learning_material')
+            ->where('id', '=', $id)
+            ->get()
+            ->first();
 
-        if ($status) {
+        $statusDB = DB::table('learning_material')->where('id', '=', $id)->delete();
+        $statusFile = Storage::delete($material->path);
+
+        if ($statusDB && $statusFile) {
             return back()->with('success', 'Learning Material deleted successfully!');
         } else {
             return back()->with('error', "Learning Material cannot not deleted.");

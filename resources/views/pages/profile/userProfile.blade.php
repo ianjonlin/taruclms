@@ -234,7 +234,7 @@
                                             <div class="form-control border border-2">
                                                 <div class="container p-1">
                                                     <div class="row ps-1">
-                                                        <div class="col-6 col-md-4">
+                                                        <div>
                                                             <ul class="text-sm list-group">
                                                                 @if ($isCC == true)
                                                                     @foreach ($assigned_courses as $course)
@@ -250,8 +250,6 @@
                                                                         </li>
                                                                     @endforeach
                                                                 @endif
-
-
                                                             </ul>
                                                         </div>
                                                     </div>

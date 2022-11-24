@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -200,6 +201,54 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        $lmmaterials = DB::table('learning_material')
+            ->join('lm_category', 'learning_material.category_id', '=', 'lm_category.id')
+            ->join('course', 'lm_category.course_id', '=', 'course.id')
+            ->select('learning_material.id as id', 'learning_material.path as path')
+            ->where('lm_category.course_id', '=', $course->id)
+            ->get();
+        $lmcategories = DB::table('lm_category')
+            ->join('course', 'lm_category.course_id', '=', 'course.id')
+            ->select('lm_category.id as id')
+            ->where('course.id', '=', $course->id)
+            ->get();
+        $lmdirectoryPath = 'uploads/learningmaterials/' . $course->code;
+
+        if (Storage::deleteDirectory($lmdirectoryPath)) {
+            foreach ($lmmaterials as $lmmaterial)
+                DB::table('learning_material')->where('id', '=', $lmmaterial->id)->delete();
+            foreach ($lmcategories as $lmcategory)
+                DB::table('lm_category')->where('id', '=', $lmcategory->id)->delete();
+        }
+
+        $cmmaterials = DB::table('course_material')
+            ->join('cm_category', 'course_material.category_id', '=', 'cm_category.id')
+            ->join('course', 'cm_category.course_id', '=', 'course.id')
+            ->select('course_material.id as id', 'course_material.path as path')
+            ->where('cm_category.course_id', '=', $course->id)
+            ->get();
+        $cmcategories = DB::table('cm_category')
+            ->join('course', 'cm_category.course_id', '=', 'course.id')
+            ->select('cm_category.id as id')
+            ->where('course.id', '=', $course->id)
+            ->get();
+        $cmdirectoryPath = 'uploads/coursematerials/' . $course->code;
+
+        if (Storage::deleteDirectory($cmdirectoryPath)) {
+            foreach ($cmmaterials as $cmmaterial)
+                DB::table('course_material')->where('id', '=', $cmmaterial->id)->delete();
+            foreach ($cmcategories as $cmcategory)
+                DB::table('cm_category')->where('id', '=', $cmcategory->id)->delete();
+        }
+
+        DB::table('assigned_course')
+            ->where('course_id', '=', $course->id)
+            ->delete();
+
+        DB::table('programme_structure')
+            ->where('course_id', '=', $course->id)
+            ->delete();
+
         if ($course->delete()) {
             return back()->with('success', 'Course deleted successfully!');
         }

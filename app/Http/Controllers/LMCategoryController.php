@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LMCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class LMCategoryController extends Controller
 {
@@ -104,9 +105,21 @@ class LMCategoryController extends Controller
      */
     public function deleteLMCategory($courseCode, $id, Request $request)
     {
-        $status = DB::table('lm_category')->where('id', '=', $id)->delete();
+        $materials = DB::table('learning_material')
+            ->join('lm_category', 'learning_material.category_id', '=', 'lm_category.id')
+            ->select('learning_material.id as id', 'learning_material.path as path')
+            ->where('lm_category.id', '=', $id)
+            ->get();
+        $category = DB::table('lm_category')->where('id', '=', $id)->get()->first();
+        $directoryPath = 'uploads/learningmaterials/' . $courseCode . '/' . $category->name;
 
-        if ($status) {
+        if (Storage::deleteDirectory($directoryPath)) {
+            foreach ($materials as $material)
+                DB::table('learning_material')->where('id', '=', $material->id)->delete();
+            $statusDB = DB::table('lm_category')->where('id', '=', $id)->delete();
+        }
+
+        if ($statusDB) {
             return back()->with('success', 'Learning Material Category deleted successfully!');
         } else {
             return back()->with('error', "Learning Material Category cannot not deleted.");
