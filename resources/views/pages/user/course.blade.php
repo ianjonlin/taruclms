@@ -62,7 +62,7 @@
                         <div class="card-body pt-4">
                             <p style="white-space: pre-line; height: 320px; overflow-y: scroll;">
                                 @if ($course->details == '')
-                                    <i>Its Empty... Nothing to see here...</i>
+                                    <i>No information is available.</i>
                                 @else
                                     {{ $course->details }}
                                 @endif

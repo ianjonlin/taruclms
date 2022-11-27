@@ -3,7 +3,7 @@
         <div class="page-header align-items-start min-vh-100"
             style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
             <span class="mask bg-gradient-dark opacity-6"></span>
-            <div class="container mt-5">
+            <div class="container">
                 <div class="row signin-margin">
                     <div class="col-lg-4 col-md-8 col-12 mx-auto">
                         <div class="card z-index-0 fadeIn3 fadeInBottom">
@@ -13,7 +13,7 @@
                                         <img src="{{ asset('assets') }}/img/logo-taruc-lg.png"
                                             class="img-fluid rounded float-left" alt="taruc_logo">
                                     </div>
-                                    <span class="text-black text-lg text-center">LEARNING MANAGEMENT SYSTEM</span>
+                                    <span class="text-black text-lg text-center mt-3">LEARNING MANAGEMENT SYSTEM</span>
                                 </div>
                                 <h4 class="text-black font-weight-bolder text-left mt-3 mb-3">Login</h4>
                                 <form role="form" method="POST" action="{{ route('login') }}" class="text-start">
@@ -30,7 +30,7 @@
                                     <div class="input-group input-group-outline mt-3">
                                         <label class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email"
-                                            value="{{ 'alexandpg@tarc.edu.my' }}">
+                                            value="{{ 'linyej-sm19@tarc.edu.my' }}">
                                     </div>
                                     @error('email')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
@@ -38,7 +38,7 @@
                                     <div class="input-group input-group-outline mt-3">
                                         <label class="form-label">Password</label>
                                         <input type="password" class="form-control" name="password"
-                                            value='{{ 'Lois@2403' }}'>
+                                            value='{{ 'ianjonLin@26' }}'>
                                     </div>
                                     @error('password')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
