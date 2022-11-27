@@ -3,8 +3,7 @@
     <x-navbars.sidebar activePage="{{ $courseCode }}"></x-navbars.sidebar>
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth
-            titlePage="Manage Course Materials / {{ $courseCode }} / Edit Course Material Category / {{ $cMCategory->name }}">
+        <x-navbars.navs.auth titlePage="Manage Course Materials / {{ $courseCode }} / Edit Course Material Category">
         </x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
@@ -33,7 +32,8 @@
                                 </div>
                             </div>
                         @endif
-                        <form method='POST' action='{{ route('updateCMCategory', ['courseCode' => $courseCode, 'id' => $cMCategory->id]) }}'>
+                        <form method='POST'
+                            action='{{ route('updateCMCategory', ['courseCode' => $courseCode, 'id' => $cMCategory->id]) }}'>
                             @csrf
                             @method('PUT')
                             <div class="row justify-content-center">

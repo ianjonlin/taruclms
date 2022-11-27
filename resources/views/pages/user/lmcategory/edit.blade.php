@@ -4,7 +4,7 @@
     <div class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <x-navbars.navs.auth
-            titlePage="Manage Learning Materials / {{ $courseCode }} / Edit Learning Material Category / {{ $lMCategory->name }}">
+            titlePage="Manage Learning Materials / {{ $courseCode }} / Edit Learning Material Category">
         </x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">

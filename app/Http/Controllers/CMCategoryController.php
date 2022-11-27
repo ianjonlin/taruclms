@@ -26,6 +26,9 @@ class CMCategoryController extends Controller
     public function viewCMCategory($courseCode)
     {
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
+
         $categories = DB::table('cm_category')
             ->where('course_id', '=', $course->id)
             ->get();
@@ -44,6 +47,9 @@ class CMCategoryController extends Controller
      */
     public function createCMCategory($courseCode)
     {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
         return view('pages.user.cmcategory.create', ['courseCode' => $courseCode]);
     }
 
@@ -53,6 +59,10 @@ class CMCategoryController extends Controller
      */
     public function storeCMCategory($courseCode, Request $request)
     {
+        if ($request->user()->cannot('create', [CMCategory::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $request->validate([
             'name' => 'required'
         ]);
@@ -76,6 +86,9 @@ class CMCategoryController extends Controller
      */
     public function editCMCategory($courseCode, $id)
     {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
         $cMCategory = DB::table('cm_category')->where('id', '=', $id)->get()->first();
         return view('pages.user.cmcategory.edit', ['courseCode' => $courseCode, 'cMCategory' => $cMCategory]);
     }
@@ -86,6 +99,10 @@ class CMCategoryController extends Controller
      */
     public function updateCMCategory($courseCode, $id, Request $request)
     {
+        if ($request->user()->cannot('update', [CMCategory::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $request->validate([
             'name' => 'required'
         ]);
@@ -105,6 +122,10 @@ class CMCategoryController extends Controller
      */
     public function deleteCMCategory($courseCode, $id, Request $request)
     {
+        if ($request->user()->cannot('delete', [CMCategory::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $materials = DB::table('course_material')
             ->join('cm_category', 'course_material.category_id', '=', 'cm_category.id')
             ->select('course_material.id as id', 'course_material.path as path')

@@ -26,6 +26,9 @@ class CourseMaterialController extends Controller
     public function createCourseMaterial($courseCode)
     {
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
+
         $categories = DB::table('cm_category')
             ->where('course_id', '=', $course->id)
             ->get();
@@ -39,6 +42,10 @@ class CourseMaterialController extends Controller
      */
     public function storeCourseMaterial($courseCode, Request $request)
     {
+        if ($request->user()->cannot('create', [CourseMaterial::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $request->validate([
             'name' => 'required',
             'category' => 'required',
@@ -68,6 +75,10 @@ class CourseMaterialController extends Controller
      */
     public function deleteCourseMaterial($courseCode, $id, Request $request)
     {
+        if ($request->user()->cannot('delete', [CourseMaterial::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $material = DB::table('course_material')
             ->where('id', '=', $id)
             ->get()
@@ -89,6 +100,10 @@ class CourseMaterialController extends Controller
      */
     public function downloadCourseMaterial($courseCode, $id)
     {
+        if (auth()->user()->role == "Student") {
+            abort(403, "Unauthorized Action.");
+        }
+
         $material = DB::table('course_material')
             ->where('id', '=', $id)
             ->get()

@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\LMCategory;
 use App\Models\User;
-use App\Models\Course;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class LMCategoryPolicy
@@ -41,8 +41,9 @@ class LMCategoryPolicy
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user, Course $course)
+    public function create(User $user, $courseCode)
     {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
         return $course->cc_id == $user->id;
     }
 
@@ -53,8 +54,9 @@ class LMCategoryPolicy
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Course $course)
+    public function update(User $user, $courseCode)
     {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
         return $course->cc_id == $user->id;
     }
 
@@ -65,8 +67,9 @@ class LMCategoryPolicy
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Course $course)
+    public function delete(User $user, $courseCode)
     {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
         return $course->cc_id == $user->id;
     }
 

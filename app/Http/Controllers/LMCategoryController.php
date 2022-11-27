@@ -26,6 +26,9 @@ class LMCategoryController extends Controller
     public function viewLMCategory($courseCode)
     {
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
+
         $categories = DB::table('lm_category')
             ->where('course_id', '=', $course->id)
             ->get();
@@ -44,6 +47,9 @@ class LMCategoryController extends Controller
      */
     public function createLMCategory($courseCode)
     {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
         return view('pages.user.lmcategory.create', ['courseCode' => $courseCode]);
     }
 
@@ -53,6 +59,10 @@ class LMCategoryController extends Controller
      */
     public function storeLMCategory($courseCode, Request $request)
     {
+        if ($request->user()->cannot('create', [LMCategory::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $request->validate([
             'name' => 'required'
         ]);
@@ -76,6 +86,9 @@ class LMCategoryController extends Controller
      */
     public function editLMCategory($courseCode, $id)
     {
+        $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
         $lMCategory = DB::table('lm_category')->where('id', '=', $id)->get()->first();
         return view('pages.user.lmcategory.edit', ['courseCode' => $courseCode, 'lMCategory' => $lMCategory]);
     }
@@ -86,6 +99,10 @@ class LMCategoryController extends Controller
      */
     public function updateLMCategory($courseCode, $id, Request $request)
     {
+        if ($request->user()->cannot('update', [LMCategory::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $request->validate([
             'name' => 'required'
         ]);
@@ -105,6 +122,10 @@ class LMCategoryController extends Controller
      */
     public function deleteLMCategory($courseCode, $id, Request $request)
     {
+        if ($request->user()->cannot('delete', [LMCategory::class, $courseCode])) {
+            abort(403, "Unauthorized Action.");
+        }
+
         $materials = DB::table('learning_material')
             ->join('lm_category', 'learning_material.category_id', '=', 'lm_category.id')
             ->select('learning_material.id as id', 'learning_material.path as path')
