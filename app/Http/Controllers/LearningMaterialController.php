@@ -49,17 +49,35 @@ class LearningMaterialController extends Controller
         $request->validate([
             'name' => 'required',
             'category' => 'required',
-            'file' => 'required | mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,jpg,jpeg,png,gif,txt | max:100000'
+            'file' => 'mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,jpg,jpeg,png,gif,txt | max:100000',
+            'url' => 'nullable | url'
         ]);
 
+        if ($request->file && $request->url) {
+            return back()->withErrors('Either a file upload OR a Web URL Link is accepted.');
+        } else if (!$request->file && !$request->url) {
+            return back()->withErrors('A file upload OR a Web URL Link is required.');
+        }
+
         $category = DB::table('lm_category')->where('id', '=', $request->category)->get()->first();
-        $path = Storage::putFileAs('uploads/learningmaterials/' . $courseCode . '/' . $category->name, $request->file('file'), $request->name . "." . $request->file('file')->getClientOriginalExtension());
+
+        if ($request->file) {
+            $type = 'file';
+            $path = Storage::putFileAs('uploads/learningmaterials/' . $courseCode . '/' . $category->name, $request->file('file'), $request->name . "." . $request->file('file')->getClientOriginalExtension());
+            $ext = $request->file('file')->extension();
+        } else if ($request->url) {
+            $type = 'url';
+            $path = $request->url;
+            $ext = null;
+        }
+
 
         $status = DB::table('learning_material')->insert([
             'name' => $request->name,
             'category_id' => $request->category,
+            'type' => $type,
             'path' => $path,
-            'ext' => $request->file('file')->extension()
+            'ext' => $ext
         ]);
 
         if ($status) {
@@ -84,10 +102,14 @@ class LearningMaterialController extends Controller
             ->get()
             ->first();
 
-        $statusDB = DB::table('learning_material')->where('id', '=', $id)->delete();
-        $statusFile = Storage::delete($material->path);
+        if ($material->type == "file") {
+            if (Storage::delete($material->path))
+                $status = DB::table('learning_material')->where('id', '=', $material->id)->delete();
+        } else if ($material->type == "url") {
+            $status = DB::table('learning_material')->where('id', '=', $material->id)->delete();
+        }
 
-        if ($statusDB && $statusFile) {
+        if ($status) {
             return back()->with('success', 'Learning Material deleted successfully!');
         } else {
             return back()->with('error', "Learning Material cannot not deleted.");

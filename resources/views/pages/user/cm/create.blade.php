@@ -54,11 +54,20 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Material / File (Maximum Size - 100mb)</label>
+                                    <label class="form-label">Material / File</label>
                                     <input type="file" class="form-control form-control-lg border border-2"
-                                        name="file" required>
-                                    <label class="form-label">Supported Types: .doc, .docx, .xlx, .xlxs, .ppt, .pptx, .pdf, .jpg,
+                                        name="file">
+                                    <label class="form-label">Maximum Upload Size - 100mb &nbsp;&nbsp;|&nbsp;&nbsp; Supported Upload
+                                        Types: .doc, .docx, .xlx, .xlxs, .ppt, .pptx,
+                                        .pdf, .jpg,
                                         .jpeg, .png, .gif, .txt</label>
+                                </div>
+
+                                OR
+
+                                <div class="mb-3 mt-2">
+                                    <label class="form-label">Web URL Link</label>
+                                    <input type="text" class="form-control border border-2 p-2" name="url">
                                 </div>
 
                                 <div class="d-flex flex-row-reverse">

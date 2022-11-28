@@ -34,7 +34,7 @@ class CMCategoryController extends Controller
             ->get();
         $courseMaterials = DB::table('course_material')
             ->join('cm_category', 'category_id', '=', 'cm_category.id')
-            ->select('course_material.id as id', 'course_material.name as name', 'cm_category.id as category', 'course_material.path as path', 'course_material.ext as ext',)
+            ->select('course_material.id as id', 'course_material.name as name', 'cm_category.id as category', 'course_material.type as type', 'course_material.path as path', 'course_material.ext as ext',)
             ->where('cm_category.course_id', '=', $course->id)
             ->get();
 

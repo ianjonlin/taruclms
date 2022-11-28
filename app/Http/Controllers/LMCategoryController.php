@@ -34,7 +34,7 @@ class LMCategoryController extends Controller
             ->get();
         $learningMaterials = DB::table('learning_material')
             ->join('lm_category', 'category_id', '=', 'lm_category.id')
-            ->select('learning_material.id as id', 'learning_material.name as name', 'lm_category.id as category', 'learning_material.path as path', 'learning_material.ext as ext',)
+            ->select('learning_material.id as id', 'learning_material.name as name', 'lm_category.id as category', 'learning_material.type as type', 'learning_material.path as path', 'learning_material.ext as ext',)
             ->where('lm_category.course_id', '=', $course->id)
             ->get();
 

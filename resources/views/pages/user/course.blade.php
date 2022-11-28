@@ -211,11 +211,11 @@
                                                 <thead>
                                                     <tr>
                                                         <th
-                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                             Name</th>
                                                         <th
                                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                            Information</th>
+                                                            File Information / URL</th>
                                                         <th
                                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                             Action</th>
@@ -232,22 +232,35 @@
                                                                     </h6>
                                                                 </td>
                                                                 <td class="align-middle">
-                                                                    <p class="text-sm text-secondary mb-0">
-                                                                        .{{ $material->ext }} -
-                                                                        {{ round((int) Storage::size($material->path) / 100000, 2) }}
-                                                                        mb
-                                                                    </p>
+                                                                    @if ($material->type == 'url')
+                                                                        <p class="text-sm text-secondary mb-0">
+                                                                            <u>
+                                                                                <a
+                                                                                    href="{{ $material->path }}">{{ $material->path }}</a>
+                                                                            </u>
+                                                                        </p>
+                                                                    @else
+                                                                        <p class="text-sm text-secondary mb-0">
+                                                                            .{{ $material->ext }}
+                                                                            -
+                                                                            {{ round((int) Storage::size($material->path) / 100000, 2) }}
+                                                                            mb
+                                                                        </p>
+                                                                    @endif
                                                                 </td>
-                                                                <td class="align-middle text-center"
-                                                                    style="z-index: 3">
-                                                                    <a rel="tooltip" class="btn btn-info btn-link"
-                                                                        href=" {{ route('downloadLearningMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
-                                                                        data-original-title="" title="">
-                                                                        <i class="material-icons">download</i>
-                                                                        <div class="ripple-container">
-                                                                        </div>
-                                                                    </a>
-                                                                </td>
+                                                                @if ($material->type == 'file')
+                                                                    <td class="align-middle text-center"
+                                                                        style="z-index: 3">
+                                                                        <a rel="tooltip"
+                                                                            class="btn btn-info btn-link"
+                                                                            href=" {{ route('downloadLearningMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
+                                                                            data-original-title="" title="">
+                                                                            <i class="material-icons">download</i>
+                                                                            <div class="ripple-container">
+                                                                            </div>
+                                                                        </a>
+                                                                    </td>
+                                                                @endif
                                                             </tr>
                                                             @php($lmNum++)
                                                         @endif
@@ -307,7 +320,8 @@
                                                 <a class="nav-link mb-0 px-0 py-1 {{ $cmcCount == 1 ? ' active' : '' }}"
                                                     id="cm-pills-{{ $cmcCount }}-tab" data-bs-toggle="tab"
                                                     href="#cm-pills-{{ $cmcCount }}" role="tab"
-                                                    aria-controls="cm-pills-{{ $cmcCount }}" aria-selected="true">
+                                                    aria-controls="cm-pills-{{ $cmcCount }}"
+                                                    aria-selected="true">
                                                     {{ $category->name }}
                                                 </a>
                                             </li>
@@ -326,11 +340,11 @@
                                                     <thead>
                                                         <tr>
                                                             <th
-                                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                                 Name</th>
                                                             <th
                                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                                Information</th>
+                                                                File Information / URL</th>
                                                             <th
                                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                                 Action</th>
@@ -347,23 +361,35 @@
                                                                         </h6>
                                                                     </td>
                                                                     <td class="align-middle">
-                                                                        <p class="text-sm text-secondary mb-0">
-                                                                            .{{ $material->ext }} -
-                                                                            {{ round((int) Storage::size($material->path) / 100000, 2) }}
-                                                                            mb
-                                                                        </p>
+                                                                        @if ($material->type == 'url')
+                                                                            <p class="text-sm text-secondary mb-0">
+                                                                                <u>
+                                                                                    <a
+                                                                                        href="{{ $material->path }}">{{ $material->path }}</a>
+                                                                                </u>
+                                                                            </p>
+                                                                        @else
+                                                                            <p class="text-sm text-secondary mb-0">
+                                                                                .{{ $material->ext }}
+                                                                                -
+                                                                                {{ round((int) Storage::size($material->path) / 100000, 2) }}
+                                                                                mb
+                                                                            </p>
+                                                                        @endif
                                                                     </td>
-                                                                    <td class="align-middle text-center"
-                                                                        style="z-index: 3">
-                                                                        <a rel="tooltip"
-                                                                            class="btn btn-info btn-link"
-                                                                            href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
-                                                                            data-original-title="" title="">
-                                                                            <i class="material-icons">download</i>
-                                                                            <div class="ripple-container">
-                                                                            </div>
-                                                                        </a>
-                                                                    </td>
+                                                                    @if ($material->type == 'file')
+                                                                        <td class="align-middle text-center"
+                                                                            style="z-index: 3">
+                                                                            <a rel="tooltip"
+                                                                                class="btn btn-info btn-link"
+                                                                                href=" {{ route('downloadCourseMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
+                                                                                data-original-title="" title="">
+                                                                                <i class="material-icons">download</i>
+                                                                                <div class="ripple-container">
+                                                                                </div>
+                                                                            </a>
+                                                                        </td>
+                                                                    @endif
                                                                 </tr>
                                                                 @php($lmNum++)
                                                             @endif

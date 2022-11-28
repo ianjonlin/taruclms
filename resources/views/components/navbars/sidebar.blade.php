@@ -41,6 +41,9 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Programme
                         Structure</h6>
                 </li>
+
+                {{-- @if($programme_structure_y1_s1 != []) --}}
+
             @elseif (auth()->user()->role == 'Lecturer')
                 @if (!$assigned_courses->isEmpty())
                     <li class="nav-item mt-3">
@@ -106,8 +109,9 @@
                 </li>
             @endif
 
+            {{-- TO BE REMOVED! --}}
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Templates</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Templates (REMOVE!)</h6>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-info' : '' }} "
