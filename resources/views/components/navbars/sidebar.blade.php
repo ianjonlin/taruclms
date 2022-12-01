@@ -42,16 +42,56 @@
                         Structure</h6>
                 </li>
 
-                {{-- @if ($programme_structure_y1_s1 != []) --}}
+                @php($i = 0)
+                @for ($year = 1; $year < $programmeYear + 1; $year++)
+                    @php($j = 0)
+                    <li class="nav-item mt-3">
+                        <h6 class="ps-4 ms-2 text-uppercase text-md text-white font-weight-bolder opacity-8">Year
+                            {{ $year }}</h6>
+                    </li>
+                    @for ($sem = 1; $sem < 4; $sem++)
+                        <li class="nav-item ps-3">
+                            <a class="nav-link text-white navbar-toggle" role="button" data-bs-toggle="collapse"
+                                href="#y{{ $year }}s{{ $sem }}" aria-expanded="true"
+                                aria-controls="y{{ $year }}s{{ $sem }}">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="nav-link-text menu-collapsed">Sem {{ $sem }}</span>
+                                    <span class="submenu-icon ml-auto"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <div id="y{{ $year }}s{{ $sem }}" class="collapse">
+                            @foreach ($programme_structure[$i][$j] as $course)
+                                <li class="nav-item ps-3">
+                                    <a class="nav-link text-white {{ $activePage == $course->code ? ' active bg-gradient-info' : '' }} "
+                                        href="{{ route('viewCourse', ['courseCode' => $course->code]) }}">
+                                        <div
+                                            class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <span class="nav-link-text menu-collapsed"
+                                                style="max-width: 180px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;"><b>{{ $course->code }}</b>&nbsp;{{ $course->title }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </div>
+                        @php($j++)
+                    @endfor
+                    @php($i++)
+                @endfor
             @elseif (auth()->user()->role == 'Lecturer')
                 @if (!$assigned_courses->isEmpty())
                     @if ($isCC)
                         <li class="nav-item mt-3">
-                            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Manage Course</h6>
+                            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Manage
+                                Course</h6>
                         </li>
                     @else
                         <li class="nav-item mt-3">
-                            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Courses
+                            <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">
+                                Courses
                                 Assigned</h6>
                         </li>
                     @endif
@@ -73,7 +113,8 @@
                 @endif
             @elseif (auth()->user()->role == 'Admin')
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Admin Functions
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Admin
+                        Functions
                     </h6>
                 </li>
                 <li class="nav-item">
@@ -116,7 +157,8 @@
 
             {{-- TO BE REMOVED! --}}
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Templates (REMOVE!)
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Templates
+                    (REMOVE!)
                 </h6>
             </li>
             <li class="nav-item">

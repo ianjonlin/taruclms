@@ -32,121 +32,52 @@ class AppServiceProvider extends ServiceProvider
             if (auth()->check()) {
                 // For students
                 if (auth()->user()->role == "Student") {
-                    $programme_id = auth()->user()->programme;
+                    $programme = DB::table('programme')
+                        ->where('id', '=', auth()->user()->programme)
+                        ->get()->first();
 
-                    $programme_structure_y1_s1 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 1],
-                            ['sem', '=', 1]
-                        ])->get();
-                    $programme_structure_y1_s2 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 1],
-                            ['sem', '=', 2]
-                        ])->get();
-                    $programme_structure_y1_s3 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 1],
-                            ['sem', '=', 3]
-                        ])->get();
+                    switch ($programme->type) {
+                        case "Foundation Programme":
+                            $programmeYear = 1;
+                            break;
+                        case "Diploma":
+                            $programmeYear = 2;
+                            break;
+                        case "Bachelor Degree":
+                            $programmeYear = 3;
+                            break;
+                        case "Master":
+                            $programmeYear = 2;
+                            break;
+                        case "Doctor of Philosophy":
+                            $programmeYear = 4;
+                            break;
+                    }
 
-                    $programme_structure_y2_s1 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 2],
-                            ['sem', '=', 1]
-                        ])->get();
-                    $programme_structure_y2_s2 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 2],
-                            ['sem', '=', 2]
-                        ])->get();
-                    $programme_structure_y2_s3 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 2],
-                            ['sem', '=', 3]
-                        ])->get();
+                    $programme_structure = [];
 
-                    $programme_structure_y3_s1 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 3],
-                            ['sem', '=', 1]
-                        ])->get();
-                    $programme_structure_y3_s2 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 3],
-                            ['sem', '=', 2]
-                        ])->get();
-                    $programme_structure_y3_s3 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 3],
-                            ['sem', '=', 3]
-                        ])->get();
+                    for ($year = 1; $year < $programmeYear + 1; $year++) {
+                        $ps = [];
+                        for ($sem = 1; $sem < 4; $sem++) {
+                            $check = DB::table('programme_structure')
+                                ->join('course', 'course_id', '=', 'course.id')
+                                ->select('course.code as code', 'course.title as title')
+                                ->where([
+                                    ['programme_id', '=', $programme->id],
+                                    ['year', '=', $year],
+                                    ['sem', '=', $sem]
+                                ])->get();
 
-                    $programme_structure_y4_s1 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 4],
-                            ['sem', '=', 1]
-                        ])->get();
-                    $programme_structure_y4_s2 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 4],
-                            ['sem', '=', 2]
-                        ])->get();
-                    $programme_structure_y4_s3 = DB::table('programme_structure')
-                        ->join('course', 'course_id', '=', 'course.id')
-                        ->select('course.code as code', 'course.title as title')
-                        ->where([
-                            ['programme_id', '=', $programme_id],
-                            ['year', '=', 4],
-                            ['sem', '=', 3]
-                        ])->get();
+                            if (!$check->isEmpty()) {
+                                array_push($ps, $check);
+                            }
+                        }
+                        array_push($programme_structure, $ps);
+                    }
 
                     view()->share([
-                        'programme_structure_y1_s1' => $programme_structure_y1_s1,
-                        'programme_structure_y1_s2' => $programme_structure_y1_s2,
-                        'programme_structure_y1_s3' => $programme_structure_y1_s3,
-                        'programme_structure_y2_s1' => $programme_structure_y2_s1,
-                        'programme_structure_y2_s2' => $programme_structure_y2_s2,
-                        'programme_structure_y2_s3' => $programme_structure_y2_s3,
-                        'programme_structure_y3_s1' => $programme_structure_y3_s1,
-                        'programme_structure_y3_s2' => $programme_structure_y3_s2,
-                        'programme_structure_y3_s3' => $programme_structure_y3_s3,
-                        'programme_structure_y4_s1' => $programme_structure_y4_s1,
-                        'programme_structure_y4_s2' => $programme_structure_y4_s2,
-                        'programme_structure_y4_s3' => $programme_structure_y4_s3
+                        'programmeYear' => $programmeYear,
+                        'programme_structure' => $programme_structure
                     ]);
                 }
 
