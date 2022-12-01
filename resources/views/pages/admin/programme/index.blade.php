@@ -141,7 +141,12 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-sm">
-                                                    <p class="text-sm text-secondary mb-0">{{ $programme->title }}
+                                                    <p class="text-sm text-secondary mb-0"
+                                                        style="overflow: hidden;
+                                                    max-width: 64ch;
+                                                    text-overflow: ellipsis;
+                                                    white-space: nowrap;">
+                                                        {{ $programme->title }}
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center">

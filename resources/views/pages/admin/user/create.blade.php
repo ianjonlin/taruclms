@@ -42,18 +42,18 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">User ID</label>
                                     <input type="text" class="form-control border border-2 p-2" id="user_id"
-                                        name="user_id" required oninput="dynamicDisplayPassword(this)">
+                                        name="user_id" maxlength="10" required oninput="dynamicDisplayPassword(this)">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control border border-2 p-2" name="email"
+                                    <input type="email" maxlength="40" class="form-control border border-2 p-2" name="email"
                                         required>
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control border border-2 p-2" name="name"
+                                    <input type="text" maxlength="40" class="form-control border border-2 p-2" name="name"
                                         required>
                                 </div>
 

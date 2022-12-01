@@ -43,14 +43,14 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
-                                    <input type="text" class="form-control border border-2 p-2" name="code"
-                                        required value="{{ $programme->code }}">
+                                    <input type="text" class="form-control border border-2 p-2" name="code" maxlength="8"
+                                        required maxlength="8" value="{{ $programme->code }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Title</label>
-                                    <input type="text" class="form-control border border-2 p-2" name="title"
-                                        required value="{{ $programme->title }}">
+                                    <input type="text" class="form-control border border-2 p-2" name="title" maxlength="128"
+                                        required maxlength="128" value="{{ $programme->title }}">
                                 </div>
 
                                 <div class="mb-3">
@@ -145,41 +145,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-    // Check for selected programme type -> set years
-    $(".programmeType").change(function() {
-        switch ($(this).find(':selected').text()) {
-            case "Foundation Programme":
-                $("#y1").show();
-                $("#y2").hide();
-                $("#y3").hide();
-                $("#y4").hide();
-                break;
-            case "Diploma":
-                $("#y1").show();
-                $("#y2").show();
-                $("#y3").hide();
-                $("#y4").hide();
-                break;
-            case "Bachelor Degree":
-                $("#y1").show();
-                $("#y2").show();
-                $("#y3").show();
-                $("#y4").hide();
-                break;
-            case "Master":
-                $("#y1").show();
-                $("#y2").show();
-                $("#y3").hide();
-                $("#y4").hide();
-                break;
-            case "Doctor of Philosophy":
-                $("#y1").show();
-                $("#y2").show();
-                $("#y3").show();
-                $("#y4").show();
-                break;
-        }
-    }).change();
 
     // Dynamic Add Course Select Field (up to 6 times)
     let courseList = JSON.parse(`{!! $courses->toJson(JSON_PRETTY_PRINT) !!}`);

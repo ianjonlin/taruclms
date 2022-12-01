@@ -133,13 +133,19 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-sm">
-                                                    <p class="text-sm text-secondary mb-0">{{ $course->title }}</p>
+                                                    <p class="text-sm text-secondary mb-0" style="overflow: hidden;
+                                                    max-width: 32ch; text-overflow: ellipsis;
+                                                    white-space: nowrap;">
+                                                        {{ $course->title }}</p>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     @if ($course->cc_id != '')
                                                         @foreach ($users as $user)
                                                             @if ($user->id == $course->cc_id)
-                                                                <p class="text-sm text-secondary mb-0">
+                                                                <p class="text-sm text-secondary mb-0"
+                                                                    style="overflow: hidden;
+                                                                    max-width: 40ch; text-overflow: ellipsis;
+                                                                    white-space: nowrap;">
                                                                     {{ $user->user_id }}&nbsp;{{ $user->name }}</p>
                                                             @endif
                                                         @endforeach

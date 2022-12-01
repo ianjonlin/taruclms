@@ -233,7 +233,11 @@
                                                                 </td>
                                                                 <td class="align-middle">
                                                                     @if ($material->type == 'url')
-                                                                        <p class="text-sm text-secondary mb-0">
+                                                                        <p class="text-sm text-secondary mb-0"
+                                                                            style="overflow: hidden;
+                                                                        max-width: 48ch;
+                                                                        text-overflow: ellipsis;
+                                                                        white-space: nowrap;">
                                                                             <u>
                                                                                 <a
                                                                                     href="{{ $material->path }}">{{ $material->path }}</a>
@@ -362,7 +366,11 @@
                                                                     </td>
                                                                     <td class="align-middle">
                                                                         @if ($material->type == 'url')
-                                                                            <p class="text-sm text-secondary mb-0">
+                                                                            <p class="text-sm text-secondary mb-0"
+                                                                                style="overflow: hidden;
+                                                                            max-width: 48ch;
+                                                                            text-overflow: ellipsis;
+                                                                            white-space: nowrap;">
                                                                                 <u>
                                                                                     <a
                                                                                         href="{{ $material->path }}">{{ $material->path }}</a>

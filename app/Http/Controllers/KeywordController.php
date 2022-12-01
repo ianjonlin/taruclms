@@ -58,7 +58,7 @@ class KeywordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'value' => 'required'
+            'value' => 'required|unique:blocked_keywords,value'
         ]);
 
         $keyword = new Keyword;

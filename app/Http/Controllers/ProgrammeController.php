@@ -91,7 +91,7 @@ class ProgrammeController extends Controller
     {
         $request->validate([
             'type' => 'required',
-            'code' => 'required',
+            'code' => 'required|unique:programme,code',
             'title' => 'required',
         ]);
 

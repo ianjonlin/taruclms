@@ -32,34 +32,35 @@
                             </div>
                         </div>
 
-                        @if (session('success') || session('error'))
-                            <div class="card-body px-2">
-                                @if (session('success'))
-                                    <div class="row m-0">
-                                        <div class="alert alert-success alert-dismissible text-white" role="alert">
-                                            <span class="text-sm">{{ session('success') }}</span>
-                                            <button type="button" class="btn-close text-lg py-3 opacity-10"
-                                                data-bs-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="row m-0">
-                                        <div class="alert alert-danger alert-dismissible text-white" role="alert">
-                                            <span class="text-sm">{{ session('error') }}</span>
-                                            <button type="button" class="btn-close text-lg py-3 opacity-10"
-                                                data-bs-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        @endif
-
                         <div class="card-body px-2">
+
+                            @if (session('success') || session('error'))
+                                <div class="card-body py-0">
+                                    @if (session('success'))
+                                        <div class="row m-0">
+                                            <div class="alert alert-success alert-dismissible text-white"
+                                                role="alert">
+                                                <span class="text-sm">{{ session('success') }}</span>
+                                                <button type="button" class="btn-close text-lg py-3 opacity-10"
+                                                    data-bs-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if (session('error'))
+                                        <div class="row m-0">
+                                            <div class="alert alert-danger alert-dismissible text-white" role="alert">
+                                                <span class="text-sm">{{ session('error') }}</span>
+                                                <button type="button" class="btn-close text-lg py-3 opacity-10"
+                                                    data-bs-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
 
                             @if ($categories->isEmpty())
                                 <p class="text-center">No Learning Material Category have been created yet.</p>
@@ -144,8 +145,11 @@
                                                                                         </td>
                                                                                         <td class="align-middle">
                                                                                             @if ($material->type == 'url')
-                                                                                                <p
-                                                                                                    class="text-sm text-secondary mb-0">
+                                                                                                <p class="text-sm text-secondary mb-0"
+                                                                                                    style="overflow: hidden;
+                                                                                                    max-width: 60ch;
+                                                                                                    text-overflow: ellipsis;
+                                                                                                    white-space: nowrap;">
                                                                                                     <u>
                                                                                                         <a
                                                                                                             href="{{ $material->path }}">{{ $material->path }}</a>

@@ -61,7 +61,11 @@
                                                                     {{ $sem }}</b>
                                                                 <ul class="text-sm list-group pt-2">
                                                                     @foreach ($programme_structure[$i][$j] as $p)
-                                                                        <li class="list-group-item p-0 border-0">
+                                                                        <li class="list-group-item p-0 border-0"
+                                                                            style="overflow: hidden;
+                                                                        max-width: 48ch;
+                                                                        text-overflow: ellipsis;
+                                                                        white-space: nowrap;">
                                                                             {{ $p->code }}&nbsp;{{ $p->title }}
                                                                         </li>
                                                                     @endforeach

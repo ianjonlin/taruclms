@@ -99,11 +99,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
+            'user_id' => 'required|unique:users,user_id',
             'name' => 'required',
-            'email' => ['required', 'email', Rule::unique('App\Models\User', 'email')],
+            'email' => ['required', 'email', Rule::unique('App\Models\User', 'email'), 'unique:users,email'],
             'role' => 'required'
         ]);
+
+        if ($request->role == "Student" && $request->programme == null)
+            return back()->withErrors('Programme is not selected for the new user(Student).');
 
         $user = new User;
         $user->user_id = $request->user_id;

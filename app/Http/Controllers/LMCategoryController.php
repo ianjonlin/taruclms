@@ -64,7 +64,7 @@ class LMCategoryController extends Controller
         }
 
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:lm_category,name'
         ]);
 
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();

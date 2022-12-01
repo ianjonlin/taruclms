@@ -99,9 +99,9 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code' => 'required',
+            'code' => 'required|unique:course,code',
             'title' => 'required',
-            'cc_id' => 'required'
+            'cc_id' => 'required', 'unique:course,cc_id' => 'Lecturer is already a CC!'
         ]);
 
         $course = new Course;

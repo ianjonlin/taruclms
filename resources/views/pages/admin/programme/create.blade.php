@@ -48,13 +48,13 @@
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
                                     <input type="text" class="form-control border border-2 p-2" name="code"
-                                        required>
+                                        required maxlength="8">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Title</label>
                                     <input type="text" class="form-control border border-2 p-2" name="title"
-                                        required>
+                                        required maxlength="128">
                                 </div>
 
                                 <div class="mb-3">

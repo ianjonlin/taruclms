@@ -38,19 +38,19 @@
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">User ID</label>
                                     <input type="text" class="form-control border border-2 p-2" name="user_id"
-                                        required value="{{ $user->user_id }}">
+                                        required maxlength="10" value="{{ $user->user_id }}">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control border border-2 p-2" name="email"
-                                        required value="{{ $user->email }}">
+                                        required maxlength="40" value="{{ $user->email }}">
                                 </div>
 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Name</label>
                                     <input type="text" class="form-control border border-2 p-2" name="name"
-                                        required value="{{ $user->name }}">
+                                        required maxlength="40" value="{{ $user->name }}">
                                 </div>
 
                                 <div class="mb-3 col-md-6">

@@ -38,13 +38,13 @@
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
                                     <input type="text" class="form-control border border-2 p-2" name="code"
-                                        required value="{{ $course->code }}">
+                                        required maxlength="8" value="{{ $course->code }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Title</label>
                                     <input type="text" class="form-control border border-2 p-2" name="title"
-                                        required value="{{ $course->title }}">
+                                        required maxlength="48" value="{{ $course->title }}">
                                 </div>
 
                                 <div class="mb-3">

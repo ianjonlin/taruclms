@@ -30,7 +30,7 @@
                                     <div class="input-group input-group-outline mt-3">
                                         <label class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email"
-                                            value="{{ 'linyej-sm19@tarc.edu.my' }}">
+                                            value="{{ 'linyej-sm19@student.tarc.edu.my' }}">
                                     </div>
                                     @error('email')
                                         <p class='text-danger inputerror'>{{ $message }} </p>

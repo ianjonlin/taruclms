@@ -137,11 +137,13 @@
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                                                        <h6 class="mb-0 text-sm">
+                                                            {{ $user->name }}</h6>
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <p class="text-sm text-secondary mb-0">{{ $user->email }}
+                                                    <p class="text-sm text-secondary mb-0">
+                                                        {{ $user->email }}
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center">
