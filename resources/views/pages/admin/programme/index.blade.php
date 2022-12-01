@@ -24,7 +24,7 @@
                             @if (session('success') || session('error'))
                                 <div class="card-body py-0">
                                     @if (session('success'))
-                                        <div class="row">
+                                        <div class="row m-0">
                                             <div class="alert alert-success alert-dismissible text-white"
                                                 role="alert">
                                                 <span class="text-sm">{{ session('success') }}</span>
@@ -36,7 +36,7 @@
                                         </div>
                                     @endif
                                     @if (session('error'))
-                                        <div class="row">
+                                        <div class="row m-0">
                                             <div class="alert alert-danger alert-dismissible text-white" role="alert">
                                                 <span class="text-sm">{{ session('error') }}</span>
                                                 <button type="button" class="btn-close text-lg py-3 opacity-10"
@@ -88,7 +88,7 @@
                                 Total records - <b><u>{{ $programmes->count() }}</u></b> programme(s)
                             </p>
 
-                            <div class="table-responsive p-0" style="max-height: 400px;">
+                            <div class="table-responsive p-0" style="max-height: 80vh;">
                                 <table class="table align-items-center mb-0">
                                     <thead style="position: sticky; top: 0; background: white; z-index: 10">
                                         <tr>

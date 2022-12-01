@@ -31,7 +31,7 @@
                             </div>
                         @endif
                         @if (session('error'))
-                            <div class="row">
+                            <div class="row m-0">
                                 <div class="alert alert-danger alert-dismissible text-white" role="alert">
                                     <span class="text-sm">{{ session('error') }}</span>
                                     <button type="button" class="btn-close text-lg py-3 opacity-10"
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         @elseif ($errors->any())
-                            <div class="row">
+                            <div class="row m-0">
                                 <div class="alert alert-danger alert-dismissible text-white" role="alert">
                                     <span class="text-sm">
                                         @foreach ($errors->all() as $error)

@@ -230,7 +230,11 @@
                                 <div class="mb-3 col-md-12">
                                     @if (!$assigned_courses->isEmpty())
                                         <div class="mb-3">
-                                            <label class="form-label">Assigned Courses</label>
+                                            @if ($isCC)
+                                                <label class="form-label">Manage Course</label>
+                                            @else
+                                                <label class="form-label">Assigned Courses</label>
+                                            @endif
                                             <div class="form-control border border-2">
                                                 <div class="container p-1">
                                                     <div class="row ps-1">
