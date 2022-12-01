@@ -406,12 +406,28 @@ class ProgrammeController extends Controller
         while (count($programme_structure_y4_s3) != 6)
             $programme_structure_y4_s3->push(null);
 
+        switch ($programme->type) {
+            case "Foundation Programme":
+                $programmeYear = 1;
+                break;
+            case "Diploma":
+                $programmeYear = 2;
+                break;
+            case "Bachelor Degree":
+                $programmeYear = 3;
+                break;
+            case "Master":
+                $programmeYear = 2;
+                break;
+            case "Doctor of Philosophy":
+                $programmeYear = 4;
+                break;
+        }
 
-        $types = array('Foundation Programme', 'Diploma', 'Bachelor Degree', 'Master', 'Doctor of Philosophy');
         $courses = DB::table('course')->get();
         return view('pages.admin.programme.edit', [
             'programme' => $programme,
-            'types' => $types,
+            'programmeYear' => $programmeYear,
             'courses' => $courses,
             'programme_structure_y1_s1' => $programme_structure_y1_s1,
             'programme_structure_y1_s2' => $programme_structure_y1_s2,
@@ -438,12 +454,10 @@ class ProgrammeController extends Controller
     public function update(Request $request, Programme $programme)
     {
         $request->validate([
-            'type' => 'required',
             'code' => 'required',
             'title' => 'required'
         ]);
 
-        $programme->type = $request->type;
         $programme->code = $request->code;
         $programme->title = $request->title;
 
