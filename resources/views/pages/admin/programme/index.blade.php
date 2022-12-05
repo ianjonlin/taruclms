@@ -55,28 +55,41 @@
                                         <div class="mb-3">
                                             <label class="form-label">Search by Title</label>
                                             <input type="text" class="form-control border border-2 p-2"
-                                                name="title">
+                                                id="title" name="title" value="{{ $search_title }}">
                                         </div>
 
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label">Search by Code</label>
                                             <input type="text" class="form-control border border-2 p-2"
-                                                name="code">
+                                                id="code" name="code" value="{{ $search_code }}">
                                         </div>
 
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label">Search by Type</label>
                                             <br>
-                                            <select class="form-select border border-2 p-2" name="type">
+                                            <select class="form-select border border-2 p-2" id="type"
+                                                name="type">
                                                 <option disabled selected value>-- Select an option --</option>
                                                 @foreach ($types as $type)
-                                                    <option value="{{ $type }}">{{ $type }}</option>
+                                                    @if ($search_type == $type)
+                                                        <option value="{{ $type }}" selected>
+                                                            {{ $type }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                                @foreach ($types as $type)
+                                                    @if ($search_type != $type)
+                                                        <option value="{{ $type }}">
+                                                            {{ $type }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
 
                                         <div class="mb-3 col-md-4 text-end pt-2">
-                                            <input type="reset" class="btn bg-gradient-secondary my-4 mb-2 me-2">
+                                            <button class="btn bg-gradient-secondary my-4 mb-2 me-2"
+                                                onclick="resetSearch()">Reset</button>
                                             <button type="submit"
                                                 class="btn bg-gradient-primary my-4 mb-2">Search</button>
                                         </div>
@@ -126,7 +139,8 @@
                                                 <td>
                                                     <div class="d-flex px-3 py-1">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm text-center">{{ $programme->id }}</p>
+                                                            <p class="mb-0 text-sm text-center">{{ $programme->id }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -188,3 +202,11 @@
         <x-footers.auth></x-footers.auth>
     </main>
 </x-layout>
+
+<script>
+    function resetSearch() {
+        document.getElementById('title').value = "";
+        document.getElementById("code").value = "";
+        document.getElementById("type").value = "";
+    }
+</script>

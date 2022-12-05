@@ -27,38 +27,49 @@ class ProgrammeController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('code') && $request->code != "") {
+        $search_title = "";
+        $search_code = "";
+        $search_type = null;
+
+        if ($request->get('title') != null)
+            $search_title = $request->title;
+        if ($request->get('code') != null)
+            $search_code = $request->code;
+        if ($request->has('type'))
+            $search_type = $request->type;
+
+        if ($request->get('title') != null && $request->get('code') != null && $request->has('type')) {
             $programmes = Programme::sortable()
-                ->where('code', 'LIKE', "%{$request->code}%")
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->where('title', 'LIKE', "%{$search_title}%")
+                ->where('type', '=', $search_type)
                 ->get();
-        } else if ($request->has('title') && $request->title != "") {
+        } else if ($request->get('title') != null && $request->get('code') != null) {
             $programmes = Programme::sortable()
-                ->where('title', 'LIKE', "%{$request->title}%")
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->where('title', 'LIKE', "%{$search_title}%")
+                ->get();
+        } else if ($request->get('code') != null && $request->has('type')) {
+            $programmes = Programme::sortable()
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->where('type', '=', $search_type)
+                ->get();
+        } else if ($request->get('title') != null && $request->has('type')) {
+            $programmes = Programme::sortable()
+                ->where('title', 'LIKE', "%{$search_title}%")
+                ->where('type', '=', $search_type)
+                ->get();
+        } else if ($request->get('code') != null) {
+            $programmes = Programme::sortable()
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->get();
+        } else if ($request->get('title') != null) {
+            $programmes = Programme::sortable()
+                ->where('title', 'LIKE', "%{$search_title}%")
                 ->get();
         } else if ($request->has('type')) {
             $programmes = Programme::sortable()
-                ->where('type', '=', $request->type)
-                ->get();
-        } else if ($request->has('code') && $request->code != "" && $request->has('title') && $request->title != "") {
-            $programmes = Programme::sortable()
-                ->where('code', 'LIKE', "%{$request->code}%")
-                ->where('title', 'LIKE', "%{$request->title}%")
-                ->get();
-        } else if ($request->has('code') && $request->code != "" && $request->has('type')) {
-            $programmes = Programme::sortable()
-                ->where('code', 'LIKE', "%{$request->code}%")
-                ->where('type', '=', $request->type)
-                ->get();
-        } else if ($request->has('title') && $request->title != "" && $request->has('type')) {
-            $programmes = Programme::sortable()
-                ->where('title', 'LIKE', "%{$request->title}%")
-                ->where('type', '=', $request->type)
-                ->get();
-        } else if ($request->has('code') && $request->code != "" && $request->has('title') && $request->title != "" && $request->has('type')) {
-            $programmes = Programme::sortable()
-                ->where('code', 'LIKE', "%{$request->code}%")
-                ->where('title', 'LIKE', "%{$request->title}%")
-                ->where('type', '=', $request->type)
+                ->where('type', '=', $search_type)
                 ->get();
         } else {
             $programmes = Programme::sortable()->get();
@@ -66,7 +77,7 @@ class ProgrammeController extends Controller
 
         $types = array('Foundation Programme', 'Diploma', 'Bachelor Degree', 'Master', 'Doctor of Philosophy');
 
-        return view('pages.admin.programme.index', ['programmes' => $programmes, 'types' => $types]);
+        return view('pages.admin.programme.index', ['programmes' => $programmes, 'types' => $types, 'search_code' => $search_code, 'search_title' => $search_title, 'search_type' => $search_type]);
     }
 
     /**
@@ -131,7 +142,6 @@ class ProgrammeController extends Controller
         if (!in_array(null, $request->y4s3c))
             array_push($programme_structure, [$request->y4s3c, 4, 3]);
 
-
         if ($programme->save()) {
             foreach ($programme_structure as $structure) {
                 foreach ($structure[0] as $course) {
@@ -175,9 +185,8 @@ class ProgrammeController extends Controller
         $programme_structure = [];
 
         for ($year = 1; $year < $programmeYear + 1; $year++) {
-            $ps = [];
             for ($sem = 1; $sem < 4; $sem++) {
-                $check = DB::table('programme_structure')
+                $p = DB::table('programme_structure')
                     ->join('course', 'course_id', '=', 'course.id')
                     ->select('course.code as code', 'course.title as title')
                     ->where([
@@ -186,11 +195,8 @@ class ProgrammeController extends Controller
                         ['sem', '=', $sem]
                     ])->get();
 
-                if (!$check->isEmpty()) {
-                    array_push($ps, $check);
-                }
+                array_push($programme_structure, [$p, $year, $sem]);
             }
-            array_push($programme_structure, $ps);
         }
 
         return view(

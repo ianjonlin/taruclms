@@ -141,6 +141,12 @@
                 $("#y3").show();
                 $("#y4").show();
                 break;
+            default:
+                $("#y1").hide();
+                $("#y2").hide();
+                $("#y3").hide();
+                $("#y4").hide();
+                break;
         }
     }).change();
 

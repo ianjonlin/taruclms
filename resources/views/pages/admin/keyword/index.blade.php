@@ -55,11 +55,12 @@
                                         <div class="mb-3 col-sm-9">
                                             <label class="form-label">Search by Keyword Value</label>
                                             <input type="text" class="form-control border border-2 p-2"
-                                                name="value">
+                                                id="value" name="value" value="{{ $search_value }}">
                                         </div>
 
                                         <div class="mb-3 col-sm-3 text-end pt-2">
-                                            <input type="reset" class="btn bg-gradient-secondary my-4 mb-2 me-2">
+                                            <button class="btn bg-gradient-secondary my-4 mb-2 me-2"
+                                                onclick="resetSearch()">Reset</button>
                                             <button type="submit"
                                                 class="btn bg-gradient-primary my-4 mb-2">Search</button>
                                         </div>
@@ -154,3 +155,9 @@
         </div>
     </main>
 </x-layout>
+
+<script>
+    function resetSearch() {
+        document.getElementById('value').value = "";
+    }
+</script>

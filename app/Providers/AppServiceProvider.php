@@ -57,9 +57,8 @@ class AppServiceProvider extends ServiceProvider
                     $programme_structure = [];
 
                     for ($year = 1; $year < $programmeYear + 1; $year++) {
-                        $ps = [];
                         for ($sem = 1; $sem < 4; $sem++) {
-                            $check = DB::table('programme_structure')
+                            $p = DB::table('programme_structure')
                                 ->join('course', 'course_id', '=', 'course.id')
                                 ->select('course.code as code', 'course.title as title')
                                 ->where([
@@ -68,11 +67,8 @@ class AppServiceProvider extends ServiceProvider
                                     ['sem', '=', $sem]
                                 ])->get();
 
-                            if (!$check->isEmpty()) {
-                                array_push($ps, $check);
-                            }
+                            array_push($programme_structure, [$p, $year, $sem]);
                         }
-                        array_push($programme_structure, $ps);
                     }
 
                     view()->share([

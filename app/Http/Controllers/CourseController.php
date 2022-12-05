@@ -28,53 +28,72 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('title') && $request->title != "") {
-            $courses = Course::sortable()
-                ->where('title', 'LIKE', "%{$request->title}%")
-                ->get();
-        } else if ($request->has('code') && $request->code != "") {
-            $courses = Course::sortable()
-                ->where('code', 'LIKE', "%{$request->code}%")
-                ->get();
-        } else if ($request->has('cc') && $request->cc != "") {
-            $courses = Course::sortable()
-                ->join('users', 'cc_id', '=', 'users.id')
-                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
-                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
-                ->get();
-        } else if ($request->has('title') && $request->title != "" && $request->has('code') && $request->code != "") {
-            $courses = Course::sortable()
-                ->where('title', 'LIKE', "%{$request->title}%")
-                ->where('code', 'LIKE', "%{$request->code}%")
-                ->get();
-        } else if ($request->has('title') && $request->title != "" && $request->has('cc') && $request->cc != "") {
+        $search_title = "";
+        $search_code = "";
+        $search_cc = "";
+
+        if ($request->get('title') != null)
+            $search_title = $request->title;
+        if ($request->get('code') != null)
+            $search_code = $request->code;
+        if ($request->get('cc') != null)
+            $search_cc = $request->cc;
+
+        if ($request->get('title') != null && $request->get('code') != null && $request->get('cc') != null) {
             $courses = Course::sortable()
                 ->join('users', 'cc_id', '=', 'users.id')
-                ->where('title', 'LIKE', "%{$request->title}%")
-                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
-                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
+                ->where('title', 'LIKE', "%{$search_title}%")
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->where(function ($query) use ($search_cc) {
+                    $query->where('users.user_id', 'LIKE', "%{$search_cc}%")
+                        ->orWhere('users.name', 'LIKE', "%{$search_cc}%");
+                })
                 ->get();
-        } else if ($request->has('code') && $request->code != "" && $request->has('cc') && $request->cc != "") {
+        } else if ($request->get('title') != null && $request->get('code') != null) {
+            $courses = Course::sortable()
+                ->where('title', 'LIKE', "%{$search_title}%")
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->get();
+        } else if ($request->get('title') != null && $request->get('cc') != null) {
             $courses = Course::sortable()
                 ->join('users', 'cc_id', '=', 'users.id')
-                ->where('code', 'LIKE', "%{$request->code}%")
-                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
-                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
+                ->where('title', 'LIKE', "%{$search_title}%")
+                ->where(function ($query) use ($search_cc) {
+                    $query->where('users.user_id', 'LIKE', "%{$search_cc}%")
+                        ->orWhere('users.name', 'LIKE', "%{$search_cc}%");
+                })
                 ->get();
-        } else if ($request->has('title') && $request->title != "" && $request->has('code') && $request->code != "" && $request->has('cc') && $request->cc != "") {
+        } else if ($request->get('code') != null && $request->get('cc') != null) {
             $courses = Course::sortable()
                 ->join('users', 'cc_id', '=', 'users.id')
-                ->where('title', 'LIKE', "%{$request->title}%")
-                ->where('code', 'LIKE', "%{$request->code}%")
-                ->where('users.user_id', 'LIKE', "%{$request->cc}%")
-                ->orWhere('users.name', 'LIKE', "%{$request->cc}%")
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->where(function ($query) use ($search_cc) {
+                    $query->where('users.user_id', 'LIKE', "%{$search_cc}%")
+                        ->orWhere('users.name', 'LIKE', "%{$search_cc}%");
+                })
+                ->get();
+        } else if ($request->get('title') != null) {
+            $courses = Course::sortable()
+                ->where('title', 'LIKE', "%{$search_title}%")
+                ->get();
+        } else if ($request->get('code') != null) {
+            $courses = Course::sortable()
+                ->where('code', 'LIKE', "%{$search_code}%")
+                ->get();
+        } else if ($request->get('cc') != null) {
+            $courses = Course::sortable()
+                ->join('users', 'cc_id', '=', 'users.id')
+                ->where(function ($query) use ($search_cc) {
+                    $query->where('users.user_id', 'LIKE', "%{$search_cc}%")
+                        ->orWhere('users.name', 'LIKE', "%{$search_cc}%");
+                })
                 ->get();
         } else {
             $courses = Course::sortable()->get();
         }
 
         $users = DB::table('users')->get();
-        return view('pages.admin.course.index', ['courses' => $courses, 'users' => $users]);
+        return view('pages.admin.course.index', ['courses' => $courses, 'users' => $users, 'search_title' => $search_title, 'search_code' => $search_code, 'search_cc' => $search_cc]);
     }
 
     /**
@@ -125,7 +144,7 @@ class CourseController extends Controller
      */
     public function show(Course $course, Request $request)
     {
-        if ($request->has('keyword') && $request->keyword != "") {
+        if ($request->get('keyword') != null) {
             $assigned_lecturers = DB::table('assigned_course')
                 ->join('users', 'lecturer_id', '=', 'users.id')
                 ->select('users.id as id', 'users.user_id as user_id', 'users.name as name')
@@ -150,7 +169,7 @@ class CourseController extends Controller
             })
             ->get();
 
-        return view('pages.admin.course.lecturers', ['course' => $course, 'assigned_lecturers' => $assigned_lecturers, 'lecturers' => $lecturers]);
+        return view('pages.admin.course.lecturers', ['course' => $course, 'assigned_lecturers' => $assigned_lecturers, 'lecturers' => $lecturers, 'search_keyword' => $request->keyword]);
     }
 
     /**

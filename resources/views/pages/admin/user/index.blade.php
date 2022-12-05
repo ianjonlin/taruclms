@@ -55,7 +55,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Search by User ID or Name or Email</label>
                                             <input type="text" class="form-control border border-2 p-2"
-                                                name="keyword">
+                                                id="keyword" name="keyword" value="{{ $search_keyword }}">
                                         </div>
 
                                         <div class="mb-3 col-md-4">
@@ -64,25 +64,42 @@
                                             <select class="form-select border border-2 p-2" id="role"
                                                 name="role" onchange="disableProgramme(this)">
                                                 <option disabled selected value>-- Select an option --</option>
-                                                <option value="Student">Student</option>
-                                                <option value="Lecturer">Lecturer</option>
-                                                <option value="Admin">Admin</option>
+                                                <option value="Student"
+                                                    {{ $search_role == 'Student' ? ' selected' : '' }}>Student</option>
+                                                <option value="Lecturer"
+                                                    {{ $search_role == 'Lecturer' ? ' selected' : '' }}>Lecturer
+                                                </option>
+                                                <option value="Admin" {{ $search_role == 'Admin' ? ' selected' : '' }}>
+                                                    Admin</option>
                                             </select>
                                         </div>
 
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label">Search by Programme</label>
                                             <select class="form-select border border-2 p-2" id="programme"
-                                                name="programme">
+                                                name="programme"
+                                                {{ $search_role == null ? '' : ($search_role != 'Student' ? ' disabled' : '') }}>
                                                 <option disabled selected value>-- Select an option --</option>
                                                 @foreach ($programmes as $programme)
-                                                    <option value="{{ $programme->id }}">{{ $programme->code }}</option>
+                                                    @if ($search_programme == $programme->id)
+                                                        <option value="{{ $programme->id }}" selected>
+                                                            {{ $programme->code }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                                @foreach ($programmes as $programme)
+                                                    @if ($search_programme != $programme->id)
+                                                        <option value="{{ $programme->id }}">
+                                                            {{ $programme->code }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
 
                                         <div class="mb-3 col-md-4 text-end pt-2">
-                                            <input type="reset" class="btn bg-gradient-secondary my-4 mb-2 me-2">
+                                            <button class="btn bg-gradient-secondary my-4 mb-2 me-2"
+                                                onclick="resetSearch()">Reset</button>
                                             <button type="submit"
                                                 class="btn bg-gradient-primary my-4 mb-2">Search</button>
                                         </div>
@@ -131,7 +148,8 @@
                                                 <td>
                                                     <div class="d-flex px-3">
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <p class="mb-0 text-sm text-center">{{ $user->user_id }}</p>
+                                                            <p class="mb-0 text-sm text-center">{{ $user->user_id }}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -198,6 +216,12 @@
 </x-layout>
 
 <script>
+    function resetSearch() {
+        document.getElementById("keyword").value = "";
+        document.getElementById("role").value = "";
+        document.getElementById("programme").value = "";
+    }
+
     function disableProgramme(role) {
         if (role.value == "Lecturer" || role.value == "Admin") {
             document.getElementById("programme").selectedIndex = "0";

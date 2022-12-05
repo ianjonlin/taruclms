@@ -100,12 +100,13 @@
                                                         <label class="form-label font-weight-bold">
                                                             Search by Lecturer ID or Name</label>
                                                         <input type="text" class="form-control border border-2 ps-2"
-                                                            name="keyword">
+                                                            id="keyword" name="keyword"
+                                                            value="{{ $search_keyword }}">
                                                     </div>
 
                                                     <div class="text-end">
-                                                        <input type="reset"
-                                                            class="btn bg-gradient-secondary my-4 mb-2 me-2">
+                                                        <button class="btn bg-gradient-secondary my-4 mb-2 me-2"
+                                                            onclick="resetSearch()">Reset</button>
                                                         <button type="submit"
                                                             class="btn bg-gradient-primary my-4 mb-2">Search</button>
                                                     </div>
@@ -186,3 +187,9 @@
         </div>
     </main>
 </x-layout>
+
+<script>
+    function resetSearch() {
+        document.getElementById('keyword').value = "";
+    }
+</script>

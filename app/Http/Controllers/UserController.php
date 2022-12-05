@@ -29,46 +29,65 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('keyword') && $request->keyword != "") {
+        $search_keyword = "";
+        $search_role = null;
+        $search_programme = null;
+
+        if ($request->get('keyword') != null)
+            $search_keyword = $request->keyword;
+        if ($request->has('role'))
+            $search_role = $request->role;
+        if ($request->has('programme'))
+            $search_programme = $request->programme;
+
+        if ($request->get('keyword') != null && $request->has('role') && $request->has('programme')) {
             $users = User::sortable()
-                ->where('user_id', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('name', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('email', 'LIKE', "%{$request->keyword}%")
+                ->where('role', '=', $search_role)
+                ->where('programme', '=', $search_programme)
+                ->where(function ($query) use ($search_keyword) {
+                    $query->where('user_id', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('name', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('email', 'LIKE', "%{$search_keyword}%");
+                })
                 ->get();
-        } else if ($request->has('role')) {
+        } else if ($request->get('keyword') != null && $request->has('role')) {
             $users = User::sortable()
-                ->where('role', '=', $request->role)
+                ->where('role', '=', $search_role)
+                ->where(function ($query) use ($search_keyword) {
+                    $query->where('user_id', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('name', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('email', 'LIKE', "%{$search_keyword}%");
+                })
                 ->get();
-        } else if ($request->has('programme')) {
+        } else if ($request->get('keyword') != null && $request->has('programme')) {
             $users = User::sortable()
-                ->where('programme', '=', $request->programme)
-                ->get();
-        } else if ($request->has('keyword') && $request->keyword != "" && $request->has('role')) {
-            $users = User::sortable()
-                ->where('user_id', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('name', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('email', 'LIKE', "%{$request->keyword}%")
-                ->where('role', '=', $request->role)
-                ->get();
-        } else if ($request->has('keyword') && $request->keyword != "" && $request->has('programme')) {
-            $users = User::sortable()
-                ->where('user_id', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('name', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('email', 'LIKE', "%{$request->keyword}%")
-                ->where('programme', '=', $request->programme)
+                ->where('programme', '=', $search_programme)
+                ->where(function ($query) use ($search_keyword) {
+                    $query->where('user_id', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('name', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('email', 'LIKE', "%{$search_keyword}%");
+                })
                 ->get();
         } else if ($request->has('role') && $request->has('programme')) {
             $users = User::sortable()
-                ->where('role', '=', $request->role)
-                ->where('programme', '=', $request->programme)
+                ->where('role', '=', $search_role)
+                ->where('programme', '=', $search_programme)
                 ->get();
-        } else if ($request->has('keyword') && $request->has('role') && $request->has('programme')) {
+        } else if ($request->get('keyword') != null) {
             $users = User::sortable()
-                ->where('user_id', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('name', 'LIKE', "%{$request->keyword}%")
-                ->orWhere('email', 'LIKE', "%{$request->keyword}%")
-                ->where('role', '=', $request->role)
-                ->where('programme', '=', $request->programme)
+                ->where(function ($query) use ($search_keyword) {
+                    $query->where('user_id', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('name', 'LIKE', "%{$search_keyword}%")
+                        ->orWhere('email', 'LIKE', "%{$search_keyword}%");
+                })
+                ->get();
+        } else if ($request->has('role')) {
+            $users = User::sortable()
+                ->where('role', '=', $search_role)
+                ->get();
+        } else if ($request->has('programme')) {
+            $users = User::sortable()
+                ->where('programme', '=', $search_programme)
                 ->get();
         } else {
             $users = User::sortable()->get();
@@ -76,7 +95,7 @@ class UserController extends Controller
 
         $programmes = DB::table('programme')->get();
 
-        return view('pages.admin.user.index', ['users' => $users, 'programmes' => $programmes]);
+        return view('pages.admin.user.index', ['users' => $users, 'programmes' => $programmes, 'search_keyword' => $search_keyword, 'search_role' => $search_role, 'search_programme' => $search_programme]);
     }
 
     /**

@@ -55,24 +55,25 @@
                                         <div class="mb-3">
                                             <label class="form-label">Search by Title</label>
                                             <input type="text" class="form-control border border-2 p-2"
-                                                name="title">
+                                                id="title" name="title" value="{{ $search_title }}">
                                         </div>
 
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label">Search by Code</label>
                                             <input type="text" class="form-control border border-2 p-2"
-                                                name="code">
+                                                id="code" name="code" value="{{ $search_code }}">
                                         </div>
 
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label">Search by Course Coordinator (Lecturer_ID or
                                                 Name)</label>
                                             <input type="text" class="form-control border border-2 p-2"
-                                                name="cc">
+                                                id="cc" name="cc" value="{{ $search_cc }}">
                                         </div>
 
                                         <div class="mb-3 col-md-4 text-end pt-2">
-                                            <input type="reset" class="btn bg-gradient-secondary my-4 mb-2 me-2">
+                                            <button class="btn bg-gradient-secondary my-4 mb-2 me-2"
+                                                onclick="resetSearch()">Reset</button>
                                             <button type="submit"
                                                 class="btn bg-gradient-primary my-4 mb-2">Search</button>
                                         </div>
@@ -133,7 +134,8 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-sm">
-                                                    <p class="text-sm text-secondary mb-0" style="overflow: hidden;
+                                                    <p class="text-sm text-secondary mb-0"
+                                                        style="overflow: hidden;
                                                     max-width: 32ch; text-overflow: ellipsis;
                                                     white-space: nowrap;">
                                                         {{ $course->title }}</p>
@@ -201,3 +203,11 @@
         </div>
     </main>
 </x-layout>
+
+<script>
+    function resetSearch() {
+        document.getElementById('title').value = "";
+        document.getElementById("code").value = "";
+        document.getElementById("cc").value = "";
+    }
+</script>

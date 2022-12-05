@@ -27,7 +27,7 @@ class KeywordController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('value') && $request->value != "") {
+        if ($request->get('value') != "") {
             $keywords = Keyword::sortable()
                 ->where('value', 'LIKE', "%{$request->value}%")
                 ->get();
@@ -36,7 +36,7 @@ class KeywordController extends Controller
         }
 
         $users = DB::table('users')->get();
-        return view('pages.admin.keyword.index', ['keywords' => $keywords, 'users' => $users]);
+        return view('pages.admin.keyword.index', ['keywords' => $keywords, 'users' => $users, 'search_value' => $request->value]);
     }
 
     /**

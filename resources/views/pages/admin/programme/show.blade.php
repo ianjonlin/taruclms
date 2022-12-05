@@ -42,23 +42,22 @@
                                     <div class="container p-1">
                                         @php($i = 0)
                                         @for ($year = 1; $year < $programmeYear + 1; $year++)
-                                            @php($j = 0)
                                             <div class="row p-1">
                                                 @for ($sem = 1; $sem < 4; $sem++)
                                                     <div class="col-6 col-md-4">
-                                                        <b>Year {{ $year }} Semester {{ $sem }}</b>
+                                                        <b>Year {{ $year }} Semester
+                                                            {{ $sem }}</b>
                                                         <ul class="text-sm list-group pt-2">
-                                                            @foreach ($programme_structure[$i][$j] as $p)
+                                                            @foreach ($programme_structure[$i][0] as $p)
                                                                 <li class="list-group-item p-0 border-0">
                                                                     {{ $p->code }}&nbsp;{{ $p->title }}
                                                                 </li>
                                                             @endforeach
                                                         </ul>
                                                     </div>
-                                                    @php($j++)
+                                                    @php($i++)
                                                 @endfor
                                             </div>
-                                            @php($i++)
                                             <br>
                                         @endfor
                                     </div>
