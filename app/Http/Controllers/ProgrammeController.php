@@ -101,13 +101,12 @@ class ProgrammeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required',
             'code' => 'required|unique:programme,code',
             'title' => 'required',
         ]);
 
         $programme = new Programme;
-        $programme->type = $request->type;
+        $programme->type = $request->hiddenType;
         $programme->code = $request->code;
         $programme->title = $request->title;
 
@@ -121,26 +120,71 @@ class ProgrammeController extends Controller
         if (!in_array(null, $request->y1s3c))
             array_push($programme_structure, [$request->y1s3c, 1, 3]);
 
-        if (!in_array(null, $request->y2s1c))
-            array_push($programme_structure, [$request->y2s1c, 2, 1]);
-        if (!in_array(null, $request->y2s2c))
-            array_push($programme_structure, [$request->y2s2c, 2, 2]);
-        if (!in_array(null, $request->y2s3c))
-            array_push($programme_structure, [$request->y2s3c, 2, 3]);
+        switch ($programme->type) {
+            case "Foundation Programme":
+                break;
+            case "Diploma":
 
-        if (!in_array(null, $request->y3s1c))
-            array_push($programme_structure, [$request->y3s1c, 3, 1]);
-        if (!in_array(null, $request->y3s2c))
-            array_push($programme_structure, [$request->y3s2c, 3, 2]);
-        if (!in_array(null, $request->y3s3c))
-            array_push($programme_structure, [$request->y3s3c, 3, 3]);
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
 
-        if (!in_array(null, $request->y4s1c))
-            array_push($programme_structure, [$request->y4s1c, 4, 1]);
-        if (!in_array(null, $request->y4s2c))
-            array_push($programme_structure, [$request->y4s2c, 4, 2]);
-        if (!in_array(null, $request->y4s3c))
-            array_push($programme_structure, [$request->y4s3c, 4, 3]);
+                break;
+            case "Bachelor Degree":
+
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
+
+                if (!in_array(null, $request->y3s1c))
+                    array_push($programme_structure, [$request->y3s1c, 3, 1]);
+                if (!in_array(null, $request->y3s2c))
+                    array_push($programme_structure, [$request->y3s2c, 3, 2]);
+                if (!in_array(null, $request->y3s3c))
+                    array_push($programme_structure, [$request->y3s3c, 3, 3]);
+
+                break;
+            case "Master":
+
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
+
+                break;
+            case "Doctor of Philosophy":
+
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
+
+                if (!in_array(null, $request->y3s1c))
+                    array_push($programme_structure, [$request->y3s1c, 3, 1]);
+                if (!in_array(null, $request->y3s2c))
+                    array_push($programme_structure, [$request->y3s2c, 3, 2]);
+                if (!in_array(null, $request->y3s3c))
+                    array_push($programme_structure, [$request->y3s3c, 3, 3]);
+
+                if (!in_array(null, $request->y4s1c))
+                    array_push($programme_structure, [$request->y4s1c, 4, 1]);
+                if (!in_array(null, $request->y4s2c))
+                    array_push($programme_structure, [$request->y4s2c, 4, 2]);
+                if (!in_array(null, $request->y4s3c))
+                    array_push($programme_structure, [$request->y4s3c, 4, 3]);
+
+                break;
+        }
 
         if ($programme->save()) {
             foreach ($programme_structure as $structure) {
@@ -195,7 +239,7 @@ class ProgrammeController extends Controller
                         ['sem', '=', $sem]
                     ])->get();
 
-                array_push($programme_structure, [$p, $year, $sem]);
+                array_push($programme_structure, $p);
             }
         }
 
@@ -237,145 +281,28 @@ class ProgrammeController extends Controller
 
         $courses = DB::table('course')->get();
 
-        $programme_structure_y1_s1 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 1],
-                ['sem', '=', 1]
-            ])->get();
-        while (count($programme_structure_y1_s1) != 6)
-            $programme_structure_y1_s1->push(null);
+        $programme_structure = [];
 
-        $programme_structure_y1_s2 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 1],
-                ['sem', '=', 2]
-            ])->get();
-        while (count($programme_structure_y1_s2) != 6)
-            $programme_structure_y1_s2->push(null);
+        for ($year = 1; $year < $programmeYear + 1; $year++) {
+            for ($sem = 1; $sem < 4; $sem++) {
+                $p = DB::table('programme_structure')
+                    ->join('course', 'course_id', '=', 'course.id')
+                    ->select('course.id as id', 'course.code as code', 'course.title as title')
+                    ->where([
+                        ['programme_id', '=', $programme->id],
+                        ['year', '=', $year],
+                        ['sem', '=', $sem]
+                    ])->get();
 
-        $programme_structure_y1_s3 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 1],
-                ['sem', '=', 3]
-            ])->get();
-        while (count($programme_structure_y1_s3) != 6)
-            $programme_structure_y1_s3->push(null);
-
-
-        $programme_structure_y2_s1 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 2],
-                ['sem', '=', 1]
-            ])->get();
-        while (count($programme_structure_y2_s1) != 6)
-            $programme_structure_y2_s1->push(null);
-
-        $programme_structure_y2_s2 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 2],
-                ['sem', '=', 2]
-            ])->get();
-        while (count($programme_structure_y2_s2) != 6)
-            $programme_structure_y2_s2->push(null);
-
-        $programme_structure_y2_s3 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 2],
-                ['sem', '=', 3]
-            ])->get();
-        while (count($programme_structure_y2_s3) != 6)
-            $programme_structure_y2_s3->push(null);
-
-
-        $programme_structure_y3_s1 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 3],
-                ['sem', '=', 1]
-            ])->get();
-        while (count($programme_structure_y3_s1) != 6)
-            $programme_structure_y3_s1->push(null);
-
-        $programme_structure_y3_s2 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 3],
-                ['sem', '=', 2]
-            ])->get();
-        while (count($programme_structure_y3_s2) != 6)
-            $programme_structure_y3_s2->push(null);
-
-        $programme_structure_y3_s3 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 3],
-                ['sem', '=', 3]
-            ])->get();
-        while (count($programme_structure_y3_s3) != 6)
-            $programme_structure_y3_s3->push(null);
-
-
-        $programme_structure_y4_s1 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 4],
-                ['sem', '=', 1]
-            ])->get();
-        while (count($programme_structure_y4_s1) != 6)
-            $programme_structure_y4_s1->push(null);
-
-        $programme_structure_y4_s2 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 4],
-                ['sem', '=', 2]
-            ])->get();
-        while (count($programme_structure_y4_s2) != 6)
-            $programme_structure_y4_s2->push(null);
-
-        $programme_structure_y4_s3 = DB::table('programme_structure')
-            ->select('course_id as id')
-            ->where([
-                ['programme_id', '=', $programme->id],
-                ['year', '=', 4],
-                ['sem', '=', 3]
-            ])->get();
-        while (count($programme_structure_y4_s3) != 6)
-            $programme_structure_y4_s3->push(null);
+                array_push($programme_structure, $p);
+            }
+        }
 
         return view('pages.admin.programme.edit', [
             'programme' => $programme,
             'programmeYear' => $programmeYear,
             'courses' => $courses,
-            'programme_structure_y1_s1' => $programme_structure_y1_s1,
-            'programme_structure_y1_s2' => $programme_structure_y1_s2,
-            'programme_structure_y1_s3' => $programme_structure_y1_s3,
-            'programme_structure_y2_s1' => $programme_structure_y2_s1,
-            'programme_structure_y2_s2' => $programme_structure_y2_s2,
-            'programme_structure_y2_s3' => $programme_structure_y2_s3,
-            'programme_structure_y3_s1' => $programme_structure_y3_s1,
-            'programme_structure_y3_s2' => $programme_structure_y3_s2,
-            'programme_structure_y3_s3' => $programme_structure_y3_s3,
-            'programme_structure_y4_s1' => $programme_structure_y4_s1,
-            'programme_structure_y4_s2' => $programme_structure_y4_s2,
-            'programme_structure_y4_s3' => $programme_structure_y4_s3
+            'programme_structure' => $programme_structure
         ]);
     }
 
@@ -396,47 +323,94 @@ class ProgrammeController extends Controller
         $programme->code = $request->code;
         $programme->title = $request->title;
 
-        $structure_array = array(
-            array($request->y1s1c1, 1, 1), array($request->y1s1c2, 1, 1), array($request->y1s1c3, 1, 1), array($request->y1s1c4, 1, 1), array($request->y1s1c5, 1, 1), array($request->y1s1c6, 1, 1),
-            array($request->y1s2c1, 1, 2), array($request->y1s2c2, 1, 2), array($request->y1s2c3, 1, 2), array($request->y1s2c4, 1, 2), array($request->y1s2c5, 1, 2), array($request->y1s2c6, 1, 2),
-            array($request->y1s3c1, 1, 3), array($request->y1s3c2, 1, 3), array($request->y1s3c3, 1, 3), array($request->y1s3c4, 1, 3), array($request->y1s3c5, 1, 3), array($request->y1s3c6, 1, 3),
+        // Array = courses, year, sem
+        $programme_structure = [];
 
-            array($request->y2s1c1, 2, 1), array($request->y2s1c2, 2, 1), array($request->y2s1c3, 2, 1), array($request->y2s1c4, 2, 1), array($request->y2s1c5, 2, 1), array($request->y2s1c6, 2, 1),
-            array($request->y2s2c1, 2, 2), array($request->y2s2c2, 2, 2), array($request->y2s2c3, 2, 2), array($request->y2s2c4, 2, 2), array($request->y2s2c5, 2, 2), array($request->y2s2c6, 2, 2),
-            array($request->y2s3c1, 2, 3), array($request->y2s3c2, 2, 3), array($request->y2s3c3, 2, 3), array($request->y2s3c4, 2, 3), array($request->y2s3c5, 2, 3), array($request->y2s3c6, 2, 3),
+        if (!in_array(null, $request->y1s1c))
+            array_push($programme_structure, [$request->y1s1c, 1, 1]);
+        if (!in_array(null, $request->y1s2c))
+            array_push($programme_structure, [$request->y1s2c, 1, 2]);
+        if (!in_array(null, $request->y1s3c))
+            array_push($programme_structure, [$request->y1s3c, 1, 3]);
 
-            array($request->y3s1c1, 3, 1), array($request->y3s1c2, 3, 1), array($request->y3s1c3, 3, 1), array($request->y3s1c4, 3, 1), array($request->y3s1c5, 3, 1), array($request->y3s1c6, 3, 1),
-            array($request->y3s2c1, 3, 2), array($request->y3s2c2, 3, 2), array($request->y3s2c3, 3, 2), array($request->y3s2c4, 3, 2), array($request->y3s2c5, 3, 2), array($request->y3s2c6, 3, 2),
-            array($request->y3s3c1, 3, 3), array($request->y3s3c2, 3, 3), array($request->y3s3c3, 3, 3), array($request->y3s3c4, 3, 3), array($request->y3s3c5, 3, 3), array($request->y3s3c6, 3, 3),
+        switch ($programme->type) {
+            case "Foundation Programme":
+                break;
+            case "Diploma":
 
-            array($request->y4s1c1, 4, 1), array($request->y4s1c2, 4, 1), array($request->y4s1c3, 4, 1), array($request->y4s1c4, 4, 1), array($request->y4s1c5, 4, 1), array($request->y4s1c6, 4, 1),
-            array($request->y4s2c1, 4, 2), array($request->y4s2c2, 4, 2), array($request->y4s2c3, 4, 2), array($request->y4s2c4, 4, 2), array($request->y4s2c5, 4, 2), array($request->y4s2c6, 4, 2),
-            array($request->y4s3c1, 4, 3), array($request->y4s3c2, 4, 3), array($request->y4s3c3, 4, 3), array($request->y4s3c4, 4, 3), array($request->y4s3c5, 4, 3), array($request->y4s3c6, 4, 3),
-        );
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
+
+                break;
+            case "Bachelor Degree":
+
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
+
+                if (!in_array(null, $request->y3s1c))
+                    array_push($programme_structure, [$request->y3s1c, 3, 1]);
+                if (!in_array(null, $request->y3s2c))
+                    array_push($programme_structure, [$request->y3s2c, 3, 2]);
+                if (!in_array(null, $request->y3s3c))
+                    array_push($programme_structure, [$request->y3s3c, 3, 3]);
+
+                break;
+            case "Master":
+
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
+
+                break;
+            case "Doctor of Philosophy":
+
+                if (!in_array(null, $request->y2s1c))
+                    array_push($programme_structure, [$request->y2s1c, 2, 1]);
+                if (!in_array(null, $request->y2s2c))
+                    array_push($programme_structure, [$request->y2s2c, 2, 2]);
+                if (!in_array(null, $request->y2s3c))
+                    array_push($programme_structure, [$request->y2s3c, 2, 3]);
+
+                if (!in_array(null, $request->y3s1c))
+                    array_push($programme_structure, [$request->y3s1c, 3, 1]);
+                if (!in_array(null, $request->y3s2c))
+                    array_push($programme_structure, [$request->y3s2c, 3, 2]);
+                if (!in_array(null, $request->y3s3c))
+                    array_push($programme_structure, [$request->y3s3c, 3, 3]);
+
+                if (!in_array(null, $request->y4s1c))
+                    array_push($programme_structure, [$request->y4s1c, 4, 1]);
+                if (!in_array(null, $request->y4s2c))
+                    array_push($programme_structure, [$request->y4s2c, 4, 2]);
+                if (!in_array(null, $request->y4s3c))
+                    array_push($programme_structure, [$request->y4s3c, 4, 3]);
+
+                break;
+        }
 
         if ($programme->save()) {
-            foreach ($structure_array as $structure) {
-                if (!empty($structure[0])) {
 
-                    // Check for existing record to update course
-                    $check = DB::table('programme_structure')
-                        ->where('programme_id', '=', $programme->id)
-                        ->where('year', '=', $structure[1])
-                        ->where('sem', '=', $structure[2])
-                        ->get();
+            // Delete current ps and insert new one
+            $status = DB::table('programme_structure')
+                ->where('programme_id', '=', $programme->id)
+                ->delete();
 
-                    // If retrieved an existing record of course -> update
-                    if (!$check->isEmpty()) {
-                        DB::table('programme_structure')
-                            ->where('programme_id', '=', $programme->id)
-                            ->where('year', '=', $structure[1])
-                            ->where('sem', '=', $structure[2])
-                            ->update(['course_id' => $structure[0]]);
-                    }
-                    // If no existing record of course -> insert
-                    else if ($check->isEmpty()) {
+            if ($status) {
+                foreach ($programme_structure as $structure) {
+                    foreach ($structure[0] as $course) {
                         DB::table('programme_structure')->insert([
-                            ['programme_id' => $programme->id, 'course_id' => $structure[0], 'year' => $structure[1], 'sem' => $structure[2]]
+                            ['programme_id' => $programme->id, 'course_id' => $course, 'year' => $structure[1], 'sem' => $structure[2]]
                         ]);
                     }
                 }

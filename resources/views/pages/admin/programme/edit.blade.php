@@ -38,19 +38,20 @@
                             <div class="row justify-content-center">
                                 <div class="mb-3">
                                     <label class="form-label">Type</label>
-                                    <input type="text" class="form-control border border-2 p-2" name="type" value="{{ $programme->type }}" readonly>
+                                    <input type="text" class="form-control border border-2 p-2" name="type"
+                                        value="{{ $programme->type }}" readonly>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
-                                    <input type="text" class="form-control border border-2 p-2" name="code" maxlength="8"
-                                        required maxlength="8" value="{{ $programme->code }}">
+                                    <input type="text" class="form-control border border-2 p-2" name="code"
+                                        maxlength="8" required maxlength="8" value="{{ $programme->code }}">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Title</label>
-                                    <input type="text" class="form-control border border-2 p-2" name="title" maxlength="128"
-                                        required maxlength="128" value="{{ $programme->title }}">
+                                    <input type="text" class="form-control border border-2 p-2" name="title"
+                                        maxlength="128" required maxlength="128" value="{{ $programme->title }}">
                                 </div>
 
                                 <div class="mb-3">
@@ -61,7 +62,7 @@
                                                 @for ($sem = 1; $sem < 4; $sem++)
                                                     <div class="col-12 col-md-4">
                                                         <b>Year {{ $year }} Sem {{ $sem }}</b>
-                                                        <table class="table course-table"
+                                                        <table class="table semester-table"
                                                             data-year="{{ $year }}"
                                                             data-sem="{{ $sem }}"
                                                             id="y{{ $year }}s{{ $sem }}">
@@ -84,47 +85,6 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="mb-3">
-                                    <label class="form-label">Structure</label>
-                                    <div class="container ps-1">
-                                        <div class="row">
-                                            <div class="col-6 col-md-4">
-                                                <b>Year 1 Sem 1</b>
-                                                @for ($i = 0; $i <= 5; $i++)
-                                                    <select class="form-select border border-2 p-2 mb-2"
-                                                        name="y1s1c{{ $i + 1 }}">
-                                                        @if ($programme_structure_y1_s1[$i] != null)
-                                                            @foreach ($courses as $course)
-                                                                @if ($programme_structure_y1_s1[$i]->id == $course->id)
-                                                                    <option value="{{ $course->id }}" selected>
-                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
-                                                                    </option>
-                                                                    @break
-                                                                @endif
-                                                            @endforeach
-
-                                                            @foreach ($courses as $course)
-                                                                @if ($programme_structure_y1_s1[$i]->id != $course->id)
-                                                                    <option value="{{ $course->id }}">
-                                                                        {{ $course->code }}&nbsp;{{ $course->title }}
-                                                                    </option>
-                                                                @endif
-                                                            @endforeach
-                                                        @elseif ($programme_structure_y1_s1[$i] == null)
-                                                            <option disabled selected value></option>
-                                                            @foreach ($courses as $course)
-                                                                <option value="{{ $course->id }}">
-                                                                    {{ $course->code }}&nbsp;{{ $course->title }}
-                                                                </option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                @endfor
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
                                 <div class="d-flex flex-row-reverse">
                                     <a class="btn bg-gradient-dark my-4 mb-2" href="{{ route('programme.index') }}"
                                         class="text-primary text-gradient font-weight-bold">Go Back</a>
@@ -145,80 +105,103 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-
     // Dynamic Add Course Select Field (up to 6 times)
     let courseList = JSON.parse(`{!! $courses->toJson(JSON_PRETTY_PRINT) !!}`);
+    let pStruc = JSON.parse(`{!! json_encode($programme_structure) !!}`);
 
     $(document).ready(function() {
-        courseList = courseList.map((c) => ({
-            ...c,
-            isSelected: false
-        }));
 
-        $(".course-table").each(function(index, el) {
+        courseList = courseList.map((course) => {
+            let isSelected = _.flattenDeep(pStruc).findIndex((existingCourse) => existingCourse.id ==
+                course.id) !== -1;
+
+            return ({
+                ...course,
+                isSelected: isSelected
+            });
+        });
+
+        $(".semester-table").each(function(index, el) {
             let year = $(el).data("year");
             let sem = $(el).data("sem");
 
-            $(this).children("tbody").children("tr:first-child").children("td:first-child").html(
-                getCourseSelectionList(year, sem))
+            let semesterIndex = ((year - 1) * 3) + sem - 1;
+            let semester = pStruc[semesterIndex];
 
-            loadCourseTable(year, sem, el);
+            let firstCourseId = semester[0] !== undefined ? semester[0].id : -1;
+
+            $(this).children("tbody").children("tr:first-child").children("td:first-child").html(
+                getCourseSelectionList(year, sem, firstCourseId))
+
+            bindFirstRowAddBtnClickListener(year, sem, el);
+
+            semester.forEach((course, index) => {
+                if (index === 0 || !course)
+                    return;
+                addSubRowCourse(year, sem, el, course.id);
+            });
         });
+
+        bindReloadCourseLists();
 
         $(".course-list-select").on('change', function() {
 
-            let previousValue = $(this).attr("data-selectedValue");
-            console.log([previousValue, this.value]);
+            let previousValue = $(this).attr("data-selected-value");
 
             if (previousValue)
                 toggleCourseItemVisibilityByCourseId(previousValue);
 
             toggleCourseItemVisibilityByCourseId(this.value);
 
-            console.log(this);
-            $(this).attr("data-selectedValue", this.value);
+            $(this).attr("data-selected-value", this.value);
 
             bindReloadCourseLists();
         });
 
     });
 
-    function loadCourseTable(year, sem, tableEl) {
+    function addSubRowCourse(year, sem, tableEl, selectedId) {
 
-        $(tableEl).find(".add-course-btn").click(function() {
-            if ($(tableEl).children("tbody").children().length > 5)
-                return;
-            $(tableEl).append(getCourseListItem(year, sem));
+        if ($(tableEl).children("tbody").children().length > 5)
+            return;
 
-            $(tableEl).find("tbody .remove-course-btn").on('click', function() {
+        if (selectedId === undefined)
+            selectedId = -1;
 
-                let selectedValue = $(this).parent().parent().children("td:first-child").children(
-                    "select").attr("data-selectedValue");
+        $(tableEl).append(getCourseListItem(year, sem, selectedId));
 
-                $(this).closest('tr').remove();
+        $(tableEl).find("tbody .remove-course-btn").on('click', function() {
 
-                if (selectedValue)
-                    toggleCourseItemVisibilityByCourseId(selectedValue);
+            let selectedValue = $(this).parent().parent().children("td:first-child").children(
+                "select").attr("data-selected-value");
 
-                bindReloadCourseLists();
-            });
+            $(this).closest('tr').remove();
 
-            $(".course-list-select").on('change', function() {
+            if (selectedValue)
+                toggleCourseItemVisibilityByCourseId(selectedValue);
 
-                let previousValue = $(this).attr("data-selectedValue");
-                console.log([previousValue, this.value]);
-
-                if (previousValue)
-                    toggleCourseItemVisibilityByCourseId(previousValue);
-
-                toggleCourseItemVisibilityByCourseId(this.value);
-
-                console.log(this);
-                $(this).attr("data-selectedValue", this.value);
-
-                bindReloadCourseLists();
-            });
+            bindReloadCourseLists();
         });
+
+        $(".course-list-select").on('change', function() {
+
+            let previousValue = $(this).attr("data-selected-value");
+
+            if (previousValue)
+                toggleCourseItemVisibilityByCourseId(previousValue);
+
+            toggleCourseItemVisibilityByCourseId(this.value);
+
+            $(this).attr("data-selected-value", this.value);
+
+            bindReloadCourseLists();
+        });
+    }
+
+    function bindFirstRowAddBtnClickListener(year, sem, tableEl) {
+
+        $(tableEl).find(".add-course-btn").on('click', () => addSubRowCourse(year, sem, tableEl));
+
     }
 
     function bindReloadCourseLists() {
@@ -232,22 +215,14 @@
         });
     }
 
-    function getCourseListItem(year, sem) {
+    function getCourseListItem(year, sem, selectedCourseId) {
         return (
             `<tr class="courseItem-y${year}s${sem}">` +
             `<td>` +
-            `<select class="course-list-select form-select border border-2 p-2 mb-2" name="y${year}s${sem}c[]" data-year="${year}" data-sem="${sem}">` +
-            `<option class="d-none" selected></option> ` +
+            `<select class="course-list-select form-select border border-2 p-2 mb-2" name="y${year}s${sem}c[]" data-year="${year}" data-sem="${sem}" data-selected-value=${selectedCourseId}>` +
             `${
-                            courseList
-                            .filter((course) => !course.isSelected)
-                            .map((course) => {
-                                const option = `<option class="course-option" value="${course.id}" >`+
-                                                    `${course.code}&nbsp;${course.title}` +
-                                                `</option>`;
-                                return option;
-                            })
-                        }` +
+                getReloadedCourseListOptions(selectedCourseId)
+            }` +
             `</select>` +
             `</td>` +
             `<td class="text-end">` +
@@ -257,30 +232,20 @@
         );
     }
 
-    function getCourseSelectionList(year, sem) {
+    function getCourseSelectionList(year, sem, selectedCourseId) {
         return (
-            `<select class="course-list-select form-select border border-2 p-2 mb-2" name="y${year}s${sem}c[]" data-year="${year}" data-sem="${sem}">` +
-            `<option class="d-none" selected></option> ` +
+            `<select class="course-list-select form-select border border-2 p-2 mb-2" name="y${year}s${sem}c[]" data-year="${year}" data-sem="${sem}" data-selected-value=${selectedCourseId}> ` +
             `${
-                    courseList
-                    .filter((course) => !course.isSelected)
-                    .map((course) => {
-                        const option = `<option class="course-option" value="${course.id}" >`+
-                                            `${course.code}&nbsp;${course.title}` +
-                                        `</option>`;
-                        return option;
-                    })
-                }` +
+                getReloadedCourseListOptions(selectedCourseId)
+            }` +
             `</select>`);
     }
 
     function getReloadedCourseListOptions(selectedCourseId) {
-        return `<option class="d-none"></option> ` +
+        return `<option></option> ` +
             courseList
             .filter((course) => !course.isSelected || selectedCourseId == course.id)
             .map((course) => {
-                if (course.id == selectedCourseId)
-                    console.log(course.id);
                 const option = `<option class="course-option" value="${course.id}"
                                         ${course.isSelected && "selected"}>` +
                     `${course.code}&nbsp;${course.title}` +
@@ -299,5 +264,3 @@
         });
     }
 </script>
-
-</html>

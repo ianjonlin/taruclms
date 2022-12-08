@@ -48,7 +48,7 @@
                                                         <b>Year {{ $year }} Semester
                                                             {{ $sem }}</b>
                                                         <ul class="text-sm list-group pt-2">
-                                                            @foreach ($programme_structure[$i][0] as $p)
+                                                            @foreach ($programme_structure[$i] as $p)
                                                                 <li class="list-group-item p-0 border-0">
                                                                     {{ $p->code }}&nbsp;{{ $p->title }}
                                                                 </li>

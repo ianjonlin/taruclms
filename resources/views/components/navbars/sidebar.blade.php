@@ -44,40 +44,46 @@
 
                 @php($i = 0)
                 @for ($year = 1; $year < $programmeYear + 1; $year++)
-                    <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-md text-white font-weight-bolder opacity-8">Year
-                            {{ $year }}</h6>
-                    </li>
-                    @for ($sem = 1; $sem < 4; $sem++)
-                        <li class="nav-item ps-3">
-                            <a class="nav-link text-white navbar-toggle" role="button" data-bs-toggle="collapse"
-                                href="#y{{ $year }}s{{ $sem }}" aria-expanded="false"
-                                aria-controls="y{{ $year }}s{{ $sem }}">
-                                <div class="d-flex w-100 justify-content-start align-items-center">
-                                    <span class="nav-link-text menu-collapsed">Sem {{ $sem }}</span>
-                                    <span class="submenu-icon ml-auto"></span>
-                                </div>
-                            </a>
+                    @if (!$programme_structure[$i][0]->isEmpty() ||
+                        !$programme_structure[$i + 1][0]->isEmpty() ||
+                        !$programme_structure[$i + 2][0]->isEmpty())
+                        <li class="nav-item mt-3">
+                            <h6 class="ps-4 ms-2 text-uppercase text-md text-white font-weight-bolder opacity-8">Year
+                                {{ $year }}</h6>
                         </li>
-                        <div id="y{{ $year }}s{{ $sem }}" class="collapse">
-                            @foreach ($programme_structure[$i][0] as $course)
+                        @for ($sem = 1; $sem < 4; $sem++)
+                            @if (!$programme_structure[$i][0]->isEmpty())
                                 <li class="nav-item ps-3">
-                                    <a class="nav-link text-white {{ $activePage == $course->code ? ' active bg-gradient-info' : '' }} "
-                                        href="{{ route('viewCourse', ['courseCode' => $course->code]) }}">
-                                        <div
-                                            class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <span class="nav-link-text menu-collapsed"
-                                                style="max-width: 180px;
-                                        overflow: hidden;
-                                        text-overflow: ellipsis;
-                                        white-space: nowrap;"><b>{{ $course->code }}</b>&nbsp;{{ $course->title }}</span>
+                                    <a class="nav-link text-white navbar-toggle" role="button"
+                                        data-bs-toggle="collapse" href="#y{{ $year }}s{{ $sem }}"
+                                        aria-expanded="false" aria-controls="y{{ $year }}s{{ $sem }}">
+                                        <div class="d-flex w-100 justify-content-start align-items-center">
+                                            <span class="nav-link-text menu-collapsed">Sem {{ $sem }}</span>
+                                            <span class="submenu-icon ml-auto"></span>
                                         </div>
                                     </a>
                                 </li>
-                            @endforeach
-                        </div>
-                        @php($i++)
-                    @endfor
+                                <div id="y{{ $year }}s{{ $sem }}" class="collapse">
+                                    @foreach ($programme_structure[$i][0] as $course)
+                                        <li class="nav-item ps-3">
+                                            <a class="nav-link text-white {{ $activePage == $course->code ? ' active bg-gradient-info' : '' }} "
+                                                href="{{ route('viewCourse', ['courseCode' => $course->code]) }}">
+                                                <div
+                                                    class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                                    <span class="nav-link-text menu-collapsed"
+                                                        style="max-width: 180px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;"><b>{{ $course->code }}</b>&nbsp;{{ $course->title }}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </div>
+                            @endif
+                            @php($i++)
+                        @endfor
+                    @endif
                 @endfor
             @elseif (auth()->user()->role == 'Lecturer')
                 @if (!$assigned_courses->isEmpty())

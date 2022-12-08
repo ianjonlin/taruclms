@@ -45,6 +45,8 @@
                                     </select>
                                 </div>
 
+                                <input type="hidden" class="hiddenType" name="hiddenType" value="">
+
                                 <div class="mb-3">
                                     <label class="form-label">Code</label>
                                     <input type="text" class="form-control border border-2 p-2" name="code"
@@ -65,7 +67,7 @@
                                                 @for ($sem = 1; $sem < 4; $sem++)
                                                     <div class="col-12 col-md-4">
                                                         <b>Year {{ $year }} Sem {{ $sem }}</b>
-                                                        <table class="table course-table"
+                                                        <table class="table semester-table"
                                                             data-year="{{ $year }}"
                                                             data-sem="{{ $sem }}"
                                                             id="y{{ $year }}s{{ $sem }}">
@@ -93,6 +95,7 @@
                                         class="text-primary text-gradient font-weight-bold">Go Back</a>
                                     <button type="submit" class="btn bg-gradient-primary mb-2 mx-3">Create
                                         Programme</button>
+                                    <a class="btn bg-gradient-info mb-2" href="{{ route('programme.create') }}">Reset</a>
                                 </div>
                             </div>
                         </form>
@@ -109,37 +112,47 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
     // Check for selected programme type -> set years
-    $(".programmeType").change(function() {
+    $(".programmeType").on("change", function() {
         switch ($(this).find(':selected').text()) {
             case "Foundation Programme":
                 $("#y1").show();
                 $("#y2").hide();
                 $("#y3").hide();
                 $("#y4").hide();
+                $(".programmeType").attr("disabled", "disabled");
+                $(".hiddenType").val("Foundation Programme");
                 break;
             case "Diploma":
                 $("#y1").show();
                 $("#y2").show();
                 $("#y3").hide();
                 $("#y4").hide();
+                $(".programmeType").attr("disabled", "disabled");
+                $(".hiddenType").val("Diploma");
                 break;
             case "Bachelor Degree":
                 $("#y1").show();
                 $("#y2").show();
                 $("#y3").show();
                 $("#y4").hide();
+                $(".programmeType").attr("disabled", "disabled");
+                $(".hiddenType").val("Bachelor Degree");
                 break;
             case "Master":
                 $("#y1").show();
                 $("#y2").show();
                 $("#y3").hide();
                 $("#y4").hide();
+                $(".programmeType").attr("disabled", "disabled");
+                $(".hiddenType").val("Master");
                 break;
             case "Doctor of Philosophy":
                 $("#y1").show();
                 $("#y2").show();
                 $("#y3").show();
                 $("#y4").show();
+                $(".programmeType").attr("disabled", "disabled");
+                $(".hiddenType").val("Doctor of Philosophy");
                 break;
             default:
                 $("#y1").hide();
@@ -159,7 +172,7 @@
             isSelected: false
         }));
 
-        $(".course-table").each(function(index, el) {
+        $(".semester-table").each(function(index, el) {
             let year = $(el).data("year");
             let sem = $(el).data("sem");
 
@@ -241,7 +254,7 @@
             `<tr class="courseItem-y${year}s${sem}">` +
             `<td>` +
             `<select class="course-list-select form-select border border-2 p-2 mb-2" name="y${year}s${sem}c[]" data-year="${year}" data-sem="${sem}">` +
-            `<option class="d-none" selected></option> ` +
+            `<option selected></option> ` +
             `${
                             courseList
                             .filter((course) => !course.isSelected)
@@ -264,7 +277,7 @@
     function getCourseSelectionList(year, sem) {
         return (
             `<select class="course-list-select form-select border border-2 p-2 mb-2" name="y${year}s${sem}c[]" data-year="${year}" data-sem="${sem}">` +
-            `<option class="d-none" selected></option> ` +
+            `<option selected></option> ` +
             `${
                     courseList
                     .filter((course) => !course.isSelected)
@@ -279,7 +292,7 @@
     }
 
     function getReloadedCourseListOptions(selectedCourseId) {
-        return `<option class="d-none"></option> ` +
+        return `<option class=""></option> ` +
             courseList
             .filter((course) => !course.isSelected || selectedCourseId == course.id)
             .map((course) => {
