@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-body p-3 justify-content-center">
                         @if ($errors->any())
-                            <div class="row">
+                            <div class="row m-0">
                                 <div class="alert alert-danger alert-dismissible text-white" role="alert">
                                     <span class="text-sm">
                                         @foreach ($errors->all() as $error)

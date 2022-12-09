@@ -23,25 +23,25 @@
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">User ID</label>
-                                <input type="text" name="user_id" class="form-control border border-2 p-2"
+                                <input type="text" name="user_id" class="form-control border border-2 p-2" style=" background-color: white;"
                                     value='{{ old('user_id', auth()->user()->user_id) }}' readonly>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Email address</label>
-                                <input type="email" name="email" class="form-control border border-2 p-2"
+                                <input type="email" name="email" class="form-control border border-2 p-2" style=" background-color: white;"
                                     value='{{ old('email', auth()->user()->email) }}' readonly>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control border border-2 p-2"
+                                <input type="text" name="name" class="form-control border border-2 p-2" style=" background-color: white;"
                                     value='{{ old('name', auth()->user()->name) }}' readonly>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Role</label>
-                                <input type="text" name="role" class="form-control border border-2 p-2"
+                                <input type="text" name="role" class="form-control border border-2 p-2" style=" background-color: white;"
                                     value='{{ old('role', auth()->user()->role) }}' readonly>
                             </div>
 

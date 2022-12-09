@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-body p-3 justify-content-center">
                         @if ($errors->any())
-                            <div class="row">
+                            <div class="row m-0">
                                 <div class="alert alert-danger alert-dismissible text-white" role="alert">
                                     <span class="text-sm">
                                         @foreach ($errors->all() as $error)
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="row">
+                        <div class="row m-0">
                             <div class="alert alert-info text-white">
                                 Password for new user will be their User ID.
                             </div>

@@ -11,7 +11,7 @@
             <div class="card card-body min-height-300 border-radius-xl mt-4">
                 <div class="card card-plain h-100">
                     <div class="card-header pb-0 p-3">
-                        <div class="row">
+                        <div class="row m-0">
                             <div class="col-md-8 d-flex align-items-center">
                                 <h4 class="mb-3">Add New Course Material Category</h4>
                             </div>

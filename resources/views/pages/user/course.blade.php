@@ -47,10 +47,10 @@
             @endif
 
             <div class="row ps-1 mb-4">
-                <div class="col-md-5 mb-4">
+                <div class="col-md-5">
                     <div class="card shadow-dark">
-                        <div class="card-header pb-0 ps-3 px-3 d-flex align-items-center justify-content-between">
-                            <h3 class="mb-0 ms-2">Course Details</h3>
+                        <div class="mt-4 mx-4 mb-0 d-flex align-items-center justify-content-between">
+                            <h3 class="mb-0">Course Details</h3>
                             @if ($isCC == true)
                                 <div class="me-0">
                                     <a class="btn bg-gradient-dark mb-0"
@@ -59,10 +59,11 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="card-body pt-4">
-                            <p style="white-space: pre-line; height: 320px; overflow-y: scroll;">
+                        <div class="mb-0 mx-4">
+                            <p style="white-space: pre-line; height: 20em; overflow-y: scroll;">
                                 @if ($course->details == '')
-                                    <i>No information is available.</i>
+                                    <i>No information is available.
+                                    </i>
                                 @else
                                     {{ $course->details }}
                                 @endif
@@ -71,87 +72,38 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    <div class="card mb-4 shadow-dark h-100">
-                        <div class="card-header pb-0 px-3 d-flex align-items-center justify-content-between">
-                            <h3 class="mb-0 ms-2">Course Forum (TO-DO)</h3>
+                    {{-- <div class="card shadow-dark">
+                        <div class="mt-4 mx-4 mb-0 d-flex align-items-center justify-content-between">
+                            <h3 class="mb-0">
+                                <a class="text-decoration-underline"
+                                    href="{{ route('viewForumPostAll', ['courseCode' => $course->code]) }}">
+                                    Course Forum</a>
+                            </h3>
                             @if (auth()->user()->role == 'Student')
                                 <div class="me-0">
-                                    <a class="btn bg-gradient-dark mb-0" href="">
+                                    <a class="btn bg-gradient-primary mb-0"
+                                        href="{{ route('createForumPost', ['courseCode' => $course->code]) }}">
                                         <i class="material-icons text-sm">post_add</i>&nbsp;&nbsp;Post Question</a>
                                 </div>
                             @endif
                         </div>
                         <div class="card-body pt-4 p-3 ms-2">
-                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Newest</h6>
-                            <ul class="list-group">
-                                <li
-                                    class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                    <div class="d-flex align-items-center">
-                                        <button
-                                            class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
-                                                class="material-icons text-lg">expand_more</i></button>
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-1 text-dark text-sm">Netflix</h6>
-                                            <span class="text-xs">27 March 2020, at 12:30 PM</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                                        - $ 2,500
-                                    </div>
-                                </li>
-                                <li
-                                    class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                    <div class="d-flex align-items-center">
-                                        <button
-                                            class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
-                                                class="material-icons text-lg">expand_less</i></button>
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-1 text-dark text-sm">Apple</h6>
-                                            <span class="text-xs">27 March 2020, at 04:30 AM</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                        + $ 2,000
-                                    </div>
-                                </li>
-                            </ul>
-                            <h6 class="text-uppercase text-body text-xs font-weight-bolder my-3">Yesterday</h6>
-                            <ul class="list-group">
-                                <li
-                                    class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                    <div class="d-flex align-items-center">
-                                        <button
-                                            class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
-                                                class="material-icons text-lg">expand_less</i></button>
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-1 text-dark text-sm">Stripe</h6>
-                                            <span class="text-xs">26 March 2020, at 13:45 PM</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                        + $ 750
-                                    </div>
-                                </li>
-                                <li
-                                    class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                    <div class="d-flex align-items-center">
-                                        <button
-                                            class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
-                                                class="material-icons text-lg">expand_less</i></button>
-                                        <div class="d-flex flex-column">
-                                            <h6 class="mb-1 text-dark text-sm">HubSpot</h6>
-                                            <span class="text-xs">26 March 2020, at 12:30 PM</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                        + $ 1,000
-                                    </div>
-                                </li>
-                            </ul>
+
+                        </div>
+                    </div> --}}
+
+                    <div class="card shadow-dark">
+                        <div class="mt-4 mx-4 mb-0 d-flex align-items-center justify-content-between">
+                            <h3 class="mb-0">
+                                <a class="text-decoration-underline"
+                                    href="{{ route('viewForumPostAll', ['courseCode' => $course->code]) }}">
+                                    Course Forum</a>
+                            </h3>
+                        </div>
+                        <div class="mb-0 mx-4">
+                            <p style="height: 20em">
+
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -255,8 +207,7 @@
                                                                 @if ($material->type == 'file')
                                                                     <td class="align-middle text-center"
                                                                         style="z-index: 3">
-                                                                        <a rel="tooltip"
-                                                                            class="btn btn-info btn-link"
+                                                                        <a rel="tooltip" class="btn btn-info btn-link"
                                                                             href=" {{ route('downloadLearningMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
                                                                             data-original-title="" title="">
                                                                             <i class="material-icons">download</i>

@@ -314,7 +314,10 @@ class CourseController extends Controller
     public function editDetails($courseCode)
     {
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
-        return view('pages.user.details', ['course' => $course]);
+        if ($course->cc_id != auth()->user()->id)
+            abort(403, "Unauthorized Action.");
+
+        return view('pages.user.coursedetails.details', ['course' => $course]);
     }
 
     /**

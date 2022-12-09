@@ -22,6 +22,7 @@ use App\Http\Controllers\LMCategoryController;
 use App\Http\Controllers\LearningMaterialController;
 use App\Http\Controllers\CMCategoryController;
 use App\Http\Controllers\CourseMaterialController;
+use App\Http\Controllers\ForumController;
 
 
 // General Routing
@@ -102,6 +103,19 @@ Route::group(['middleware' => 'auth'], function () {
     // Assign Course to Lecturer - Admin Function
     Route::post('addLecturer', [CourseController::class, 'addLecturer'])->name('addLecturer');
     Route::post('deleteLecturer', [CourseController::class, 'deleteLecturer'])->name('deleteLecturer');
+
+    // Forum Q&A Post and Answer
+    Route::get('course/{courseCode}/forum/view/all', [ForumController::class, 'viewForumPostAll'])->name('viewForumPostAll');
+    Route::get('course/{courseCode}/forum/create/post', [ForumController::class, 'createForumPost'])->name('createForumPost');
+    Route::post('course/{courseCode}/forum/store/post', [ForumController::class, 'storeForumPost'])->name('storeForumPost');
+    Route::delete('course/{courseCode}/forum/delete/post/{id}', [ForumController::class, 'deleteForumPost'])->name('deleteForumPost');
+
+    Route::get('course/{courseCode}/forum/view/{id}', [ForumController::class, 'viewForumPost'])->name('viewForumPost');
+    Route::post('course/{courseCode}/forum/view/{id}/reply/store', [ForumController::class, 'storeForumReply'])->name('storeForumReply');
+    Route::delete('course/{courseCode}/forum/view/{id}/reply/delete', [ForumController::class, 'deleteForumReply'])->name('deleteForumReply');
+
+
+
 
     // to be removed - reference templates
     Route::get('dashboard', function () {
