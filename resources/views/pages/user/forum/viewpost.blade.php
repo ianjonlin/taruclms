@@ -88,27 +88,33 @@
                         @foreach ($replies as $reply)
                             <div class="card-body ms-6 mx-2 mt-0 pb-0">
                                 <div class="align-items-center border-0 bg-gray-200 border-radius-lg p-3">
-                                    <div>
-                                        <span class="text-sm">{{ $reply->name }}
-                                            &nbsp;&nbsp; | &nbsp;&nbsp; Posted at
-                                            {{ $reply->created_at }}</span>
-                                        <p class="mt-3 mb-0 font-black font-weight-normal">
-                                            {{ $reply->body }}
-                                        </p>
-                                    </div>
-                                    @if ($reply->created_by == auth()->user()->id)
-                                        <div class="me-3">
-                                            <form class="d-inline" method="POST"
-                                                action="{{ route('deleteForumReply', ['courseCode' => $course->code, 'id' => $reply->id]) }}">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-link align-middle"
-                                                    onclick="return confirm('Confirm to delete forum reply?') ?? this.parentNode.submit();"></a>
-                                                    <i class="material-icons">delete</i> &nbsp; Delete
-                                                </button>
-                                            </form>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            @if ($reply->role == 'Lecturer')
+                                                <span class="text-bold">({{ $reply->role }})</span>&nbsp;
+                                            @endif
+                                            <span class="text-sm">{{ $reply->name }}
+                                                &nbsp;&nbsp; | &nbsp;&nbsp; Posted at
+                                                {{ $reply->created_at }}</span>
                                         </div>
-                                    @endif
+                                        @if ($reply->created_by == auth()->user()->id)
+                                            <div class="col-sm-2 d-flex justify-content-center">
+                                                <form class="d-inline" method="POST"
+                                                    action="{{ route('deleteForumReply', ['courseCode' => $course->code, 'id' => $reply->id]) }}">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="btn btn-danger btn-link align-middle mb-0"
+                                                        onclick="return confirm('Confirm to delete forum reply?') ?? this.parentNode.submit();"></a>
+                                                        <i class="material-icons">delete</i> &nbsp; Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <p class="mt-3 mb-0 font-black font-weight-normal">
+                                        {{ $reply->body }}
+                                    </p>
                                 </div>
                             </div>
                         @endforeach

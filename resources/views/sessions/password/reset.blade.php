@@ -14,7 +14,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="row">
+                                <div class="row mb-2">
                                     <div class="alert alert-info text-white text-sm">
                                         <h6 class="text-white">Password Requirements</h6>
                                         <ul>

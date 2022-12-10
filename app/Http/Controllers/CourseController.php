@@ -284,6 +284,19 @@ class CourseController extends Controller
     {
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();
 
+        $forumposts = DB::table('forum_post')
+            ->join('users', 'forum_post.created_by', '=', 'users.id')
+            ->select('forum_post.id as id', 'forum_post.title as title', 'forum_post.body as body', 'users.name as name', 'forum_post.created_by as created_by', 'forum_post.created_at as created_at')
+            ->where('forum_post.course_id', '=', $course->id)
+            ->orderBy('forum_post.id', 'desc')
+            ->get();
+        foreach ($forumposts as $post) {
+            $replyCount = DB::table('forum_reply')
+                ->where('forum_id', '=', $post->id)
+                ->count();
+            $post->replyCount = $replyCount;
+        }
+
         $lMCategories = DB::table('lm_category')
             ->where('course_id', '=', $course->id)
             ->get();
@@ -302,7 +315,7 @@ class CourseController extends Controller
             ->where('cm_category.course_id', '=', $course->id)
             ->get();
 
-        return view('pages.user.course', ['course' => $course, 'lMCategories' => $lMCategories, 'learningMaterials' => $learningMaterials, 'cMCategories' => $cMCategories, 'courseMaterials' => $courseMaterials]);
+        return view('pages.user.course', ['course' => $course, 'forumposts' => $forumposts, 'lMCategories' => $lMCategories, 'learningMaterials' => $learningMaterials, 'cMCategories' => $cMCategories, 'courseMaterials' => $courseMaterials]);
     }
 
     /**

@@ -109,25 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('course/{courseCode}/forum/create/post', [ForumController::class, 'createForumPost'])->name('createForumPost');
     Route::post('course/{courseCode}/forum/store/post', [ForumController::class, 'storeForumPost'])->name('storeForumPost');
     Route::delete('course/{courseCode}/forum/delete/post/{id}', [ForumController::class, 'deleteForumPost'])->name('deleteForumPost');
-
     Route::get('course/{courseCode}/forum/view/{id}', [ForumController::class, 'viewForumPost'])->name('viewForumPost');
     Route::post('course/{courseCode}/forum/view/{id}/reply/store', [ForumController::class, 'storeForumReply'])->name('storeForumReply');
     Route::delete('course/{courseCode}/forum/view/{id}/reply/delete', [ForumController::class, 'deleteForumReply'])->name('deleteForumReply');
-
-
-
-
-    // to be removed - reference templates
-    Route::get('dashboard', function () {
-        return view('pages.template.index');
-    })->name('dashboard');
-    Route::get('billing', function () {
-        return view('pages.template.billing');
-    })->name('billing');
-    Route::get('tables', function () {
-        return view('pages.template.tables');
-    })->name('tables');
-    Route::get('notifications', function () {
-        return view('pages.template.notifications');
-    })->name('notifications');
 });

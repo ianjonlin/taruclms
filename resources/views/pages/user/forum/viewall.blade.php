@@ -17,18 +17,19 @@
                                         <h3 class="ps-4 pt-4">View All Forum Post</h3>
                                         <h5 class="ps-4">{{ $course->code }}&nbsp;{{ $course->title }}</h5>
                                     </div>
-                                    @if (auth()->user()->role == 'Student')
-                                        <div class="me-3">
-                                            <a class="btn bg-gradient-dark mb-0"
-                                                href="{{ route('viewCourse', ['courseCode' => $course->code]) }}"
-                                                class="text-primary text-gradient font-weight-bold">Go Back</a>
+
+                                    <div class="me-3">
+                                        <a class="btn bg-gradient-dark mb-0"
+                                            href="{{ route('viewCourse', ['courseCode' => $course->code]) }}"
+                                            class="text-primary text-gradient font-weight-bold">Go Back</a>
+                                        @if (auth()->user()->role == 'Student')
                                             &nbsp;
                                             <a class="btn bg-gradient-primary mb-0"
                                                 href="{{ route('createForumPost', ['courseCode' => $course->code]) }}">
                                                 <i class="material-icons text-sm">post_add</i>&nbsp;&nbsp;Post
                                                 Question</a>
-                                        </div>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,27 +70,30 @@
                                         <div class="row mx-0">
                                             <div
                                                 class="d-flex align-items-center justify-content-between border-0 bg-gray-200 border-radius-lg mb-3 py-3">
-                                                <div>
-                                                    <h5 class="mb-2">
-                                                        <a
-                                                            href="{{ route('viewForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
-                                                            {{ $post->title }}</a>
-                                                    </h5>
-                                                    <span class="text-sm">Posted at {{ $post->created_at }}</span>
-                                                    &nbsp;&nbsp;
-                                                    <i class="material-icons">comment</i>&nbsp;{{ $post->replyCount }}
-                                                </div>
-                                                <div class="me-3">
-                                                    <form class="d-inline" method="POST"
-                                                        action="{{ route('deleteForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit"
-                                                            class="btn btn-danger btn-link align-middle"
-                                                            onclick="return confirm('Confirm to delete forum post?') ?? this.parentNode.submit();"></a>
-                                                            <i class="material-icons">delete</i> &nbsp; Delete
-                                                        </button>
-                                                    </form>
+                                                <div class="row w-100">
+                                                    <div class="col-sm-10">
+                                                        <h5>
+                                                            <a
+                                                                href="{{ route('viewForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
+                                                                {{ $post->title }}</a>
+                                                        </h5>
+                                                        <span class="text-sm">Posted at {{ $post->created_at }}</span>
+                                                        &nbsp;&nbsp;
+                                                        <i
+                                                            class="material-icons">comment</i>&nbsp;{{ $post->replyCount }}
+                                                    </div>
+                                                    <div class="col-sm-2 d-flex justify-content-center mt-3">
+                                                        <form class="d-inline" method="POST"
+                                                            action="{{ route('deleteForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-link align-middle"
+                                                                onclick="return confirm('Confirm to delete forum post?') ?? this.parentNode.submit();"></a>
+                                                                <i class="material-icons">delete</i> &nbsp; Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,40 +101,46 @@
                                     <br>
                                 @endif
 
-                                <h4>Posted Questions</h4>
-                                @foreach ($forumposts as $post)
-                                    <div class="row mx-0">
-                                        <div
-                                            class="d-flex align-items-center justify-content-between border-0 bg-gray-200 border-radius-lg mb-3 py-3">
-                                            <div>
-                                                <h5 class="mb-2">
-                                                    <a
-                                                        href="{{ route('viewForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
-                                                        {{ $post->title }}</a>
-                                                </h5>
-                                                <span class="text-sm">{{ $post->name }}
-                                                    &nbsp;&nbsp; | &nbsp;&nbsp; Posted at
-                                                    {{ $post->created_at }}</span>
-                                                &nbsp;&nbsp;
-                                                <i class="material-icons">comment</i>&nbsp;{{ $post->replyCount }}
-                                            </div>
-                                            @if ($post->created_by == auth()->user()->id)
-                                                <div class="me-3">
-                                                    <form class="d-inline" method="POST"
-                                                        action="{{ route('deleteForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit"
-                                                            class="btn btn-danger btn-link align-middle"
-                                                            onclick="return confirm('Confirm to delete forum post?') ?? this.parentNode.submit();"></a>
-                                                            <i class="material-icons">delete</i> &nbsp; Delete
-                                                        </button>
-                                                    </form>
+                                <h4>Most Recent Posted Questions</h4>
+                                <div style="height:30em; overflow-y: scroll;">
+                                    @foreach ($forumposts as $post)
+                                        <div class="row mx-0">
+                                            <div
+                                                class="d-flex align-items-center justify-content-between border-0 bg-gray-200 border-radius-lg mb-3 py-3">
+                                                <div class="row w-100">
+                                                    <div class="col-sm-10">
+                                                        <h5>
+                                                            <a
+                                                                href="{{ route('viewForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
+                                                                {{ $post->title }}</a>
+                                                        </h5>
+                                                        <span class="text-sm">{{ $post->name }}
+                                                            &nbsp;&nbsp; | &nbsp;&nbsp; Posted at
+                                                            {{ $post->created_at }}</span>
+                                                        &nbsp;&nbsp;
+                                                        <i
+                                                            class="material-icons">comment</i>&nbsp;{{ $post->replyCount }}
+                                                    </div>
+
+                                                    @if ($post->created_by == auth()->user()->id)
+                                                        <div class="col-sm-2 d-flex justify-content-center mt-3">
+                                                            <form class="d-inline" method="POST"
+                                                                action="{{ route('deleteForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-link align-middle"
+                                                                    onclick="return confirm('Confirm to delete forum post?') ?? this.parentNode.submit();"></a>
+                                                                    <i class="material-icons">delete</i> &nbsp; Delete
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                            @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>

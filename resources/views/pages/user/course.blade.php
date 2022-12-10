@@ -49,21 +49,22 @@
             <div class="row ps-1 mb-4">
                 <div class="col-md-5">
                     <div class="card shadow-dark">
-                        <div class="mt-4 mx-4 mb-0 d-flex align-items-center justify-content-between">
-                            <h3 class="mb-0">Course Details</h3>
+                        <div class="mt-4 mx-4 mb-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h3 class="mb-0">Course Details</h3>
+                            </div>
                             @if ($isCC == true)
-                                <div class="me-0">
+                                <div>
                                     <a class="btn bg-gradient-dark mb-0"
                                         href="{{ route('editDetails', ['courseCode' => $course->code]) }}">
                                         <i class="material-icons text-sm">edit</i>&nbsp;&nbsp;Edit</a>
                                 </div>
                             @endif
                         </div>
-                        <div class="mb-0 mx-4">
-                            <p style="white-space: pre-line; height: 20em; overflow-y: scroll;">
+                        <div class="mx-4">
+                            <p style="white-space: pre-line; height: 30em; overflow-y: scroll;">
                                 @if ($course->details == '')
-                                    <i>No information is available.
-                                    </i>
+                                    <i>No information is available.</i>
                                 @else
                                     {{ $course->details }}
                                 @endif
@@ -72,38 +73,68 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    {{-- <div class="card shadow-dark">
-                        <div class="mt-4 mx-4 mb-0 d-flex align-items-center justify-content-between">
-                            <h3 class="mb-0">
-                                <a class="text-decoration-underline"
-                                    href="{{ route('viewForumPostAll', ['courseCode' => $course->code]) }}">
-                                    Course Forum</a>
-                            </h3>
+                    <div class="card shadow-dark">
+                        <div class="mt-4 mx-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h3 class="mb-0">
+                                    <a class="text-decoration-underline"
+                                        href="{{ route('viewForumPostAll', ['courseCode' => $course->code]) }}">
+                                        Course Forum</a>
+                                </h3>
+                            </div>
                             @if (auth()->user()->role == 'Student')
-                                <div class="me-0">
+                                <div>
                                     <a class="btn bg-gradient-primary mb-0"
                                         href="{{ route('createForumPost', ['courseCode' => $course->code]) }}">
-                                        <i class="material-icons text-sm">post_add</i>&nbsp;&nbsp;Post Question</a>
+                                        <i class="material-icons text-sm">post_add</i>&nbsp;&nbsp;Post
+                                        Question</a>
                                 </div>
                             @endif
                         </div>
-                        <div class="card-body pt-4 p-3 ms-2">
+                        <div class="mx-4 mt-3 mb-4">
+                            <div style="height:30em; overflow-y: scroll;">
+                                @if ($forumposts->isEmpty())
+                                    <div class="mt-3 text-center fst-italic">Empty Forum Discussion</div>
+                                @else
+                                    @foreach ($forumposts as $post)
+                                        <div class="row mx-0 pe-3">
+                                            <div
+                                                class="d-flex align-items-center justify-content-between border-0 bg-gray-200 border-radius-lg mb-3 py-3">
+                                                <div class="row w-100">
+                                                    <div class="col-sm-10">
+                                                        <h5>
+                                                            <a
+                                                                href="{{ route('viewForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
+                                                                {{ $post->title }}</a>
+                                                        </h5>
+                                                        <span class="text-sm">{{ $post->name }}
+                                                            &nbsp;&nbsp; | &nbsp;&nbsp; Posted at
+                                                            {{ $post->created_at }}</span>
+                                                        &nbsp;&nbsp;
+                                                        <i
+                                                            class="material-icons">comment</i>&nbsp;{{ $post->replyCount }}
+                                                    </div>
 
-                        </div>
-                    </div> --}}
-
-                    <div class="card shadow-dark">
-                        <div class="mt-4 mx-4 mb-0 d-flex align-items-center justify-content-between">
-                            <h3 class="mb-0">
-                                <a class="text-decoration-underline"
-                                    href="{{ route('viewForumPostAll', ['courseCode' => $course->code]) }}">
-                                    Course Forum</a>
-                            </h3>
-                        </div>
-                        <div class="mb-0 mx-4">
-                            <p style="height: 20em">
-
-                            </p>
+                                                    @if ($post->created_by == auth()->user()->id)
+                                                        <div class="col-sm-2 d-flex justify-content-center mt-3">
+                                                            <form class="d-inline" method="POST"
+                                                                action="{{ route('deleteForumPost', ['courseCode' => $course->code, 'id' => $post->id]) }}">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-link align-middle"
+                                                                    onclick="return confirm('Confirm to delete forum post?') ?? this.parentNode.submit();"></a>
+                                                                    <i class="material-icons">delete</i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,7 +162,7 @@
                     <div class="card-body pt-4 p-3">
 
                         @if ($lMCategories->isEmpty())
-                            <p class="text-center">No Learning Material Category have been created yet.</p>
+                            <p class="text-center fst-italic">No Learning Material Category have been created yet.</p>
                         @else
                             <div class="nav-wrapper position-relative end-0">
                                 <ul class="nav nav-pills nav-fill p-1" role="tablist">
@@ -207,7 +238,8 @@
                                                                 @if ($material->type == 'file')
                                                                     <td class="align-middle text-center"
                                                                         style="z-index: 3">
-                                                                        <a rel="tooltip" class="btn btn-info btn-link"
+                                                                        <a rel="tooltip"
+                                                                            class="btn btn-info btn-link"
                                                                             href=" {{ route('downloadLearningMaterial', ['courseCode' => $course->code, 'id' => $material->id]) }}"
                                                                             data-original-title="" title="">
                                                                             <i class="material-icons">download</i>
@@ -262,7 +294,7 @@
                         <div class="card-body pt-4 p-3">
 
                             @if ($cMCategories->isEmpty())
-                                <p class="text-center">No Course Material Category have been created yet.</p>
+                                <p class="text-center fst-italic">No Course Material Category have been created yet.</p>
                             @else
                                 <div class="nav-wrapper position-relative end-0">
                                     <ul class="nav nav-pills nav-fill p-1" role="tablist">

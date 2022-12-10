@@ -202,6 +202,8 @@ class UserController extends Controller
     {
         // check if user is self
         if ($user != auth()->user()) {
+            DB::table('forum_reply')->where('created_by', '=', $user->id)->delete();
+            DB::table('forum_post')->where('created_by', '=', $user->id)->delete();
             if ($user->delete()) {
                 return back()->with('success', 'User deleted successfully!');
             }

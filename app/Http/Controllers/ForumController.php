@@ -40,7 +40,7 @@ class ForumController extends Controller
     public function storeForumPost($courseCode, Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique:forum_post,title',
             'body' => 'required',
         ]);
 
@@ -122,7 +122,7 @@ class ForumController extends Controller
             ->first();
         $replies = DB::table('forum_reply')
             ->join('users', 'forum_reply.created_by', '=', 'users.id')
-            ->select('forum_reply.id as id', 'forum_reply.body as body', 'users.name as name', 'forum_reply.created_by as created_by', 'forum_reply.created_at as created_at')
+            ->select('forum_reply.id as id', 'forum_reply.body as body', 'users.name as name', 'users.role as role', 'forum_reply.created_by as created_by', 'forum_reply.created_at as created_at')
             ->where('forum_id', '=', $id)
             ->get();
         return view('pages.user.forum.viewpost', ['course' => $course, 'post' => $post, 'replies' => $replies]);
