@@ -85,6 +85,7 @@ class ForumController extends Controller
         $userposts = DB::table('forum_post')
             ->where('course_id', '=', $course->id)
             ->where('created_by', '=', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
             ->get();
         foreach ($userposts as $post) {
             $replyCount = DB::table('forum_reply')
@@ -96,7 +97,7 @@ class ForumController extends Controller
             ->join('users', 'forum_post.created_by', '=', 'users.id')
             ->select('forum_post.id as id', 'forum_post.title as title', 'forum_post.body as body', 'users.name as name', 'forum_post.created_by as created_by', 'forum_post.created_at as created_at')
             ->where('forum_post.course_id', '=', $course->id)
-            ->orderBy('forum_post.id', 'desc')
+            ->orderBy('forum_post.created_at', 'desc')
             ->get();
         foreach ($forumposts as $post) {
             $replyCount = DB::table('forum_reply')
@@ -123,7 +124,8 @@ class ForumController extends Controller
         $replies = DB::table('forum_reply')
             ->join('users', 'forum_reply.created_by', '=', 'users.id')
             ->select('forum_reply.id as id', 'forum_reply.body as body', 'users.name as name', 'users.role as role', 'forum_reply.created_by as created_by', 'forum_reply.created_at as created_at')
-            ->where('forum_id', '=', $id)
+            ->where('forum_reply.forum_id', '=', $id)
+            ->orderBy('forum_reply.created_at', 'asc')
             ->get();
         return view('pages.user.forum.viewpost', ['course' => $course, 'post' => $post, 'replies' => $replies]);
     }

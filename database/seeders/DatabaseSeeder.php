@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             ProgrammeStructureSeeder::class,
             AssignedCourseSeeder::class,
             BlockedKeywordSeeder::class,
+            CourseMaterialsSeeder::class,
+            LearningMaterialsSeeder::class,
+            ForumSeeder::class,
         ]);
     }
 }

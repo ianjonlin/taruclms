@@ -23,7 +23,7 @@ class BlockedKeywordSeeder extends Seeder
                 'added_by' => 20,
                 'added_at' => now("Asia/Kuala_Lumpur")->toDateTimeString()
             ], [
-                'value' => "compromised",
+                'value' => "kill",
                 'added_by' => 20,
                 'added_at' => now("Asia/Kuala_Lumpur")->toDateTimeString()
             ], [

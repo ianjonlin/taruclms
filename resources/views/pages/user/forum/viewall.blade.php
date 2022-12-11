@@ -104,7 +104,7 @@
                                 <h4>Most Recent Posted Questions</h4>
                                 <div style="height:30em; overflow-y: scroll;">
                                     @foreach ($forumposts as $post)
-                                        <div class="row mx-0">
+                                        <div class="row mx-0 pe-3">
                                             <div
                                                 class="d-flex align-items-center justify-content-between border-0 bg-gray-200 border-radius-lg mb-3 py-3">
                                                 <div class="row w-100">

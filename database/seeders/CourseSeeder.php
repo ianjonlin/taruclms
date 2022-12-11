@@ -18,7 +18,7 @@ class CourseSeeder extends Seeder
             [
                 'code' => 'BAIT1173',
                 'title' => 'IT Fundamentals',
-                'cc_id' => 8
+                'cc_id' => 8,
             ], [
                 'code' => 'BACS1014',
                 'title' => 'Problem Solving and Programming',
@@ -181,5 +181,9 @@ class CourseSeeder extends Seeder
                 'cc_id' => null
             ]
         ]);
+
+        DB::table('course')
+            ->where('code', '=', 'BAIT1173')
+            ->update(['details' => 'Welcome to the world of IT!']);
     }
 }
