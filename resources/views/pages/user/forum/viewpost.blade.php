@@ -78,7 +78,7 @@
                                     <span class="text-sm">{{ $post->name }}
                                         &nbsp;&nbsp; | &nbsp;&nbsp; Posted at
                                         {{ $post->created_at }}</span>
-                                    <p class="mt-3 mb-0 font-black font-weight-normal">
+                                    <p class="mt-3 mb-0 text-dark font-weight-normal">
                                         {{ $post->body }}
                                     </p>
                                 </div>
@@ -112,7 +112,7 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <p class="mt-3 mb-0 font-black font-weight-normal">
+                                    <p class="mt-3 mb-0 text-dark font-weight-normal">
                                         {{ $reply->body }}
                                     </p>
                                 </div>
