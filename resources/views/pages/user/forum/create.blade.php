@@ -63,8 +63,7 @@
                                     <a class="btn bg-gradient-dark my-4 mb-2"
                                         href="{{ route('viewForumPostAll', ['courseCode' => $courseCode]) }}"
                                         class="text-primary text-gradient font-weight-bold">Go Back</a>
-                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Confirm
-                                        Changes</button>
+                                    <button type="submit" class="btn bg-gradient-primary my-4 mb-2 mx-3">Create Post</button>
                                 </div>
                             </div>
                         </form>

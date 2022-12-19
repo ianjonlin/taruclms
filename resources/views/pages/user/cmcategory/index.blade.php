@@ -160,7 +160,7 @@
                                                                                                     class="text-sm text-secondary mb-0">
                                                                                                     .{{ $material->ext }}
                                                                                                     -
-                                                                                                    {{ round((int) Storage::size($material->path) / 100000, 2) }}
+                                                                                                    {{ round((int) Storage::size($material->path) / 1000000, 2) }}
                                                                                                     mb
                                                                                                 </p>
                                                                                             @endif

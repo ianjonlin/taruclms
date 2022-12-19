@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Str;
+use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Validation\Rules\Password as pw;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
 
@@ -49,11 +50,18 @@ class SessionsController extends Controller
 
     public function update()
     {
-
         request()->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'password' => [
+                'required', 'confirmed',
+                pw::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
+            ]
         ]);
 
         $status = Password::reset(

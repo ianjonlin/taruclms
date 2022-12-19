@@ -19,6 +19,15 @@ class AssignedCourseSeeder extends Seeder
                 'lecturer_id' => 7,
                 'course_id' => 1
             ], [
+                'lecturer_id' => 7,
+                'course_id' => 23
+            ], [
+                'lecturer_id' => 7,
+                'course_id' => 30
+            ], [
+                'lecturer_id' => 7,
+                'course_id' => 1
+            ], [
                 'lecturer_id' => 13,
                 'course_id' => 1
             ], [
