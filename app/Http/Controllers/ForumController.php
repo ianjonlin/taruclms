@@ -140,16 +140,12 @@ class ForumController extends Controller
             abort(403, "Unauthorized Action.");
         }
 
-        $statusReply = DB::table('forum_reply')
-            ->where('forum_id', '=', $id)
-            ->delete();
-
-        if ($statusReply) {
-            $statusPost = DB::table('forum_post')->where('id', '=', $id)->delete();
-            if ($statusPost)
-                return back()->with('success', 'Forum Post deleted successfully!');
-        }
-        return back()->with('error', "Forum Post cannot not deleted.");
+        DB::table('forum_reply')->where('forum_id', '=', $id)->delete();
+        $statusPost = DB::table('forum_post')->where('id', '=', $id)->delete();
+        if ($statusPost)
+            return back()->with('success', 'Forum Post deleted successfully!');
+        else
+            return back()->with('error', "Forum Post cannot not deleted.");
     }
 
     /**
