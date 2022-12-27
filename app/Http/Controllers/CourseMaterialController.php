@@ -47,7 +47,7 @@ class CourseMaterialController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|unique:course_material,name',
+            'name' => 'required',
             'category' => 'required',
             'file' => 'mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,jpg,jpeg,png,gif,txt | max:100000',
             'url' => 'nullable | url'

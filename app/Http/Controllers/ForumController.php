@@ -40,7 +40,7 @@ class ForumController extends Controller
     public function storeForumPost($courseCode, Request $request)
     {
         $request->validate([
-            'title' => 'required|unique:forum_post,title',
+            'title' => 'required',
             'body' => 'required',
         ]);
 
@@ -50,10 +50,10 @@ class ForumController extends Controller
             ->get();
 
         foreach ($blocked_keywords as $keyword) {
-            $bk[] = $keyword->value;
+            $bk[] = Str::upper($keyword->value);
         }
 
-        if (Str::contains($request->title, $bk)) {
+        if (Str::contains(Str::upper($request->title), $bk)) {
             return back()->withErrors('Your post title contains restricted or implicit keywords.');
         } else if (Str::contains($request->body, $bk)) {
             return back()->withErrors('Your post body contains restricted or implicit keywords.');
@@ -164,10 +164,10 @@ class ForumController extends Controller
             ->get();
 
         foreach ($blocked_keywords as $keyword) {
-            $bk[] = $keyword->value;
+            $bk[] = Str::upper($keyword->value);
         }
 
-        if (Str::contains($request->reply, $bk)) {
+        if (Str::contains(Str::upper($request->reply), $bk)) {
             return back()->withErrors('Your reply contains restricted or implicit keywords.');
         }
 

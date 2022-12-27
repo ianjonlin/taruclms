@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('lm_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->references('id')->on('course');
-            $table->string('name', 64)->unique();
+            $table->string('name', 64);
         });
     }
 

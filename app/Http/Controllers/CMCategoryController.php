@@ -64,7 +64,7 @@ class CMCategoryController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|unique:cm_category,name'
+            'name' => 'required'
         ]);
 
         $course = DB::table('course')->where('code', '=', $courseCode)->get()->first();

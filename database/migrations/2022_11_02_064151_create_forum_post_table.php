@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('course_id')->references('id')->on('course');
             $table->dateTime('created_at');
             $table->foreignId('created_by')->references('id')->on('users');
-            $table->string('title', 64)->unique();
+            $table->string('title', 64);
             $table->text('body');
         });
     }
