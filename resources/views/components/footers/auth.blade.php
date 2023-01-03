@@ -7,7 +7,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    <b>TAR UC. ALL RIGHTS RESERVED</b>
+                    <b>TAR UMT. ALL RIGHTS RESERVED</b>
                 </div>
             </div>
             <div class="col-lg-6">

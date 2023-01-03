@@ -8,7 +8,7 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href=" {{ route('userProfile') }} ">
             <img src="{{ asset('assets') }}/img/logo-taruc.png" class="navbar-brand-img" alt="taruc_logo">
-            <span class="ms-2 font-weight-bold text-white">TAR UC Learning Management System</span>
+            <span class="ms-2 font-weight-bold text-white">TAR UMT Learning Management System</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">

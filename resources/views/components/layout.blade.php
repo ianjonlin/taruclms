@@ -22,7 +22,7 @@
 
     <link rel="icon" type="image/png" href="{{ asset('assets') }}/img/logo-taruc.png">
     <title>
-        TARUC Learning Management System
+        TAR UMT Learning Management System
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
